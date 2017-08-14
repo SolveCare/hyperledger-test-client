@@ -1,0 +1,35 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+
+OrdererOrgs:
+  - Name: Orderer
+    Domain: carewallet.com
+    Specs:
+      - Hostname: orderer
+
+
+PeerOrgs:
+
+  - Name: Clinic
+    Domain: clinic.carewallet.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+
+  - Name: Insurance
+    Domain: insurance.carewallet.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+
+  - Name: Human
+    Domain: human.carewallet.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
