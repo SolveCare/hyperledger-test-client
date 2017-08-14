@@ -26,7 +26,6 @@ import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
@@ -53,73 +52,92 @@ public class HealthClient {
 
         Peer peer = constructPeer(client);
         Orderer orderer = constructOrderer(client);
-
-        Channel healthChannel = constructChannel(client, humanAdminUser, peer, orderer);
+        EventHub eventHub = constructEventHub(client);
 
         ChaincodeID chaincodeId = getChaincodeId();
-        installChaincode(client, chaincodeId, peer);
-        instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer).thenApply(transactionEvent -> {
-            try {
-                TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
-                transactionProposalRequest.setChaincodeID(chaincodeId);
-                transactionProposalRequest.setFcn("invoke");
-                transactionProposalRequest.setProposalWaitTime(12000L);
-                transactionProposalRequest.setArgs(new String[]{"move", "a", "b", "100"});
 
-                Map<String, byte[]> tm2 = new HashMap<>();
-                tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
-                tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8));
-                tm2.put("result", ":)".getBytes(UTF_8));  /// This should be returned see chaincode.
+// *****************************************************************************************************
+        Channel healthChannel = connectToChannel(client, orderer, peer, eventHub);
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer);
+        sendQueryTransaction(client, chaincodeId, healthChannel);
+// *****************************************************************************************************
 
-                transactionProposalRequest.setTransientMap(tm2);
+// *****************************************************************************************************
+//        Channel healthChannel = constructChannel(client, humanAdminUser, peer, orderer, eventHub);
+//        installChaincode(client, chaincodeId, peer);
+//        instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
+//                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer))
+//                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel))
+//                .get(12000L, TimeUnit.SECONDS);
+// *****************************************************************************************************
 
-                Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
+    }
 
-                ProposalResponse resp = transactionPropResp.iterator().next();
-                byte[] x = resp.getChaincodeActionResponsePayload();
+    public static Object sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer) {
+        try {
+            TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
+            transactionProposalRequest.setChaincodeID(chaincodeId);
+            transactionProposalRequest.setFcn("invoke");
+            transactionProposalRequest.setProposalWaitTime(12000L);
+            transactionProposalRequest.setArgs(new String[]{"move", "b", "a", "100"});
 
-                String resultAsString = null;
-                if (x != null) {
-                    resultAsString = new String(x, "UTF-8");
+            Map<String, byte[]> tm2 = new HashMap<>();
+            tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
+            tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8));
+            tm2.put("result", ":)".getBytes(UTF_8));  /// This should be returned see chaincode.
 
-                }
+            transactionProposalRequest.setTransientMap(tm2);
 
-                System.out.println(">>>>>>> RESULT: " + resultAsString);
+            Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
 
-            } catch (InvalidArgumentException | ProposalException | UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
+            ProposalResponse resp = transactionPropResp.iterator().next();
+            byte[] x = resp.getChaincodeActionResponsePayload();
+
+            String resultAsString = null;
+            if (x != null) {
+                resultAsString = new String(x, "UTF-8");
+
             }
 
-            return null;
-        }).thenApply(transactionEvent -> {
-            try {
-                QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
-                queryByChaincodeRequest.setArgs(new String[] {"query", "b"});
-                queryByChaincodeRequest.setFcn("invoke");
-                queryByChaincodeRequest.setChaincodeID(chaincodeId);
+            System.out.println(">>>>>>> RESULT: " + resultAsString);
 
-                Map<String, byte[]> tm2 = new HashMap<>();
-                tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(UTF_8));
-                tm2.put("method", "QueryByChaincodeRequest".getBytes(UTF_8));
-                queryByChaincodeRequest.setTransientMap(tm2);
+            return healthChannel.sendTransaction(transactionPropResp);
 
-                Collection<ProposalResponse> queryProposals = healthChannel.queryByChaincode(queryByChaincodeRequest, healthChannel.getPeers());
-                for (ProposalResponse proposalResponse : queryProposals) {
-                    if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
-                        System.out.println("Failed query proposal from peer " + proposalResponse.getPeer().getName() + " status: " + proposalResponse.getStatus() +
-                                ". Messages: " + proposalResponse.getMessage()
-                                + ". Was verified : " + proposalResponse.isVerified());
-                    } else {
-                        String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
-                        System.out.println(String.format("Query payload of b from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
-                    }
+        } catch (InvalidArgumentException | ProposalException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+//        return null;
+    }
+
+    public static Object sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel) {
+        try {
+            QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
+            queryByChaincodeRequest.setArgs(new String[] {"query", "b"});
+            queryByChaincodeRequest.setFcn("invoke");
+            queryByChaincodeRequest.setChaincodeID(chaincodeId);
+
+            Map<String, byte[]> tm2 = new HashMap<>();
+            tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(UTF_8));
+            tm2.put("method", "QueryByChaincodeRequest".getBytes(UTF_8));
+            queryByChaincodeRequest.setTransientMap(tm2);
+
+            Collection<ProposalResponse> queryProposals = healthChannel.queryByChaincode(queryByChaincodeRequest, healthChannel.getPeers());
+            for (ProposalResponse proposalResponse : queryProposals) {
+                if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
+                    System.out.println("Failed query proposal from peer " + proposalResponse.getPeer().getName() + " status: " + proposalResponse.getStatus() +
+                            ". Messages: " + proposalResponse.getMessage()
+                            + ". Was verified : " + proposalResponse.isVerified());
+                } else {
+                    String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
+                    System.out.println(String.format("Query payload of b from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
                 }
-            } catch (InvalidArgumentException | ProposalException e) {
-                e.printStackTrace();
             }
+        } catch (InvalidArgumentException | ProposalException e) {
+            e.printStackTrace();
+        }
 
-            return null;
-        }).get(12000L, TimeUnit.SECONDS);;
+        return null;
     }
 
     public static CompletableFuture<BlockEvent.TransactionEvent> instantiateChaincode(HFClient client, ChaincodeID chaincodeId, Channel channel, Orderer orderer, Peer peer) throws InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, ProposalException {
@@ -134,9 +152,9 @@ public class HealthClient {
         tm.put("method", "InstantiateProposalRequest".getBytes(UTF_8));
         instantiateProposalRequest.setTransientMap(tm);
 
-        ChaincodeEndorsementPolicy chaincodeEndorsementPolicy = new ChaincodeEndorsementPolicy();
-        chaincodeEndorsementPolicy.fromYamlFile(new File("src/main/resources/health/chaincodeendorsementpolicy.yaml"));
-        instantiateProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
+//        ChaincodeEndorsementPolicy chaincodeEndorsementPolicy = new ChaincodeEndorsementPolicy();
+//        chaincodeEndorsementPolicy.fromYamlFile(new File("src/main/resources/health/chaincodeendorsementpolicy.yaml"));
+//        instantiateProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 
         Collection<ProposalResponse> proposalResponses = channel.sendInstantiationProposal(instantiateProposalRequest, ImmutableSet.of(peer));
 
@@ -226,7 +244,25 @@ public class HealthClient {
         );
     }
 
-    public static Channel constructChannel(HFClient client, User user, Peer peer, Orderer orderer) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
+    public static EventHub constructEventHub(HFClient client) throws InvalidArgumentException {
+        return client.newEventHub(
+                "peer0.human.carewallet.com",
+                "grpc://localhost:8053",
+                getPeerProperties()
+        );
+    }
+
+    public static Channel connectToChannel(HFClient client, Orderer orderer, Peer peer, EventHub eventHub) throws InvalidArgumentException, TransactionException {
+        Channel newChannel = client.newChannel("health-channel");
+        newChannel.addOrderer(orderer);
+        newChannel.addPeer(peer);
+        newChannel.addEventHub(eventHub);
+        newChannel.initialize();
+
+        return newChannel;
+    }
+
+    public static Channel constructChannel(HFClient client, User user, Peer peer, Orderer orderer, EventHub eventHub) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
         ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("src/main/resources/health/channel-artifacts/health-channel.tx"));
 
         Channel newChannel = client.newChannel(
@@ -234,12 +270,6 @@ public class HealthClient {
                 orderer,
                 channelConfiguration,
                 client.getChannelConfigurationSignature(channelConfiguration, user)
-        );
-
-        EventHub eventHub = client.newEventHub(
-                "peer0.human.carewallet.com",
-                "grpc://localhost:8053",
-                getPeerProperties()
         );
 
         newChannel.addEventHub(eventHub);
