@@ -13,6 +13,7 @@ import org.hyperledger.fabric.sdk.InstantiateProposalRequest;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.User;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
@@ -34,12 +35,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HealthClient {
 
-    public static void main(String[] args) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, CryptoException, InvalidArgumentException, TransactionException, ProposalException, ChaincodeEndorsementPolicyParseException {
+    public static void main(String[] args) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, CryptoException, InvalidArgumentException, TransactionException, ProposalException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
         SampleStore sampleStore = createSampleStore();
         SampleUser humanAdminUser = createSampleUser(sampleStore);
 
@@ -69,9 +73,7 @@ public class HealthClient {
 
                 transactionProposalRequest.setTransientMap(tm2);
 
-
                 Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
-
 
                 ProposalResponse resp = transactionPropResp.iterator().next();
                 byte[] x = resp.getChaincodeActionResponsePayload();
@@ -89,7 +91,35 @@ public class HealthClient {
             }
 
             return null;
-        });
+        }).thenApply(transactionEvent -> {
+            try {
+                QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
+                queryByChaincodeRequest.setArgs(new String[] {"query", "b"});
+                queryByChaincodeRequest.setFcn("invoke");
+                queryByChaincodeRequest.setChaincodeID(chaincodeId);
+
+                Map<String, byte[]> tm2 = new HashMap<>();
+                tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(UTF_8));
+                tm2.put("method", "QueryByChaincodeRequest".getBytes(UTF_8));
+                queryByChaincodeRequest.setTransientMap(tm2);
+
+                Collection<ProposalResponse> queryProposals = healthChannel.queryByChaincode(queryByChaincodeRequest, healthChannel.getPeers());
+                for (ProposalResponse proposalResponse : queryProposals) {
+                    if (!proposalResponse.isVerified() || proposalResponse.getStatus() != ProposalResponse.Status.SUCCESS) {
+                        System.out.println("Failed query proposal from peer " + proposalResponse.getPeer().getName() + " status: " + proposalResponse.getStatus() +
+                                ". Messages: " + proposalResponse.getMessage()
+                                + ". Was verified : " + proposalResponse.isVerified());
+                    } else {
+                        String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
+                        System.out.println(String.format("Query payload of b from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
+                    }
+                }
+            } catch (InvalidArgumentException | ProposalException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }).get(12000L, TimeUnit.SECONDS);;
     }
 
     public static CompletableFuture<BlockEvent.TransactionEvent> instantiateChaincode(HFClient client, ChaincodeID chaincodeId, Channel channel, Orderer orderer, Peer peer) throws InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, ProposalException {
