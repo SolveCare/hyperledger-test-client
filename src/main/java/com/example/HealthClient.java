@@ -57,64 +57,67 @@ public class HealthClient {
         ChaincodeID chaincodeId = getChaincodeId();
 
 // *****************************************************************************************************
-        Channel healthChannel = connectToChannel(client, orderer, peer, eventHub);
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer);
-        sendQueryTransaction(client, chaincodeId, healthChannel);
+//        Channel healthChannel = connectToChannel(client, orderer, peer, eventHub);
+//        sendInvokeTransaction(client, chaincodeId, healthChannel, peer);
+//        sendQueryTransaction(client, chaincodeId, healthChannel);
 // *****************************************************************************************************
 
 // *****************************************************************************************************
-//        Channel healthChannel = constructChannel(client, humanAdminUser, peer, orderer, eventHub);
-//        installChaincode(client, chaincodeId, peer);
-//        instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
-//                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer))
-//                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel))
-//                .get(12000L, TimeUnit.SECONDS);
+        Channel healthChannel = constructChannel(client, humanAdminUser,  peer, orderer, eventHub);
+        installChaincode(client, chaincodeId, peer);
+        instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
+                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "user1", "1000"}))
+                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "medic", "300"}))
+                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "insurance", "5000"}))
+                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"}))
+                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"}))
+                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"}))
+                .get(12000L, TimeUnit.SECONDS);
 // *****************************************************************************************************
 
     }
 
-    public static Object sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer) {
+    public static Object sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, String func, String[] args) {
         try {
             TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
             transactionProposalRequest.setChaincodeID(chaincodeId);
-            transactionProposalRequest.setFcn("invoke");
+            transactionProposalRequest.setFcn(func);
             transactionProposalRequest.setProposalWaitTime(12000L);
-            transactionProposalRequest.setArgs(new String[]{"move", "b", "a", "100"});
+            transactionProposalRequest.setArgs(args);
 
-            Map<String, byte[]> tm2 = new HashMap<>();
-            tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
-            tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8));
-            tm2.put("result", ":)".getBytes(UTF_8));  /// This should be returned see chaincode.
+//            Map<String, byte[]> tm2 = new HashMap<>();
+//            tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
+//            tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8));
+//            tm2.put("result", ":)".getBytes(UTF_8));  /// This should be returned see chaincode.
 
-            transactionProposalRequest.setTransientMap(tm2);
+//            transactionProposalRequest.setTransientMap(tm2);
 
             Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
 
-            ProposalResponse resp = transactionPropResp.iterator().next();
-            byte[] x = resp.getChaincodeActionResponsePayload();
-
-            String resultAsString = null;
-            if (x != null) {
-                resultAsString = new String(x, "UTF-8");
-
-            }
-
-            System.out.println(">>>>>>> RESULT: " + resultAsString);
+//            ProposalResponse resp = transactionPropResp.iterator().next();
+//            byte[] x = resp.getChaincodeActionResponsePayload();
+//
+//            String resultAsString = null;
+//            if (x != null) {
+//                resultAsString = new String(x, "UTF-8");
+//            }
+//
+//            System.out.println(">>>>>>> RESULT: " + resultAsString);
 
             return healthChannel.sendTransaction(transactionPropResp);
 
-        } catch (InvalidArgumentException | ProposalException | UnsupportedEncodingException e) {
+        } catch (InvalidArgumentException | ProposalException e) {
             throw new RuntimeException(e);
         }
 
 //        return null;
     }
 
-    public static Object sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel) {
+    public static Object sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, String func, String[] args) {
         try {
             QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
-            queryByChaincodeRequest.setArgs(new String[] {"query", "b"});
-            queryByChaincodeRequest.setFcn("invoke");
+            queryByChaincodeRequest.setFcn(func);
+            queryByChaincodeRequest.setArgs(args);
             queryByChaincodeRequest.setChaincodeID(chaincodeId);
 
             Map<String, byte[]> tm2 = new HashMap<>();
@@ -195,10 +198,10 @@ public class HealthClient {
     }
 
     public static ChaincodeID getChaincodeId() {
-        final String CHAIN_CODE_NAME = "example_cc_go";
+        final String CHAIN_CODE_NAME = "health_chaincode_go";
         final String CHAIN_CODE_PATH = "github.com/example_cc";
         final String CHAIN_CODE_VERSION = "1";
-        final String CHAIN_CODE_VERSION_11 = "11";
+//        final String CHAIN_CODE_VERSION_11 = "11";
 
         return ChaincodeID.newBuilder().setName(CHAIN_CODE_NAME)
                 .setVersion(CHAIN_CODE_VERSION)
