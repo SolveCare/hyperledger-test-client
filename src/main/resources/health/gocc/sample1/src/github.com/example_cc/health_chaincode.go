@@ -1,4 +1,4 @@
-package example
+package main
 
 import (
 	"fmt"
@@ -15,8 +15,9 @@ type SimpleChaincode struct {
 }
 
 type User struct {
-	balance int
-	insuranceId string
+	Balance int `json:"Balance"`
+	InsuranceId string `json:"InsuranceId"`
+	Key string `json:"Key"`
 }
 
 // Init initializes the chaincode state
@@ -32,6 +33,8 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	function, args := stub.GetFunctionAndParameters()
+
+	fmt.Printf("Invoke function %v with args %v  \n", function, args)
 
 	if function != "invoke" {
 		return shim.Error("Unknown function call")
@@ -67,6 +70,8 @@ func (t *SimpleChaincode) pay(stub shim.ChaincodeStubInterface) pb.Response {
 	recepientName = args[2]
 	amount, err = strconv.Atoi(args[3])
 
+	fmt.Println("Transfer " + strconv.Itoa(amount) + " points from " + userName + " to " + recepientName)
+
 	user, err := t.getUser(stub, userName)
 	if err != nil {
 		return shim.Error(err.Error())
@@ -77,22 +82,47 @@ func (t *SimpleChaincode) pay(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
-	if user.insuranceId != "" {
-		recepient.balance += amount
-		user.balance -= amount
+	if user.InsuranceId == "" {
+		recepient.Balance += amount
+		user.Balance -= amount
+
+		err = t.saveUser(stub, userName, *user)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		err = t.saveUser(stub, recepientName, *recepient)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
 
 		return shim.Success(nil)
 	} else {
-		insurance, err := t.getUser(stub, user.insuranceId)
+		insurance, err := t.getUser(stub, user.InsuranceId)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
 
 		halfAmount := amount / 2
 
-		recepient.balance += amount
-		user.balance -= halfAmount
-		insurance.balance -= halfAmount
+		recepient.Balance += amount
+		user.Balance -= halfAmount
+		insurance.Balance -= halfAmount
+
+		err = t.saveUser(stub, userName, *user)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		err = t.saveUser(stub, recepientName, *recepient)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		err = t.saveUser(stub, insurance.Key, *insurance)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
 
 		return shim.Success(nil)
 	}
@@ -114,10 +144,10 @@ func (t *SimpleChaincode) addInsurance(stub shim.ChaincodeStubInterface) pb.Resp
 		return shim.Error(err.Error())
 	}
 
-	if user.insuranceId != "" {
-		return shim.Error("User " + userName + " already has insurance " + user.insuranceId)
+	if user.InsuranceId != "" {
+		return shim.Error("User " + userName + " already has insurance " + user.InsuranceId)
 	} else {
-		user.insuranceId = insrance
+		user.InsuranceId = insrance
 		jsonUser, err := json.Marshal(user)
 
 		if err != nil {
@@ -151,8 +181,9 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface) pb.Response {
 
 	jsonResp := "{" +
 		"\"Name\":\"" + userToQuery + "\"," +
-		"\"Balance\":\"" + string(user.balance) + "\"," +
-		"\"AccountId\":" + user.insuranceId +
+		"\"Balance\":\"" + strconv.Itoa(user.Balance) + "\"," +
+		"\"AccountId\":" + user.InsuranceId + "\"," +
+		"\"Key\":" + user.Key + "\"," +
 		"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
 
@@ -161,6 +192,8 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface) pb.Response {
 
 func (t *SimpleChaincode) getUser(stub shim.ChaincodeStubInterface, userName string) (*User, error) {
 	userBytes, err := stub.GetState(userName)
+
+	fmt.Println("Getting user " + userName)
 
 	if err != nil {
 		jsonResp := "{\"Error\":\"Failed to get state for " + userName + "\"}"
@@ -173,10 +206,25 @@ func (t *SimpleChaincode) getUser(stub shim.ChaincodeStubInterface, userName str
 	}
 
 	var user User
-	json.Unmarshal(userBytes, user)
+	json.Unmarshal(userBytes, &user)
+
+	fmt.Printf("User -> %v \n", user)
 
 	return &user, nil
 }
+
+func (t *SimpleChaincode) saveUser(stub shim.ChaincodeStubInterface, userName string, user User) error {
+	fmt.Printf("Saving user %v \n", user)
+
+	jsonUser, err := json.Marshal(user)
+	err = stub.PutState(userName, jsonUser)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 
 func (t *SimpleChaincode) createUser(stub shim.ChaincodeStubInterface) pb.Response {
 	var userName string
@@ -188,14 +236,15 @@ func (t *SimpleChaincode) createUser(stub shim.ChaincodeStubInterface) pb.Respon
 	userName = args[1]
 	initialCoins, err = strconv.Atoi(args[2])
 
+	fmt.Println("Creating user " + userName + " with initial amount " + strconv.Itoa(initialCoins))
+
 	if err != nil {
 		return shim.Error("Expecting integer value for asset holding")
 	}
 
-	user := User{initialCoins, ""}
+	user := User{initialCoins, "", userName}
 
-	jsonUser, err := json.Marshal(user)
-	err = stub.PutState(userName, jsonUser)
+	err = t.saveUser(stub, userName, user)
 	if err != nil {
 		return shim.Error(err.Error())
 	}

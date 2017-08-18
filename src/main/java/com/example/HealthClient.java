@@ -58,26 +58,67 @@ public class HealthClient {
 
 // *****************************************************************************************************
 //        Channel healthChannel = connectToChannel(client, orderer, peer, eventHub);
-//        sendInvokeTransaction(client, chaincodeId, healthChannel, peer);
-//        sendQueryTransaction(client, chaincodeId, healthChannel);
-// *****************************************************************************************************
 
-// *****************************************************************************************************
         Channel healthChannel = constructChannel(client, humanAdminUser,  peer, orderer, eventHub);
         installChaincode(client, chaincodeId, peer);
         instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
-                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "user1", "1000"}))
-                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "medic", "300"}))
-                .thenApply(transactionEvent -> sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "insurance", "5000"}))
-                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"}))
-                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"}))
-                .thenApply(transactionEvent -> sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"}))
-                .get(12000L, TimeUnit.SECONDS);
+                .get(20000L, TimeUnit.SECONDS);
+
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "user1", "1000"});
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "medic", "300"});
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "insurance", "5000"});
+
+        System.out.println("==========================================================================================================");
+
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
+
+        System.out.println("==========================================================================================================");
+
+
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"pay", "user1", "medic", "100"});
+
+        System.out.println("==========================================================================================================");
+
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
+
+        System.out.println("==========================================================================================================");
+
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"addInsurance", "user1", "insurance"});
+
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"pay", "user1", "medic", "100"});
+
+        System.out.println("==========================================================================================================");
+
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
+
+        System.out.println("==========================================================================================================");
+
+// *****************************************************************************************************
+
+// *****************************************************************************************************
+//        Channel healthChannel = constructChannel(client, humanAdminUser,  peer, orderer, eventHub);
+//        installChaincode(client, chaincodeId, peer);
+//        instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
+//                .get(12000L, TimeUnit.SECONDS);
+
+//        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "user1", "1000"});
+//        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "medic", "300"});
+//        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "insurance", "5000"});
+//
+//        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
+//        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
+//        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
 // *****************************************************************************************************
 
     }
 
-    public static Object sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, String func, String[] args) {
+    public static CompletableFuture<BlockEvent.TransactionEvent> sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, String func, String[] args) {
         try {
             TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
             transactionProposalRequest.setChaincodeID(chaincodeId);
@@ -104,8 +145,9 @@ public class HealthClient {
 //
 //            System.out.println(">>>>>>> RESULT: " + resultAsString);
 
-            return healthChannel.sendTransaction(transactionPropResp);
+            CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp);
 
+            return proposalResponces;
         } catch (InvalidArgumentException | ProposalException e) {
             throw new RuntimeException(e);
         }
