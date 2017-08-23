@@ -2,7 +2,6 @@ package com.example;
 
 import com.google.common.collect.ImmutableSet;
 import org.hyperledger.fabric.sdk.BlockEvent;
-import org.hyperledger.fabric.sdk.ChaincodeEndorsementPolicy;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.ChannelConfiguration;
@@ -17,7 +16,6 @@ import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.User;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
-import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
@@ -25,7 +23,6 @@ import org.hyperledger.fabric.sdk.security.CryptoSuite;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
@@ -34,21 +31,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HealthClient {
 
-    public static void main(String[] args) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, CryptoException, InvalidArgumentException, TransactionException, ProposalException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
+    public static void main(String[] args) throws Exception {
         SampleStore sampleStore = createSampleStore();
         SampleUser humanAdminUser = createSampleUser(sampleStore);
 
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
         client.setUserContext(humanAdminUser);
+
+//        HFCAClient hfcaClinicClient = HFCAClient.createNewInstance("http://localhost:7054", null);
+//        hfcaClinicClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+//
+//        HFCAClient hfcaHumanClient = HFCAClient.createNewInstance("http://localhost:8054", null);
+//        hfcaHumanClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+//
+//        HFCAClient hfcaInsuranceClient = HFCAClient.createNewInstance("http://localhost:9054", null);
+//        hfcaInsuranceClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+//
+//        Enrollment adminEnrollment = hfcaHumanClient.enroll("admin", "adminpw");
+//        humanAdminUser.setEnrollment(adminEnrollment);
+//
+//        RegistrationRequest registrationRequest = new RegistrationRequest("humanUser1", "org1.department1");
+//        String enrollmentSecret = hfcaHumanClient.register(registrationRequest, humanAdminUser);
+//        Enrollment enrollment = hfcaHumanClient.enroll("humanUser1", enrollmentSecret);
 
         Peer peer = constructPeer(client);
         Orderer orderer = constructOrderer(client);
