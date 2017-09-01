@@ -1,3 +1,7 @@
+## Description
+
+HealthClient class installing chaincode into channel, creates 3 users, and emulates paying from user to medic (without and with insurance) 
+
 
 ## Fabric network diagram
 
