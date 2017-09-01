@@ -70,6 +70,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.clinic.carewallet.com:7051
 #      - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_LOCALMSPID=ClinicMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb_clinic:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./channel-artifacts:/etc/hyperledger/configtx:ro
@@ -79,6 +81,7 @@ services:
       - 7053:7053
     depends_on:
       - orderer.carewallet.com
+      - couchdb_clinic
 
   peer0.human.carewallet.com:
     container_name: peer0.human.carewallet.com
@@ -91,6 +94,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.human.carewallet.com:8051
 #      - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_LOCALMSPID=HumanMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb_human:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/human.carewallet.com/peers/peer0.human.carewallet.com/:/etc/hyperledger/msp/peer:ro
@@ -100,6 +105,7 @@ services:
       - 8053:7053
     depends_on:
       - orderer.carewallet.com
+      - couchdb_human
 
   peer0.insurance.carewallet.com:
     container_name: peer0.insurance.carewallet.com
@@ -112,6 +118,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.insurance.carewallet.com:9051
 #      - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_LOCALMSPID=InsuranceMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb_insurance:5984
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/insurance.carewallet.com/peers/peer0.insurance.carewallet.com/:/etc/hyperledger/msp/peer:ro
@@ -121,6 +129,25 @@ services:
       - 9053:7053
     depends_on:
       - orderer.carewallet.com
+      - couchdb_insurance
 
   ccenv:
     image: hyperledger/fabric-ccenv${IMAGE_TAG_FABRIC}
+
+  couchdb_clinic:
+    container_name: couchdb_clinic
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
+    ports:
+      - 7984:5984
+
+  couchdb_human:
+    container_name: couchdb_human
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
+    ports:
+      - 8984:5984
+
+  couchdb_insurance:
+    container_name: couchdb_insurance
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
+    ports:
+      - 9984:5984
