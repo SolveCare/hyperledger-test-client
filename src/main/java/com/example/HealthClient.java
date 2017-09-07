@@ -37,6 +37,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HealthClient {
 
+    private static final String CHAINCODE_VERSION  = "2";
+
     public static void main(String[] args) throws Exception {
         SampleStore sampleStore = createSampleStore();
         SampleUser humanAdminUser = createSampleUser(sampleStore);
@@ -75,38 +77,21 @@ public class HealthClient {
         instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
                 .get(20000L, TimeUnit.SECONDS);
 
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "user1", "1000"});
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "medic", "300"});
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"createUser", "insurance", "5000"});
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "createPatient", new String[]{"111", "patient@email.com", "Bob", "B", "1000"});
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "createDoctor", new String[]{"222", "doc@email.com", "Xen", "X", "senior"});
 
         System.out.println("==========================================================================================================");
 
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "getDoctorsSchedule", new String[]{"222"});
 
         System.out.println("==========================================================================================================");
 
 
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"pay", "user1", "medic", "100"});
+        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "registerToDoctor", new String[]{"111", "222", "1504709558", "1504709658", "ololo"});
 
         System.out.println("==========================================================================================================");
 
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
-
-        System.out.println("==========================================================================================================");
-
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"addInsurance", "user1", "insurance"});
-
-        sendInvokeTransaction(client, chaincodeId, healthChannel, peer, "invoke", new String[]{"pay", "user1", "medic", "100"});
-
-        System.out.println("==========================================================================================================");
-
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "user1"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "medic"});
-        sendQueryTransaction(client, chaincodeId, healthChannel, "invoke", new String[]{"query", "insurance"});
+        sendQueryTransaction(client, chaincodeId, healthChannel, "getDoctorsSchedule", new String[]{"222"});
 
         System.out.println("==========================================================================================================");
 
@@ -229,7 +214,7 @@ public class HealthClient {
         InstallProposalRequest installProposalRequest = client.newInstallProposalRequest();
         installProposalRequest.setChaincodeID(chaincodeId);
 
-        installProposalRequest.setChaincodeSourceLocation(new File("src/main/resources/health/gocc/sample1"));
+        installProposalRequest.setChaincodeSourceLocation(new File("src/main/resources/health/gocc/schedule"));
 //        installProposalRequest.setChaincodeInputStream(
 //                Util.generateTarGzInputStream(
 //                        Paths.get("src/main/resources/health/gocc/sample1").toFile(),
@@ -237,7 +222,7 @@ public class HealthClient {
 //                )
 //        );
 
-        installProposalRequest.setChaincodeVersion("1");
+        installProposalRequest.setChaincodeVersion(CHAINCODE_VERSION);
 
         Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, ImmutableSet.of(peer));
 
@@ -251,10 +236,9 @@ public class HealthClient {
     }
 
     public static ChaincodeID getChaincodeId() {
-        final String CHAIN_CODE_NAME = "health_chaincode_go";
-        final String CHAIN_CODE_PATH = "github.com/example_cc";
-        final String CHAIN_CODE_VERSION = "1";
-//        final String CHAIN_CODE_VERSION_11 = "11";
+        final String CHAIN_CODE_NAME = "scheduleChaincode_go";
+        final String CHAIN_CODE_PATH = "care.solve.schedule";
+        final String CHAIN_CODE_VERSION = CHAINCODE_VERSION;
 
         return ChaincodeID.newBuilder().setName(CHAIN_CODE_NAME)
                 .setVersion(CHAIN_CODE_VERSION)
