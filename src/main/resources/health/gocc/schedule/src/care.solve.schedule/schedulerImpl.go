@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"encoding/json"
 	"errors"
+	"github.com/golang/protobuf/proto"
 )
 
 type SchedulerImpl struct {
@@ -26,8 +27,11 @@ func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, scheduleId string) 
 	if scheduleBytes == nil {
 		return nil, errors.New(fmt.Sprintf("Schedule with id '%v' not found", scheduleId))
 	} else {
-		json.Unmarshal(scheduleBytes, &schedule)
-		fmt.Printf("Retrieve schedule: %v \n", schedule)
+		err = proto.Unmarshal(scheduleBytes, &schedule)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Printf("Retrieve schedule: %v \n", schedule.String())
 	}
 
 	return &schedule, nil
@@ -40,10 +44,13 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 	var schedule Schedule
 	if scheduleBytes == nil {
 		fmt.Printf("Empty schedule for doctor %v. Creating new... \n", scheduleId)
-		schedule = Schedule{scheduleKey, scheduleId, make(map[string]ScheduleRecord)}
+		schedule = Schedule{scheduleKey, scheduleId, make(map[string]*ScheduleRecord)}
 	} else {
 		fmt.Printf("Found schedule for doctor %v \n", scheduleId)
-		json.Unmarshal(scheduleBytes, &schedule)
+		err = proto.Unmarshal(scheduleBytes, &schedule)
+		if err != nil {
+			return err
+		}
 	}
 
 	slot := scheduleRecord.Slot
@@ -53,14 +60,14 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 	}
 
 	slotString := string(slotJson)
-	schedule.Records[slotString] = scheduleRecord
+	schedule.Records[slotString] = &scheduleRecord
 
-	jsonSchedule, err := json.Marshal(schedule)
+	scheduleData, err := proto.Marshal(&schedule)
 	if err != nil {
 		return err
 	}
 
-	err = stub.PutState(scheduleKey, jsonSchedule)
+	err = stub.PutState(scheduleKey, scheduleData)
 	if err != nil {
 		return err
 	}

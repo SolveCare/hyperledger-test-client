@@ -10,8 +10,6 @@ import (
 	"encoding/pem"
 	"github.com/golang/protobuf/proto"
 	mspprotos "github.com/hyperledger/fabric/protos/msp"
-
-	"encoding/json"
 )
 
 type ScheduleChaincode struct {
@@ -63,13 +61,12 @@ func (s *ScheduleChaincode) getDoctorsSchedule(stub shim.ChaincodeStubInterface,
 		return shim.Error(err.Error())
 	}
 
-	jsonResp := "{" +
-		"\"ScheduleId\":\"" + schedule.ScheduleId + "\"," +
-		"\"DoctorId\":\"" + schedule.DoctorId + "\"," +
-		"\"Records\":" + strconv.Itoa(len(schedule.Records)) + "\"," +
-		"}"
+	scheduleBytes, err := proto.Marshal(schedule)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
 
-	return shim.Success([]byte(jsonResp))
+	return shim.Success(scheduleBytes)
 }
 
 func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -100,7 +97,7 @@ func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, a
 	slot := Slot{timeStart, timeFinish}
 
 	scheduleRecordKey := "scheduleRecord:" + doctorId
-	scheduleRecord := ScheduleRecord{scheduleRecordKey, description, patientId, slot}
+	scheduleRecord := ScheduleRecord{scheduleRecordKey, description, patientId, &slot}
 
 	s.scheduler.Apply(stub, doctorId, scheduleRecord)
 	if err != nil {
@@ -116,12 +113,12 @@ func (s *ScheduleChaincode) createPatient(stub shim.ChaincodeStubInterface, args
 	firstName := args[2]
 	lastName := args[3]
 
-	balance, err := strconv.ParseFloat(args[4], 64)
+	balance, err := strconv.ParseFloat(args[4], 32)
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Error while parsing petient balance: '%v'", err.Error()))
 	}
 
-	patient := Patient{userId, email, firstName, lastName, balance}
+	patient := Patient{userId, email, firstName, lastName, float32(balance)}
 
 	err = s.savePatient(stub, patient)
 	if err != nil {
@@ -135,11 +132,14 @@ func (s *ScheduleChaincode) createPatient(stub shim.ChaincodeStubInterface, args
 func (t *ScheduleChaincode) savePatient(stub shim.ChaincodeStubInterface, patient Patient) error {
 	fmt.Printf("Saving patient %v \n", patient)
 
-	jsonUser, err := json.Marshal(patient)
+	patientData, err := proto.Marshal(&patient)
+	if err != nil {
+		return err
+	}
 
 	patientKey := "patient:" + patient.UserId
 
-	err = stub.PutState(patientKey, jsonUser)
+	err = stub.PutState(patientKey, patientData)
 	if err != nil {
 		return err
 	}
@@ -168,10 +168,10 @@ func (s *ScheduleChaincode) createDoctor(stub shim.ChaincodeStubInterface, args 
 func (t *ScheduleChaincode) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doctor) error {
 	fmt.Printf("Saving doctor %v \n", doctor)
 
-	jsonUser, err := json.Marshal(doctor)
+	doctorData, err := proto.Marshal(&doctor)
 
 	doctorKey := "doctor:" + doctor.UserId
-	err = stub.PutState(doctorKey, jsonUser)
+	err = stub.PutState(doctorKey, doctorData)
 	if err != nil {
 		return err
 	}
@@ -187,10 +187,13 @@ func (t *ScheduleChaincode) getDoctor(stub shim.ChaincodeStubInterface, doctorId
 		return nil, err
 	}
 
-	fmt.Printf("Getting doctor %v \n", string(doctorBytes))
-
 	var doctor Doctor
-	json.Unmarshal(doctorBytes, &doctor)
+	err = proto.Unmarshal(doctorBytes, &doctor)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Getting doctor %v \n", doctor.String())
+
 	return &doctor, nil
 }
 
@@ -202,10 +205,13 @@ func (t *ScheduleChaincode) getPatient(stub shim.ChaincodeStubInterface, patient
 		return nil, err
 	}
 
-	fmt.Printf("Getting patient %v \n", string(patientBytes))
-
 	var patient Patient
-	json.Unmarshal(patientBytes, &patient)
+	err = proto.Unmarshal(patientBytes, &patient)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Getting patient %v \n", patient.String())
+
 	return &patient, nil
 }
 

@@ -1,6 +1,7 @@
 package com.example;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
@@ -170,11 +171,13 @@ public class HealthClient {
                             ". Messages: " + proposalResponse.getMessage()
                             + ". Was verified : " + proposalResponse.isVerified());
                 } else {
-                    String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
-                    System.out.println(String.format("Query payload of b from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
+//                    String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
+                    byte[] responceBytes = proposalResponse.getProposalResponse().getResponse().getPayload().toByteArray();
+                    DoctorRegisterProtos.Schedule schedule = DoctorRegisterProtos.Schedule.parseFrom(responceBytes);
+                    System.out.println(String.format("Query payload from peer %s returned %s", proposalResponse.getPeer().getName(), schedule));
                 }
             }
-        } catch (InvalidArgumentException | ProposalException e) {
+        } catch (InvalidArgumentException | ProposalException | InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
 

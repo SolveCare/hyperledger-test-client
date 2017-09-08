@@ -43,3 +43,10 @@ Create anchor peers:
 ```
 ../bin/cryptogen generate --config=./crypto-config.yaml
 ```
+
+## Generate protobuf
+```
+cd src/main/resources/protos
+protoc --java_out=./java registerDoctor.proto
+protoc --go_out=./go registerDoctor.proto
+```
