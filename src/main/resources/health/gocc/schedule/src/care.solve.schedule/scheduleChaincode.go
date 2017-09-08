@@ -6,6 +6,11 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 	"strconv"
 
+	"crypto/x509"
+	"encoding/pem"
+	"github.com/golang/protobuf/proto"
+	mspprotos "github.com/hyperledger/fabric/protos/msp"
+
 	"encoding/json"
 )
 
@@ -24,6 +29,7 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 
 	fmt.Printf("=====================================================\n")
 	fmt.Printf("Invoking function %v with args %v  \n", function, args)
+	getSigner(stub)
 
 	if function == "createPatient" {
 		return s.createPatient(stub, args)
@@ -201,6 +207,27 @@ func (t *ScheduleChaincode) getPatient(stub shim.ChaincodeStubInterface, patient
 	var patient Patient
 	json.Unmarshal(patientBytes, &patient)
 	return &patient, nil
+}
+
+func getSigner(stub shim.ChaincodeStubInterface) {
+	fmt.Printf("*********************************\n")
+	creator,err := stub.GetCreator()
+	if err != nil {
+		fmt.Printf("> Error: %v \n", err.Error())
+	}
+
+	id := &mspprotos.SerializedIdentity{}
+	err = proto.Unmarshal(creator, id)
+
+	fmt.Printf("> Creator: %v \n", string(creator))
+
+	block, _ := pem.Decode(id.GetIdBytes())
+	cert,err := x509.ParseCertificate(block.Bytes)
+	enrollID := cert.Subject.CommonName
+	fmt.Printf("> enrollID: %v \n", string(enrollID))
+	mspID := id.GetMspid()
+	fmt.Printf("> mspID: %v \n", string(mspID))
+	fmt.Printf("*********************************\n")
 }
 
 func main() {

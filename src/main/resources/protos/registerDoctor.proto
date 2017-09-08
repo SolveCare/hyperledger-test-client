@@ -1,0 +1,13 @@
+
+syntax = "proto3";
+package main;
+
+option java_package = "care.solve.schedule";
+
+message Patient {
+    string UserId = 1;
+    string Email = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    float Balance = 5;
+}
