@@ -13,7 +13,7 @@ import (
 )
 
 type ScheduleChaincode struct {
-	scheduler Scheduler
+	scheduler AppointmentScheduler
 }
 
 func (s *ScheduleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
