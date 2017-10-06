@@ -41,6 +41,9 @@ public class HyperLedgerConfig {
     @Value("${orderer.grpcUrl}")
     private String ordererGrpcUrl;
 
+    @Value("${channel.health.name}")
+    private String healthChannelName;
+
     @Bean(name = "hfClient")
     @Autowired
     public HFClient getHFClient(@Qualifier("humanAdminUser") User user) throws CryptoException, InvalidArgumentException {
@@ -125,8 +128,12 @@ public class HyperLedgerConfig {
             @Qualifier("orderer") Orderer orderer,
             @Qualifier("humanEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
 
-        Channel channel = channelService.constructChannel(client, humanAdminUser, peer, orderer, eventHub);
-//        Channel channel = channelService.connectToChannel(client, orderer, peer, eventHub);
+        Channel channel;
+        if (channelService.isChannelExists(healthChannelName, peer, client)) {
+            channel = channelService.connectToChannel(healthChannelName, client, orderer, peer, eventHub);
+        } else {
+            channel = channelService.constructChannel(healthChannelName, client, humanAdminUser, peer, orderer, eventHub);
+        }
 
         return channel;
     }
