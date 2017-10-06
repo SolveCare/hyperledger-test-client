@@ -1,6 +1,5 @@
 package care.solve.backend.config;
 
-import care.solve.backend.service.ChaincodeService;
 import care.solve.backend.service.ChannelService;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
@@ -19,8 +18,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,9 +40,6 @@ public class HyperLedgerConfig {
 
     @Value("${orderer.grpcUrl}")
     private String ordererGrpcUrl;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @Bean(name = "hfClient")
     @Autowired
@@ -85,10 +79,10 @@ public class HyperLedgerConfig {
     }
 
     public Properties getPeerProperties() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:health/crypto-config/peerOrganizations/human.carewallet.com/peers/peer0.human.carewallet.com/tls/server.crt");
+        URL resource = HyperLedgerConfig.class.getResource("/health/crypto-config/peerOrganizations/human.carewallet.com/peers/peer0.human.carewallet.com/tls/server.crt");
 
         Properties ret = new Properties();
-        ret.setProperty("pemFile", resource.getURI().getRawPath());
+        ret.setProperty("pemFile", resource.toString());
         ret.setProperty("hostnameOverride", humanPeerName);
         ret.setProperty("sslProvider", "openSSL");
         ret.setProperty("negotiationType", "TLS");
@@ -97,10 +91,10 @@ public class HyperLedgerConfig {
     }
 
     public Properties getOrderedProperties() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:health/crypto-config/ordererOrganizations/carewallet.com/orderers/orderer.carewallet.com/tls/server.crt");
+        URL resource = HyperLedgerConfig.class.getResource("/health/crypto-config/ordererOrganizations/carewallet.com/orderers/orderer.carewallet.com/tls/server.crt");
 
         Properties ret = new Properties();
-        ret.setProperty("pemFile", resource.getURI().getRawPath());
+        ret.setProperty("pemFile", resource.toString());
         ret.setProperty("hostnameOverride", ordererName);
         ret.setProperty("sslProvider", "openSSL");
         ret.setProperty("negotiationType", "TLS");
