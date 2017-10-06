@@ -3,6 +3,7 @@ package care.solve.backend.service;
 import com.google.common.collect.ImmutableSet;
 import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.ChaincodeResponse;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
@@ -32,6 +33,10 @@ public class TransactionService {
             transactionProposalRequest.setArgs(args);
 
             Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
+            long failedResponsesCount = transactionPropResp.stream().filter(resp -> !resp.getStatus().equals(ProposalResponse.Status.SUCCESS)).count();
+            if (failedResponsesCount != 0) {
+                throw new RuntimeException(String.format("Failed transaction: %d failed from %d ", failedResponsesCount, transactionPropResp.size()));
+            }
 
             CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp);
 
