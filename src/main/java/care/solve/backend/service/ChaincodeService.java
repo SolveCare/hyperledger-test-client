@@ -32,7 +32,7 @@ public class ChaincodeService {
         instantiateProposalRequest.setProposalWaitTime(12000L);
         instantiateProposalRequest.setChaincodeID(chaincodeId);
         instantiateProposalRequest.setFcn("init");
-        instantiateProposalRequest.setArgs(new String[]{"a", "500", "b", "1000"});
+        instantiateProposalRequest.setArgs(new String[]{"someArg", "0"});
 
         Map<String, byte[]> tm = new HashMap<>();
         tm.put("HyperLedgerFabric", "InstantiateProposalRequest:JavaSDK".getBytes(UTF_8));
