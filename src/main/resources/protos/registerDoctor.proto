@@ -38,5 +38,12 @@ message ScheduleRecord {
     string RecordId = 1;
     string Description = 2;
     string PatientId = 3;
-    Slot Slot  = 4;
+    Slot Slot = 4;
+}
+
+message ScheduleRequest {
+    string PatientId = 1;
+    string DoctorId = 2;
+    string Description = 3;
+    Slot Slot = 4;
 }

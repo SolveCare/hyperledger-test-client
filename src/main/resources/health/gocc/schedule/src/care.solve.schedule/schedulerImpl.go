@@ -47,6 +47,8 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 	}
 
 	slot := scheduleRecord.Slot
+	//fmt.Printf(" > Slot %v \n", *slot)
+
 	slotJson, err := json.Marshal(slot)
 	if err != nil {
 		return err

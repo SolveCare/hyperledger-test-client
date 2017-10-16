@@ -42,14 +42,13 @@ public class TransactionService {
             }
 
             CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp);
-
             return proposalResponces;
         } catch (InvalidArgumentException | ProposalException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Object sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, String func, String[] args) {
+    public ByteString sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, String func, String[] args) {
         try {
             QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
             queryByChaincodeRequest.setFcn(func);
@@ -71,14 +70,10 @@ public class TransactionService {
                     String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
                     System.out.println(String.format("Query payload from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
 
-                    ByteString scheduleBytes = proposalResponse.getProposalResponse().getResponse().getPayload();
-                    ScheduleProtos.Schedule schedule = ScheduleProtos.Schedule.parseFrom(scheduleBytes);
-                    return schedule;
+                    return proposalResponse.getProposalResponse().getResponse().getPayload();
                 }
             }
         } catch (InvalidArgumentException | ProposalException e) {
-            e.printStackTrace();
-        } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
 

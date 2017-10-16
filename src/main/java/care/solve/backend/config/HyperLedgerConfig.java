@@ -112,7 +112,7 @@ public class HyperLedgerConfig {
     public ChaincodeID getChaincodeId() {
         final String CHAIN_CODE_NAME = "scheduleChaincode_go";
         final String CHAIN_CODE_PATH = "care.solve.schedule";
-        final String CHAIN_CODE_VERSION = "2";
+        final String CHAIN_CODE_VERSION = "3";
 
         return ChaincodeID.newBuilder().setName(CHAIN_CODE_NAME)
                 .setVersion(CHAIN_CODE_VERSION)

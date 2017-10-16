@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
-	"strconv"
 
 	"crypto/x509"
 	"encoding/pem"
@@ -40,6 +39,38 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 		return s.createDoctor(stub, args)
 	}
 
+	if function == "getDoctor" {
+		doctorId := args[0]
+		doctor, err := s.getDoctor(stub, doctorId)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		doctorBytes, err := proto.Marshal(doctor)
+		if err != nil {
+			log.Fatalln("Failed to encode doctor:", err)
+			return shim.Error(err.Error())
+		}
+
+		return shim.Success(doctorBytes)
+	}
+
+	if function == "getPatient" {
+		patientId := args[0]
+		patient, err := s.getPatient(stub, patientId)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		patientBytes, err := proto.Marshal(patient)
+		if err != nil {
+			log.Fatalln("Failed to encode patient:", err)
+			return shim.Error(err.Error())
+		}
+
+		return shim.Success(patientBytes)
+	}
+
 	if function == "getDoctorsSchedule" {
 		return s.getDoctorsSchedule(stub, args)
 	}
@@ -70,46 +101,38 @@ func (s *ScheduleChaincode) getDoctorsSchedule(stub shim.ChaincodeStubInterface,
 		return shim.Error(err.Error())
 	}
 
-	//jsonResp := "{" +
-	//	"\"ScheduleId\":\"" + schedule.ScheduleId + "\"," +
-	//	"\"DoctorId\":\"" + schedule.DoctorId + "\"," +
-	//	"\"Records\":" + strconv.Itoa(len(schedule.Records)) + "\"," +
-	//	"}"
-
 	return shim.Success(scheduleBytes)
 }
 
 func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	patientId := args[0]
-	doctorId := args[1]
+	scheduleRequestByteString := args[0];
 
-	timeStart, err := strconv.ParseUint(args[2], 10, 64)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	timeFinish, err := strconv.ParseUint(args[3], 10, 64)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
+	fmt.Printf("> scheduleRequestByteString: %v \n", scheduleRequestByteString)
 
-	description := args[4]
+	scheduleRequest := ScheduleRequest{}
+	proto.UnmarshalText(scheduleRequestByteString, &scheduleRequest)
 
-	_, err = s.getDoctor(stub, doctorId)
+	// fmt.Printf("> scheduleRequestByteString: %v \n", *(scheduleRequest.Slot))
+
+	_, err := s.getDoctor(stub, scheduleRequest.DoctorId)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	_, err = s.getPatient(stub, patientId)
+	_, err = s.getPatient(stub, scheduleRequest.PatientId)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	slot := Slot{timeStart, timeFinish}
+	scheduleRecordKey := "scheduleRecord:" + scheduleRequest.DoctorId
+	scheduleRecord := ScheduleRecord {
+		scheduleRecordKey,
+		scheduleRequest.Description,
+		scheduleRequest.PatientId,
+		scheduleRequest.Slot,
+	}
 
-	scheduleRecordKey := "scheduleRecord:" + doctorId
-	scheduleRecord := ScheduleRecord{scheduleRecordKey, description, patientId, &slot}
-
-	s.scheduler.Apply(stub, doctorId, scheduleRecord)
+	s.scheduler.Apply(stub, scheduleRequest.DoctorId, scheduleRecord)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -118,19 +141,12 @@ func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, a
 }
 
 func (s *ScheduleChaincode) createPatient(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	userId := args[0]
-	email := args[1]
-	firstName := args[2]
-	lastName := args[3]
+	encodedPatientByteString := args[0];
 
-	balance, err := strconv.ParseFloat(args[4], 32)
-	if err != nil {
-		return shim.Error(fmt.Sprintf("Error while parsing petient balance: '%v'", err.Error()))
-	}
+	patient := Patient{}
+	proto.Unmarshal([]byte(encodedPatientByteString), &patient)
 
-	patient := Patient{userId, email, firstName, lastName, float32(balance)}
-
-	err = s.savePatient(stub, patient)
+	err := s.savePatient(stub, patient)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -155,13 +171,11 @@ func (t *ScheduleChaincode) savePatient(stub shim.ChaincodeStubInterface, patien
 }
 
 func (s *ScheduleChaincode) createDoctor(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	userId := args[0]
-	email := args[1]
-	firstName := args[2]
-	lastName := args[3]
-	level := args[4]
 
-	doctor := Doctor{userId, email, firstName, lastName, level}
+	encodedDoctorByteString := args[0];
+
+	doctor := Doctor{}
+	proto.Unmarshal([]byte(encodedDoctorByteString), &doctor)
 
 	err := s.saveDoctor(stub, doctor)
 	if err != nil {
@@ -169,7 +183,6 @@ func (s *ScheduleChaincode) createDoctor(stub shim.ChaincodeStubInterface, args 
 	}
 
 	return shim.Success(nil)
-
 }
 
 func (t *ScheduleChaincode) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doctor) error {
