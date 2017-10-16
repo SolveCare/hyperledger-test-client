@@ -12,6 +12,7 @@ import (
 	mspprotos "github.com/hyperledger/fabric/protos/msp"
 
 	"encoding/json"
+	"log"
 )
 
 type ScheduleChaincode struct {
@@ -63,13 +64,19 @@ func (s *ScheduleChaincode) getDoctorsSchedule(stub shim.ChaincodeStubInterface,
 		return shim.Error(err.Error())
 	}
 
-	jsonResp := "{" +
-		"\"ScheduleId\":\"" + schedule.ScheduleId + "\"," +
-		"\"DoctorId\":\"" + schedule.DoctorId + "\"," +
-		"\"Records\":" + strconv.Itoa(len(schedule.Records)) + "\"," +
-		"}"
+	scheduleBytes, err := proto.Marshal(schedule)
+	if err != nil {
+		log.Fatalln("Failed to encode schedule:", err)
+		return shim.Error(err.Error())
+	}
 
-	return shim.Success([]byte(jsonResp))
+	//jsonResp := "{" +
+	//	"\"ScheduleId\":\"" + schedule.ScheduleId + "\"," +
+	//	"\"DoctorId\":\"" + schedule.DoctorId + "\"," +
+	//	"\"Records\":" + strconv.Itoa(len(schedule.Records)) + "\"," +
+	//	"}"
+
+	return shim.Success(scheduleBytes)
 }
 
 func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -100,7 +107,7 @@ func (s *ScheduleChaincode) registerToDoctor(stub shim.ChaincodeStubInterface, a
 	slot := Slot{timeStart, timeFinish}
 
 	scheduleRecordKey := "scheduleRecord:" + doctorId
-	scheduleRecord := ScheduleRecord{scheduleRecordKey, description, patientId, slot}
+	scheduleRecord := ScheduleRecord{scheduleRecordKey, description, patientId, &slot}
 
 	s.scheduler.Apply(stub, doctorId, scheduleRecord)
 	if err != nil {
@@ -116,12 +123,12 @@ func (s *ScheduleChaincode) createPatient(stub shim.ChaincodeStubInterface, args
 	firstName := args[2]
 	lastName := args[3]
 
-	balance, err := strconv.ParseFloat(args[4], 64)
+	balance, err := strconv.ParseFloat(args[4], 32)
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Error while parsing petient balance: '%v'", err.Error()))
 	}
 
-	patient := Patient{userId, email, firstName, lastName, balance}
+	patient := Patient{userId, email, firstName, lastName, float32(balance)}
 
 	err = s.savePatient(stub, patient)
 	if err != nil {

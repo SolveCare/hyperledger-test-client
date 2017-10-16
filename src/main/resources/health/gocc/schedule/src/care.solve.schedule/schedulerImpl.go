@@ -40,7 +40,7 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 	var schedule Schedule
 	if scheduleBytes == nil {
 		fmt.Printf("Empty schedule for doctor %v. Creating new... \n", scheduleId)
-		schedule = Schedule{scheduleKey, scheduleId, make(map[string]ScheduleRecord)}
+		schedule = Schedule{scheduleKey, scheduleId, make(map[string]*ScheduleRecord)}
 	} else {
 		fmt.Printf("Found schedule for doctor %v \n", scheduleId)
 		json.Unmarshal(scheduleBytes, &schedule)
@@ -53,7 +53,7 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 	}
 
 	slotString := string(slotJson)
-	schedule.Records[slotString] = scheduleRecord
+	schedule.Records[slotString] = &scheduleRecord
 
 	jsonSchedule, err := json.Marshal(schedule)
 	if err != nil {

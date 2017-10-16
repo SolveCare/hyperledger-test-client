@@ -2,7 +2,10 @@
 syntax = "proto3";
 package main;
 
-option java_package = "care.solve.schedule";
+option java_package = "care.solve.backend.entity";
+option java_outer_classname = "ScheduleProtos";
+
+option go_package = "main";
 
 message Patient {
     string UserId = 1;
@@ -10,4 +13,30 @@ message Patient {
     string FirstName = 3;
     string LastName = 4;
     float Balance = 5;
+}
+
+message Doctor {
+    string UserId = 1;
+    string Email = 2;
+    string FirstName = 3;
+    string LastName = 4;
+    string Level = 5;
+}
+
+message Schedule {
+    string ScheduleId = 1;
+    string DoctorId = 2;
+    map<string, ScheduleRecord> Records = 3;
+}
+
+message Slot {
+    uint64 TimeStart = 1;
+    uint64 TimeFinish = 2;
+}
+
+message ScheduleRecord {
+    string RecordId = 1;
+    string Description = 2;
+    string PatientId = 3;
+    Slot Slot  = 4;
 }

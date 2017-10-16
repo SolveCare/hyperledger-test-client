@@ -3,6 +3,7 @@ package care.solve.backend.controller;
 import care.solve.backend.entity.Patient;
 import care.solve.backend.entity.ScheduleRequest;
 import care.solve.backend.service.TransactionService;
+import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/patient")
@@ -45,15 +48,16 @@ public class PatientController {
     }
 
     @PostMapping("{patientId}/register/{doctorId}")
-    public void registerToDoctor(@PathVariable String patientId, @PathVariable String doctorId, @RequestBody ScheduleRequest request) {
-        transactionService.sendInvokeTransaction(
+    public void registerToDoctor(@PathVariable String patientId, @PathVariable String doctorId, @RequestBody ScheduleRequest request) throws ExecutionException, InterruptedException {
+        BlockEvent.TransactionEvent transactionEvent = transactionService.sendInvokeTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 peer,
                 "registerToDoctor",
-                new String[]{patientId, doctorId, request.getTimestampStart(), request.getTimestampEnd(), request.getComment()});
+                new String[]{patientId, doctorId, request.getTimestampStart(), request.getTimestampEnd(), request.getComment()})
+                .get();
 
-
+        System.out.println(transactionEvent);
     }
 }

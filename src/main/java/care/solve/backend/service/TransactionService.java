@@ -1,6 +1,9 @@
 package care.solve.backend.service;
 
+import care.solve.backend.entity.ScheduleProtos;
 import com.google.common.collect.ImmutableSet;
+import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.ChaincodeResponse;
@@ -67,9 +70,15 @@ public class TransactionService {
                 } else {
                     String payload = proposalResponse.getProposalResponse().getResponse().getPayload().toStringUtf8();
                     System.out.println(String.format("Query payload from peer %s returned %s", proposalResponse.getPeer().getName(), payload));
+
+                    ByteString scheduleBytes = proposalResponse.getProposalResponse().getResponse().getPayload();
+                    ScheduleProtos.Schedule schedule = ScheduleProtos.Schedule.parseFrom(scheduleBytes);
+                    return schedule;
                 }
             }
         } catch (InvalidArgumentException | ProposalException e) {
+            e.printStackTrace();
+        } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
 

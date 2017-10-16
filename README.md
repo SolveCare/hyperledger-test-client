@@ -11,7 +11,7 @@ HealthClient class installing chaincode into channel, creates 3 users, and emula
 
 ```
 mvn package
-java -jar target/hyperledger-test-client-1.0-SNAPSHOT-jar-with-dependencies.jar 
+java -jar target/hyperledger-test-client-1.0-SNAPSHOT.jar 
 ```
 
 ## Creating channel artifacts (already created)
@@ -42,4 +42,14 @@ Create anchor peers:
 
 ```
 ../bin/cryptogen generate --config=./crypto-config.yaml
+```
+
+## Generate proto classes
+
+```
+protoc --proto_path=src/main/resources/protos --java_out=src/main/java src/main/resources/protos/registerDoctor.proto
+```
+
+```
+protoc --proto_path=src/main/resources/protos --go_out=src/main/resources/health/gocc/schedule/src/care.solve.schedule src/main/resources/protos/registerDoctor.proto
 ```
