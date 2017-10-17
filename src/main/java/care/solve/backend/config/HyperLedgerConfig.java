@@ -13,6 +13,7 @@ import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
+import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -44,6 +46,9 @@ public class HyperLedgerConfig {
     @Value("${channel.health.name}")
     private String healthChannelName;
 
+    @Value("${ca.human.url}")
+    private String caHumanUrl;
+
     @Bean(name = "hfClient")
     @Autowired
     public HFClient getHFClient(@Qualifier("humanAdminUser") User user) throws CryptoException, InvalidArgumentException {
@@ -52,6 +57,14 @@ public class HyperLedgerConfig {
         client.setUserContext(user);
 
         return client;
+    }
+
+    @Bean(name = "hfcaHumanClient")
+    public HFCAClient getHFCAHumanClient() throws MalformedURLException {
+        HFCAClient hfcaHumanClient = HFCAClient.createNewInstance(caHumanUrl, null);
+        hfcaHumanClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+
+        return hfcaHumanClient;
     }
 
     @Bean(name = "humanPeer")

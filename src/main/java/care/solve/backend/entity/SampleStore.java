@@ -180,6 +180,31 @@ public class SampleStore {
 
     }
 
+    public SampleUser getMember(String name, String org, String mspId, PrivateKey privateKey,
+                                String certificate) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+
+        try {
+            // Try to get the SampleUser state from the cache
+            SampleUser sampleUser = members.get(SampleUser.toKeyValStoreName(name, org));
+            if (null != sampleUser) {
+                return sampleUser;
+            }
+
+            // Create the SampleUser and try to restore it's state from the key value store (if found).
+            sampleUser = new SampleUser(name, org, this);
+            sampleUser.setMspId(mspId);
+            sampleUser.setEnrollment(new SampleStoreEnrollement(privateKey, certificate));
+
+            sampleUser.saveState();
+
+            return sampleUser;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+
     static {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
     }
