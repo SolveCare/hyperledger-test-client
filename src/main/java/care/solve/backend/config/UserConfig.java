@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
@@ -39,14 +42,17 @@ public class UserConfig {
     @Autowired
     public SampleUser createHumanAdminUser(
             @Qualifier("defaultStore") SampleStore sampleStore,
-            @Qualifier("hfcaHumanClient") HFCAClient hfcaHumanClient ) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, IOException, EnrollmentException, InvalidArgumentException {
+            @Qualifier("hfcaHumanClient") HFCAClient hfcaHumanClient ) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, IOException, EnrollmentException, InvalidArgumentException, URISyntaxException {
+
+        InputStream keystoreFile = new ClassPathResource(humanKeystoreFile).getInputStream();
+        InputStream certFile = new ClassPathResource(humanCertFile).getInputStream();
 
         SampleUser humanAdmin = sampleStore.getMember(
                 "admin",
                 humanOrgName,
                 humanMspId,
-                new File(humanKeystoreFile),
-                new File(humanCertFile));
+                keystoreFile,
+                certFile);
 
         return humanAdmin;
     }

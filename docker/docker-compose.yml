@@ -1,0 +1,11 @@
+version: '3'
+services:
+  hyperledger-client:
+    image: "hyperledger-test-client"
+    ports:
+      - "8080:8080"
+
+networks:
+  default:
+    external:
+      name: health_default

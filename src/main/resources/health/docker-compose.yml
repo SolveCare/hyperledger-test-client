@@ -151,3 +151,13 @@ services:
     image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
     ports:
       - 9984:5984
+
+#  hyperledger-client:
+#    image: "hyperledger-test-client"
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - orderer.carewallet.com
+#      - couchdb_human
+#      - peer0.human.carewallet.com
+#      - human_ca

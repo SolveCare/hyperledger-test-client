@@ -180,6 +180,49 @@ public class SampleStore {
 
     }
 
+    public SampleUser getMember(String name, String org, String mspId, InputStream privateKeyFile,
+                                InputStream certificateFile) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+
+        try {
+            // Try to get the SampleUser state from the cache
+            SampleUser sampleUser = members.get(SampleUser.toKeyValStoreName(name, org));
+            if (null != sampleUser) {
+                return sampleUser;
+            }
+
+            // Create the SampleUser and try to restore it's state from the key value store (if found).
+            sampleUser = new SampleUser(name, org, this);
+            sampleUser.setMspId(mspId);
+
+            String certificate = new String(IOUtils.toByteArray(certificateFile), "UTF-8");
+
+            PrivateKey privateKey = getPrivateKeyFromBytes(IOUtils.toByteArray(privateKeyFile));
+
+            sampleUser.setEnrollment(new SampleStoreEnrollement(privateKey, certificate));
+
+            sampleUser.saveState();
+
+            return sampleUser;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+
     public SampleUser getMember(String name, String org, String mspId, PrivateKey privateKey,
                                 String certificate) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
 

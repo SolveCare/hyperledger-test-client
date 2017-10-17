@@ -64,6 +64,30 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.21.0</version>
+        <configuration>
+          <images>
+            <image>
+              <name>${project.name}</name>
+              <build>
+                <from>anapsix/alpine-java:8_jdk</from>
+
+                <assembly>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+
+                <cmd>
+                  <shell>java -jar /maven/${project.build.finalName}.jar</shell>
+                </cmd>
+              </build>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 </project>
