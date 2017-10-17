@@ -6,5 +6,10 @@ pipeline {
         sh './mvnw clean package'
       }
     }
+    stage('build docker container') {
+      steps {
+        sh './mvnw docker:build'
+      }
+    }
   }
 }
