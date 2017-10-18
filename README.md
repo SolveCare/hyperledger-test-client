@@ -53,3 +53,18 @@ protoc --proto_path=src/main/resources/protos --java_out=src/main/java src/main/
 ```
 protoc --proto_path=src/main/resources/protos --go_out=src/main/resources/health/gocc/schedule/src/care.solve.schedule src/main/resources/protos/registerDoctor.proto
 ```
+
+## Start chaincode in dev mode
+
+# Run local chaincode
+```
+CORE_CHAINCODE_LOGLEVEL=debug CORE_PEER_ADDRESS=127.0.0.1:8051 CORE_CHAINCODE_ID_NAME=scheduleChaincode_go:0 ./care.solve.schedule 
+```
+
+# Install and instantiate chaincode
+Inside `cli` container run:
+```
+peer chaincode install -n scheduleChaincode_go -v 0 -p github.com/hyperledger/fabric/examples/chaincode/go/schedule/src/care.solve.schedule
+peer chaincode instantiate -n scheduleChaincode_go -v 0 -c '{"Args":["someArg","0"]}' -o orderer.carewallet.com:7050 -C health-channel
+```
+

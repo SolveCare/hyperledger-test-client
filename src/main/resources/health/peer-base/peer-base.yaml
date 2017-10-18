@@ -23,5 +23,5 @@ services:
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/msp/peer/tls/ca.crt
       - CORE_PEER_TLS_ENABLED=${ORG_HYPERLEDGER_FABRIC_SDKTEST_INTEGRATIONTESTS_TLS}
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-#    command: sh -c "peer node start --peer-chaincodedev"
-    command: sh -c "peer node start"
+    command: sh -c "peer node start --peer-chaincodedev=true"
+#    command: sh -c "peer node start"
