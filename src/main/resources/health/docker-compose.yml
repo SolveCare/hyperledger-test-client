@@ -154,7 +154,7 @@ services:
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools
+    image: hyperledger/fabric-tools${IMAGE_TAG_FABRIC}
     tty: true
     environment:
       - GOPATH=/opt/gopath

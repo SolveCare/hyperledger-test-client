@@ -1,7 +1,9 @@
 package care.solve.backend.service;
 
 import care.solve.backend.entity.Doctor;
+import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.entity.ScheduleProtos;
+import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoctorService {
 
+    private DoctorsRepository doctorsRepository;
     private TransactionService transactionService;
     private HFClient client;
     private ChaincodeID chaincodeId;
@@ -24,7 +27,8 @@ public class DoctorService {
     private DoctorTransformer doctorTransformer;
 
     @Autowired
-    public DoctorService(TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorTransformer doctorTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorTransformer doctorTransformer) {
+        this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.client = client;
         this.chaincodeId = chaincodeId;
@@ -47,6 +51,8 @@ public class DoctorService {
     }
 
     public Doctor get(String doctorId) throws InvalidProtocolBufferException {
+        DoctorPrivate doctorPrivate = doctorsRepository.getOne(doctorId);
+        System.out.println(doctorPrivate.toString());
         ByteString protoDoctorByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,

@@ -1,11 +1,16 @@
 version: '3'
 services:
-  hyperledger-client:
-    image: "hyperledger-test-client"
+  mypostgres:
+    image: "postgres"
     ports:
-      - "8080:8080"
+     - "5432:5432"
+    volumes:
+     - pgdata:/var/lib/postgresql/db
+    environment:
+     - POSTGRES_PASSWORD=123456
+     - POSTGRES_USER=postgres
+     - POSTGRES_DB=postgres
 
-networks:
-  default:
-    external:
-      name: health_default
+volumes:
+    pgdata:
+      driver: local

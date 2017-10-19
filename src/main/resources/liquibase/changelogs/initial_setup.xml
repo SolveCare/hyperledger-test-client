@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet author="tbelonosov" id="create-clinic-schema">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="clinic" tableName="patients"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="postgresql"
+                 encoding="utf8"
+                 path="../sql/create-clinic-schema.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="tbelonosov" id="create-doctors">
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists schemaName="clinic" tableName="doctors"/>
+        </not>
+    </preConditions>
+    <sqlFile dbms="postgresql"
+             encoding="utf8"
+             path="../sql/doctors-create.sql"
+             relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="tbelonosov" id="create-patients">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="clinic" tableName="patients"/>
+            </not>
+        </preConditions>
+        <sqlFile dbms="postgresql"
+                 encoding="utf8"
+                 path="../sql/patients-create.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="tbelonosov" id="populate-doctors">
+        <sqlFile dbms="postgresql"
+                 encoding="utf8"
+                 path="../sql/populate-doctors.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="tbelonosov" id="populate-patients">
+        <sqlFile dbms="postgresql"
+                 encoding="utf8"
+                 path="../sql/populate-patients.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
