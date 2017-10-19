@@ -3,8 +3,6 @@ package main
 import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/golang/protobuf/proto"
-	"log"
-	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
 type ScheduleService struct {
@@ -21,44 +19,31 @@ func (s *ScheduleService) New(scheduler *SchedulerImpl, doctorService *DoctorSer
 	return s
 }
 
-func (s *ScheduleService) getDoctorsSchedule(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	doctorId := args[0]
+func (s *ScheduleService) getDoctorsSchedule(stub shim.ChaincodeStubInterface, doctorId string) (*Schedule, error) {
 
-	_, err := s.doctorService.getDoctor(stub, doctorId)
+	_, err := s.doctorService.getDoctorById(stub, doctorId)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
 	schedule, err := s.scheduler.Get(stub, doctorId)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
-	scheduleBytes, err := proto.Marshal(schedule)
-	if err != nil {
-		log.Fatalln("Failed to encode schedule:", err)
-		return shim.Error(err.Error())
-	}
-
-	return shim.Success(scheduleBytes)
+	return schedule, err
 }
 
-func (s *ScheduleService) registerToDoctor(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	scheduleRequestByteString := args[0];
+func (s *ScheduleService) createScheduleRecord(stub shim.ChaincodeStubInterface, scheduleRequest ScheduleRequest) (*ScheduleRecord, error) {
 
-	logger.Infof("> scheduleRequestByteString: %v \n", scheduleRequestByteString)
-
-	scheduleRequest := ScheduleRequest{}
-	proto.UnmarshalText(scheduleRequestByteString, &scheduleRequest)
-
-	_, err := s.doctorService.getDoctor(stub, scheduleRequest.DoctorId)
+	_, err := s.doctorService.getDoctorById(stub, scheduleRequest.DoctorId)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
-	_, err = s.patientService.getPatient(stub, scheduleRequest.PatientId)
+	_, err = s.patientService.getPatientById(stub, scheduleRequest.PatientId)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
 	scheduleRecordKey := "scheduleRecord:" + scheduleRequest.DoctorId
@@ -69,10 +54,22 @@ func (s *ScheduleService) registerToDoctor(stub shim.ChaincodeStubInterface, arg
 		scheduleRequest.Slot,
 	}
 
-	s.scheduler.Apply(stub, scheduleRequest.DoctorId, scheduleRecord)
+	err = s.scheduler.Apply(stub, scheduleRequest.DoctorId, scheduleRecord)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
-	return shim.Success(nil)
+	return &scheduleRecord, nil
+}
+
+func (s *ScheduleService) decodeProtoByteString(scheduleRequestByteString string) (*ScheduleRequest, error) {
+	var err error
+
+	scheduleRequest := ScheduleRequest{}
+	err = proto.UnmarshalText(scheduleRequestByteString, &scheduleRequest)
+	if err != nil {
+		logger.Errorf("Error while unmarshalling ScheduleRequest: %v", err.Error())
+	}
+
+	return &scheduleRequest, err
 }

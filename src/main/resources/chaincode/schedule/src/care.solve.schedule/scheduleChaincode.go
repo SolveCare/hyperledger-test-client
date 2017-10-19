@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"crypto/x509"
 	"encoding/pem"
-	"log"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/golang/protobuf/proto"
@@ -45,63 +44,85 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 	logger.Infof("=====================================================")
 	logger.Infof("Invoking function %v with args %v", function, args)
 
-	getSigner(stub)
+	printSigner(stub)
 
 	if function == "createPatient" {
-		return s.patientService.createPatient(stub, args)
+		encodedPatientByteString := args[0]
+		patient, err := s.patientService.decodeProtoByteString(encodedPatientByteString)
+		if err != nil {
+			//return shim.Error(err.Error()) //todo: investigate 'proto: bad wiretype for field main.Patient.UserId: got wiretype 1, want 2'
+		}
+		savedPatient, err := s.patientService.savePatient(stub, *patient)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		return s.getResponseWithProto(savedPatient)
 	}
 
 	if function == "createDoctor" {
-		return s.doctorService.createDoctor(stub, args)
+		encodedDoctorByteString := args[0]
+		doctor, err := s.doctorService.decodeProtoByteString(encodedDoctorByteString)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		savedDoctor, err := s.doctorService.saveDoctor(stub, *doctor)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		return s.getResponseWithProto(savedDoctor)
 	}
 
 	if function == "getDoctor" {
 		doctorId := args[0]
-		doctor, err := s.doctorService.getDoctor(stub, doctorId)
+		doctor, err := s.doctorService.getDoctorById(stub, doctorId)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-
-		doctorBytes, err := proto.Marshal(doctor)
-		if err != nil {
-			log.Fatalln("Failed to encode doctor:", err)
-			return shim.Error(err.Error())
-		}
-
-		return shim.Success(doctorBytes)
+		return s.getResponseWithProto(doctor)
 	}
 
 	if function == "getPatient" {
 		patientId := args[0]
-		patient, err := s.patientService.getPatient(stub, patientId)
+		patient, err := s.patientService.getPatientById(stub, patientId)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-
-		patientBytes, err := proto.Marshal(patient)
-		if err != nil {
-			log.Fatalln("Failed to encode patient:", err)
-			return shim.Error(err.Error())
-		}
-
-		return shim.Success(patientBytes)
+		return s.getResponseWithProto(patient)
 	}
 
 	if function == "getDoctorsSchedule" {
-		return s.scheduleService.getDoctorsSchedule(stub, args)
+		doctorId := args[0]
+		schedule, err := s.scheduleService.getDoctorsSchedule(stub, doctorId)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		return s.getResponseWithProto(schedule)
 	}
 
 	if function == "registerToDoctor" {
-		logger.Infof("scheduleService = %v", s.scheduleService)
-		return s.scheduleService.registerToDoctor(stub, args)
+		scheduleRequestByteString := args[0];
+		scheduleRequest, err := s.scheduleService.decodeProtoByteString(scheduleRequestByteString)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		scheduleRecord, err := s.scheduleService.createScheduleRecord(stub, *scheduleRequest)
+		return s.getResponseWithProto(scheduleRecord)
 	}
 
 	return shim.Error(fmt.Sprintf("Unknown function '%v'", function))
 }
 
+func (s *ScheduleChaincode) getResponseWithProto(message proto.Message) pb.Response {
+	doctorBytes, err := proto.Marshal(message)
+	if err != nil {
+		logger.Errorf("Failed to marshall message: '%v'. Error: %v", message, err)
+		return shim.Error(err.Error())
+	}
 
+	return shim.Success(doctorBytes)
+}
 
-func getSigner(stub shim.ChaincodeStubInterface) {
+func printSigner(stub shim.ChaincodeStubInterface) {
 	logger.Infof("*********************************")
 	creator,err := stub.GetCreator()
 	if err != nil {
