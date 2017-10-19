@@ -2,38 +2,27 @@ package main
 
 import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
-	"fmt"
 	"github.com/golang/protobuf/proto"
-	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
 type PatientService struct {
 
 }
 
-func (s *PatientService) createPatient(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (s *PatientService) decodeProtoByteString(encodedPatientByteString string) (*Patient, error) {
 	var err error
-
-	encodedPatientByteString := args[0]
 
 	patient := Patient{}
 	err = proto.Unmarshal([]byte(encodedPatientByteString), &patient)
 	if err != nil {
 		logger.Errorf("Error while unmarshalling Patient: %v", err.Error())
-		//return shim.Error(err.Error())
 	}
 
-	err = s.savePatient(stub, patient)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	return shim.Success(nil)
-
+	return &patient, err
 }
 
-func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient Patient) error {
-	fmt.Printf("> Saving patient %v \n", patient)
+func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient Patient) (*Patient, error) {
+	logger.Infof("Saving patient %v", patient)
 
 	jsonUser, err := proto.Marshal(&patient)
 
@@ -41,21 +30,23 @@ func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient P
 
 	err = stub.PutState(patientKey, jsonUser)
 	if err != nil {
-		return err
+		logger.Errorf("Error while saving patient '%v'. Error: %v", patient, err)
+		return nil, err
 	}
 
-	return nil
+	return &patient, nil
 }
 
-func (t *PatientService) getPatient(stub shim.ChaincodeStubInterface, patientId string) (*Patient, error) {
+func (t *PatientService) getPatientById(stub shim.ChaincodeStubInterface, patientId string) (*Patient, error) {
 
 	patientKey := "patient:" + patientId
 	patientBytes, err := stub.GetState(patientKey)
 	if err != nil {
+		logger.Errorf("Error while getting patient with key '%v'. Error: %v", patientKey, err)
 		return nil, err
 	}
 
-	fmt.Printf("Getting patient %v \n", string(patientBytes))
+	logger.Infof("Getting patient %v \n", string(patientBytes))
 
 	var patient Patient
 	proto.Unmarshal(patientBytes, &patient)
