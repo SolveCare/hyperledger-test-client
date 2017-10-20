@@ -3,11 +3,10 @@ package care.solve.backend.transformer;
 import care.solve.backend.entity.Schedule;
 import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.entity.ScheduleRecord;
-import care.solve.backend.entity.Slot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,35 +21,31 @@ public class ScheduleTransformer implements ProtoTransformer<Schedule, ScheduleP
 
     @Override
     public ScheduleProtos.Schedule transformToProto(Schedule obj) {
-        Map<String, ScheduleRecord> scheduleRecords = obj.getRecords();
+        List<ScheduleRecord> scheduleRecords = obj.getRecords();
 
-        Map<String, ScheduleProtos.ScheduleRecord> protoScheduleRecordMap = scheduleRecords.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> scheduleRecordTransformer.transformToProto(e.getValue())
-                ));
+        List<ScheduleProtos.ScheduleRecord> protoScheduleRecordList = scheduleRecords.stream()
+                .map(scheduleRecordTransformer::transformToProto)
+                .collect(Collectors.toList());
 
         return ScheduleProtos.Schedule.newBuilder()
                 .setDoctorId(obj.getDoctorId())
                 .setScheduleId(obj.getScheduleId())
-                .putAllRecords(protoScheduleRecordMap)
+                .addAllRecords(protoScheduleRecordList)
                 .build();
     }
 
     @Override
     public Schedule transformFromProto(ScheduleProtos.Schedule proto) {
-        Map<String, ScheduleProtos.ScheduleRecord> protoScheduleRecords = proto.getRecordsMap();
+        List<ScheduleProtos.ScheduleRecord> protoScheduleRecords = proto.getRecordsList();
 
-        Map<String, ScheduleRecord> scheduleRecordMap = protoScheduleRecords.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> scheduleRecordTransformer.transformFromProto(e.getValue())
-                ));
+        List<ScheduleRecord> scheduleRecordList = protoScheduleRecords.stream()
+                .map(scheduleRecordTransformer::transformFromProto)
+                .collect(Collectors.toList());
 
         return Schedule.builder()
                 .doctorId(proto.getDoctorId())
                 .scheduleId(proto.getScheduleId())
-                .records(scheduleRecordMap)
+                .records(scheduleRecordList)
                 .build();
     }
 }

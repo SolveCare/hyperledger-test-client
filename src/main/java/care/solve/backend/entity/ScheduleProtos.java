@@ -2083,6 +2083,760 @@ public final class ScheduleProtos {
 
   }
 
+  public interface DoctorCollectionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:main.DoctorCollection)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> 
+        getDoctorsList();
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index);
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    int getDoctorsCount();
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+        getDoctorsOrBuilderList();
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code main.DoctorCollection}
+   */
+  public  static final class DoctorCollection extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:main.DoctorCollection)
+      DoctorCollectionOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DoctorCollection.newBuilder() to construct.
+    private DoctorCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DoctorCollection() {
+      doctors_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DoctorCollection(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Doctor>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              doctors_.add(
+                  input.readMessage(care.solve.backend.entity.ScheduleProtos.Doctor.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          doctors_ = java.util.Collections.unmodifiableList(doctors_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorCollection_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorCollection_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              care.solve.backend.entity.ScheduleProtos.DoctorCollection.class, care.solve.backend.entity.ScheduleProtos.DoctorCollection.Builder.class);
+    }
+
+    public static final int DOCTORS_FIELD_NUMBER = 1;
+    private java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> doctors_;
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> getDoctorsList() {
+      return doctors_;
+    }
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+        getDoctorsOrBuilderList() {
+      return doctors_;
+    }
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    public int getDoctorsCount() {
+      return doctors_.size();
+    }
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index) {
+      return doctors_.get(index);
+    }
+    /**
+     * <code>repeated .main.Doctor doctors = 1;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+        int index) {
+      return doctors_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < doctors_.size(); i++) {
+        output.writeMessage(1, doctors_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < doctors_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, doctors_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.DoctorCollection)) {
+        return super.equals(obj);
+      }
+      care.solve.backend.entity.ScheduleProtos.DoctorCollection other = (care.solve.backend.entity.ScheduleProtos.DoctorCollection) obj;
+
+      boolean result = true;
+      result = result && getDoctorsList()
+          .equals(other.getDoctorsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDoctorsCount() > 0) {
+        hash = (37 * hash) + DOCTORS_FIELD_NUMBER;
+        hash = (53 * hash) + getDoctorsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.DoctorCollection prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code main.DoctorCollection}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:main.DoctorCollection)
+        care.solve.backend.entity.ScheduleProtos.DoctorCollectionOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorCollection_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorCollection_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                care.solve.backend.entity.ScheduleProtos.DoctorCollection.class, care.solve.backend.entity.ScheduleProtos.DoctorCollection.Builder.class);
+      }
+
+      // Construct using care.solve.backend.entity.ScheduleProtos.DoctorCollection.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDoctorsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (doctorsBuilder_ == null) {
+          doctors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          doctorsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorCollection_descriptor;
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorCollection getDefaultInstanceForType() {
+        return care.solve.backend.entity.ScheduleProtos.DoctorCollection.getDefaultInstance();
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorCollection build() {
+        care.solve.backend.entity.ScheduleProtos.DoctorCollection result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorCollection buildPartial() {
+        care.solve.backend.entity.ScheduleProtos.DoctorCollection result = new care.solve.backend.entity.ScheduleProtos.DoctorCollection(this);
+        int from_bitField0_ = bitField0_;
+        if (doctorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            doctors_ = java.util.Collections.unmodifiableList(doctors_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.doctors_ = doctors_;
+        } else {
+          result.doctors_ = doctorsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof care.solve.backend.entity.ScheduleProtos.DoctorCollection) {
+          return mergeFrom((care.solve.backend.entity.ScheduleProtos.DoctorCollection)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.DoctorCollection other) {
+        if (other == care.solve.backend.entity.ScheduleProtos.DoctorCollection.getDefaultInstance()) return this;
+        if (doctorsBuilder_ == null) {
+          if (!other.doctors_.isEmpty()) {
+            if (doctors_.isEmpty()) {
+              doctors_ = other.doctors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDoctorsIsMutable();
+              doctors_.addAll(other.doctors_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.doctors_.isEmpty()) {
+            if (doctorsBuilder_.isEmpty()) {
+              doctorsBuilder_.dispose();
+              doctorsBuilder_ = null;
+              doctors_ = other.doctors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              doctorsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDoctorsFieldBuilder() : null;
+            } else {
+              doctorsBuilder_.addAllMessages(other.doctors_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        care.solve.backend.entity.ScheduleProtos.DoctorCollection parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (care.solve.backend.entity.ScheduleProtos.DoctorCollection) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> doctors_ =
+        java.util.Collections.emptyList();
+      private void ensureDoctorsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Doctor>(doctors_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> doctorsBuilder_;
+
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> getDoctorsList() {
+        if (doctorsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(doctors_);
+        } else {
+          return doctorsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public int getDoctorsCount() {
+        if (doctorsBuilder_ == null) {
+          return doctors_.size();
+        } else {
+          return doctorsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index) {
+        if (doctorsBuilder_ == null) {
+          return doctors_.get(index);
+        } else {
+          return doctorsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder setDoctors(
+          int index, care.solve.backend.entity.ScheduleProtos.Doctor value) {
+        if (doctorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDoctorsIsMutable();
+          doctors_.set(index, value);
+          onChanged();
+        } else {
+          doctorsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder setDoctors(
+          int index, care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+        if (doctorsBuilder_ == null) {
+          ensureDoctorsIsMutable();
+          doctors_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          doctorsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder addDoctors(care.solve.backend.entity.ScheduleProtos.Doctor value) {
+        if (doctorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDoctorsIsMutable();
+          doctors_.add(value);
+          onChanged();
+        } else {
+          doctorsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder addDoctors(
+          int index, care.solve.backend.entity.ScheduleProtos.Doctor value) {
+        if (doctorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDoctorsIsMutable();
+          doctors_.add(index, value);
+          onChanged();
+        } else {
+          doctorsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder addDoctors(
+          care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+        if (doctorsBuilder_ == null) {
+          ensureDoctorsIsMutable();
+          doctors_.add(builderForValue.build());
+          onChanged();
+        } else {
+          doctorsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder addDoctors(
+          int index, care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+        if (doctorsBuilder_ == null) {
+          ensureDoctorsIsMutable();
+          doctors_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          doctorsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder addAllDoctors(
+          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.Doctor> values) {
+        if (doctorsBuilder_ == null) {
+          ensureDoctorsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, doctors_);
+          onChanged();
+        } else {
+          doctorsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder clearDoctors() {
+        if (doctorsBuilder_ == null) {
+          doctors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          doctorsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public Builder removeDoctors(int index) {
+        if (doctorsBuilder_ == null) {
+          ensureDoctorsIsMutable();
+          doctors_.remove(index);
+          onChanged();
+        } else {
+          doctorsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder getDoctorsBuilder(
+          int index) {
+        return getDoctorsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+          int index) {
+        if (doctorsBuilder_ == null) {
+          return doctors_.get(index);  } else {
+          return doctorsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+           getDoctorsOrBuilderList() {
+        if (doctorsBuilder_ != null) {
+          return doctorsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(doctors_);
+        }
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder addDoctorsBuilder() {
+        return getDoctorsFieldBuilder().addBuilder(
+            care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder addDoctorsBuilder(
+          int index) {
+        return getDoctorsFieldBuilder().addBuilder(
+            index, care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .main.Doctor doctors = 1;</code>
+       */
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor.Builder> 
+           getDoctorsBuilderList() {
+        return getDoctorsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+          getDoctorsFieldBuilder() {
+        if (doctorsBuilder_ == null) {
+          doctorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder>(
+                  doctors_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          doctors_ = null;
+        }
+        return doctorsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:main.DoctorCollection)
+    }
+
+    // @@protoc_insertion_point(class_scope:main.DoctorCollection)
+    private static final care.solve.backend.entity.ScheduleProtos.DoctorCollection DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.DoctorCollection();
+    }
+
+    public static care.solve.backend.entity.ScheduleProtos.DoctorCollection getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DoctorCollection>
+        PARSER = new com.google.protobuf.AbstractParser<DoctorCollection>() {
+      public DoctorCollection parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new DoctorCollection(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DoctorCollection> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DoctorCollection> getParserForType() {
+      return PARSER;
+    }
+
+    public care.solve.backend.entity.ScheduleProtos.DoctorCollection getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ScheduleOrBuilder extends
       // @@protoc_insertion_point(interface_extends:main.Schedule)
       com.google.protobuf.MessageOrBuilder {
@@ -2108,38 +2862,28 @@ public final class ScheduleProtos {
         getDoctorIdBytes();
 
     /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     */
+    java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> 
+        getRecordsList();
+    /**
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index);
+    /**
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
      */
     int getRecordsCount();
     /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
      */
-    boolean containsRecords(
-        java.lang.String key);
+    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
+        getRecordsOrBuilderList();
     /**
-     * Use {@link #getRecordsMap()} instead.
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
      */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-    getRecords();
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-    java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-    getRecordsMap();
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-
-    care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrDefault(
-        java.lang.String key,
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecord defaultValue);
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-
-    care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrThrow(
-        java.lang.String key);
+    care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code main.Schedule}
@@ -2156,6 +2900,7 @@ public final class ScheduleProtos {
     private Schedule() {
       scheduleId_ = "";
       doctorId_ = "";
+      records_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -2200,15 +2945,11 @@ public final class ScheduleProtos {
             }
             case 26: {
               if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                records_ = com.google.protobuf.MapField.newMapField(
-                    RecordsDefaultEntryHolder.defaultEntry);
+                records_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.ScheduleRecord>();
                 mutable_bitField0_ |= 0x00000004;
               }
-              com.google.protobuf.MapEntry<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-              records__ = input.readMessage(
-                  RecordsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              records_.getMutableMap().put(
-                  records__.getKey(), records__.getValue());
+              records_.add(
+                  input.readMessage(care.solve.backend.entity.ScheduleProtos.ScheduleRecord.parser(), extensionRegistry));
               break;
             }
           }
@@ -2219,6 +2960,9 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          records_ = java.util.Collections.unmodifiableList(records_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -2228,17 +2972,6 @@ public final class ScheduleProtos {
       return care.solve.backend.entity.ScheduleProtos.internal_static_main_Schedule_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 3:
-          return internalGetRecords();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return care.solve.backend.entity.ScheduleProtos.internal_static_main_Schedule_fieldAccessorTable
@@ -2316,79 +3049,38 @@ public final class ScheduleProtos {
     }
 
     public static final int RECORDS_FIELD_NUMBER = 3;
-    private static final class RecordsDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>newDefaultInstance(
-                  care.solve.backend.entity.ScheduleProtos.internal_static_main_Schedule_RecordsEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "",
-                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
-                  care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance());
-    }
-    private com.google.protobuf.MapField<
-        java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_;
-    private com.google.protobuf.MapField<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-    internalGetRecords() {
-      if (records_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            RecordsDefaultEntryHolder.defaultEntry);
-      }
+    private java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_;
+    /**
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     */
+    public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsList() {
       return records_;
     }
-
+    /**
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     */
+    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
+        getRecordsOrBuilderList() {
+      return records_;
+    }
+    /**
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     */
     public int getRecordsCount() {
-      return internalGetRecords().getMap().size();
+      return records_.size();
     }
     /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
      */
-
-    public boolean containsRecords(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      return internalGetRecords().getMap().containsKey(key);
+    public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index) {
+      return records_.get(index);
     }
     /**
-     * Use {@link #getRecordsMap()} instead.
+     * <code>repeated .main.ScheduleRecord Records = 3;</code>
      */
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecords() {
-      return getRecordsMap();
-    }
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-
-    public java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsMap() {
-      return internalGetRecords().getMap();
-    }
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrDefault(
-        java.lang.String key,
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecord defaultValue) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> map =
-          internalGetRecords().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
-    }
-    /**
-     * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-     */
-
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrThrow(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> map =
-          internalGetRecords().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
+    public care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+        int index) {
+      return records_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2409,12 +3101,9 @@ public final class ScheduleProtos {
       if (!getDoctorIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, doctorId_);
       }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeStringMapTo(
-          output,
-          internalGetRecords(),
-          RecordsDefaultEntryHolder.defaultEntry,
-          3);
+      for (int i = 0; i < records_.size(); i++) {
+        output.writeMessage(3, records_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2429,15 +3118,9 @@ public final class ScheduleProtos {
       if (!getDoctorIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, doctorId_);
       }
-      for (java.util.Map.Entry<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> entry
-           : internalGetRecords().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-        records__ = RecordsDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
+      for (int i = 0; i < records_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, records__);
+          .computeMessageSize(3, records_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2459,8 +3142,8 @@ public final class ScheduleProtos {
           .equals(other.getScheduleId());
       result = result && getDoctorId()
           .equals(other.getDoctorId());
-      result = result && internalGetRecords().equals(
-          other.internalGetRecords());
+      result = result && getRecordsList()
+          .equals(other.getRecordsList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -2476,9 +3159,9 @@ public final class ScheduleProtos {
       hash = (53 * hash) + getScheduleId().hashCode();
       hash = (37 * hash) + DOCTORID_FIELD_NUMBER;
       hash = (53 * hash) + getDoctorId().hashCode();
-      if (!internalGetRecords().getMap().isEmpty()) {
+      if (getRecordsCount() > 0) {
         hash = (37 * hash) + RECORDS_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetRecords().hashCode();
+        hash = (53 * hash) + getRecordsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2585,28 +3268,6 @@ public final class ScheduleProtos {
         return care.solve.backend.entity.ScheduleProtos.internal_static_main_Schedule_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetRecords();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetMutableRecords();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return care.solve.backend.entity.ScheduleProtos.internal_static_main_Schedule_fieldAccessorTable
@@ -2627,6 +3288,7 @@ public final class ScheduleProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getRecordsFieldBuilder();
         }
       }
       public Builder clear() {
@@ -2635,7 +3297,12 @@ public final class ScheduleProtos {
 
         doctorId_ = "";
 
-        internalGetMutableRecords().clear();
+        if (recordsBuilder_ == null) {
+          records_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          recordsBuilder_.clear();
+        }
         return this;
       }
 
@@ -2662,8 +3329,15 @@ public final class ScheduleProtos {
         int to_bitField0_ = 0;
         result.scheduleId_ = scheduleId_;
         result.doctorId_ = doctorId_;
-        result.records_ = internalGetRecords();
-        result.records_.makeImmutable();
+        if (recordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            records_ = java.util.Collections.unmodifiableList(records_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.records_ = records_;
+        } else {
+          result.records_ = recordsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2714,8 +3388,32 @@ public final class ScheduleProtos {
           doctorId_ = other.doctorId_;
           onChanged();
         }
-        internalGetMutableRecords().mergeFrom(
-            other.internalGetRecords());
+        if (recordsBuilder_ == null) {
+          if (!other.records_.isEmpty()) {
+            if (records_.isEmpty()) {
+              records_ = other.records_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureRecordsIsMutable();
+              records_.addAll(other.records_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.records_.isEmpty()) {
+            if (recordsBuilder_.isEmpty()) {
+              recordsBuilder_.dispose();
+              recordsBuilder_ = null;
+              records_ = other.records_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              recordsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRecordsFieldBuilder() : null;
+            } else {
+              recordsBuilder_.addAllMessages(other.records_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2882,127 +3580,244 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private com.google.protobuf.MapField<
-          java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_;
-      private com.google.protobuf.MapField<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-      internalGetRecords() {
-        if (records_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              RecordsDefaultEntryHolder.defaultEntry);
-        }
-        return records_;
-      }
-      private com.google.protobuf.MapField<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-      internalGetMutableRecords() {
-        onChanged();;
-        if (records_ == null) {
-          records_ = com.google.protobuf.MapField.newMapField(
-              RecordsDefaultEntryHolder.defaultEntry);
-        }
-        if (!records_.isMutable()) {
-          records_ = records_.copy();
-        }
-        return records_;
+      private java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_ =
+        java.util.Collections.emptyList();
+      private void ensureRecordsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          records_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.ScheduleRecord>(records_);
+          bitField0_ |= 0x00000004;
+         }
       }
 
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> recordsBuilder_;
+
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsList() {
+        if (recordsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(records_);
+        } else {
+          return recordsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
       public int getRecordsCount() {
-        return internalGetRecords().getMap().size();
-      }
-      /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-       */
-
-      public boolean containsRecords(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        return internalGetRecords().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getRecordsMap()} instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecords() {
-        return getRecordsMap();
-      }
-      /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-       */
-
-      public java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsMap() {
-        return internalGetRecords().getMap();
-      }
-      /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-       */
-
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrDefault(
-          java.lang.String key,
-          care.solve.backend.entity.ScheduleProtos.ScheduleRecord defaultValue) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> map =
-            internalGetRecords().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
-       */
-
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecordsOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> map =
-            internalGetRecords().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
+        if (recordsBuilder_ == null) {
+          return records_.size();
+        } else {
+          return recordsBuilder_.getCount();
         }
-        return map.get(key);
       }
-
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index) {
+        if (recordsBuilder_ == null) {
+          return records_.get(index);
+        } else {
+          return recordsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder setRecords(
+          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
+        if (recordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecordsIsMutable();
+          records_.set(index, value);
+          onChanged();
+        } else {
+          recordsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder setRecords(
+          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
+        if (recordsBuilder_ == null) {
+          ensureRecordsIsMutable();
+          records_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          recordsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder addRecords(care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
+        if (recordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecordsIsMutable();
+          records_.add(value);
+          onChanged();
+        } else {
+          recordsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder addRecords(
+          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
+        if (recordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRecordsIsMutable();
+          records_.add(index, value);
+          onChanged();
+        } else {
+          recordsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder addRecords(
+          care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
+        if (recordsBuilder_ == null) {
+          ensureRecordsIsMutable();
+          records_.add(builderForValue.build());
+          onChanged();
+        } else {
+          recordsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder addRecords(
+          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
+        if (recordsBuilder_ == null) {
+          ensureRecordsIsMutable();
+          records_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          recordsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public Builder addAllRecords(
+          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecord> values) {
+        if (recordsBuilder_ == null) {
+          ensureRecordsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, records_);
+          onChanged();
+        } else {
+          recordsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
       public Builder clearRecords() {
-        internalGetMutableRecords().getMutableMap()
-            .clear();
+        if (recordsBuilder_ == null) {
+          records_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          recordsBuilder_.clear();
+        }
         return this;
       }
       /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
        */
-
-      public Builder removeRecords(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableRecords().getMutableMap()
-            .remove(key);
+      public Builder removeRecords(int index) {
+        if (recordsBuilder_ == null) {
+          ensureRecordsIsMutable();
+          records_.remove(index);
+          onChanged();
+        } else {
+          recordsBuilder_.remove(index);
+        }
         return this;
       }
       /**
-       * Use alternate mutation accessors instead.
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
        */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord>
-      getMutableRecords() {
-        return internalGetMutableRecords().getMutableMap();
+      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder getRecordsBuilder(
+          int index) {
+        return getRecordsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
        */
-      public Builder putRecords(
-          java.lang.String key,
-          care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        if (value == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableRecords().getMutableMap()
-            .put(key, value);
-        return this;
+      public care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+          int index) {
+        if (recordsBuilder_ == null) {
+          return records_.get(index);  } else {
+          return recordsBuilder_.getMessageOrBuilder(index);
+        }
       }
       /**
-       * <code>map&lt;string, .main.ScheduleRecord&gt; Records = 3;</code>
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
        */
-
-      public Builder putAllRecords(
-          java.util.Map<java.lang.String, care.solve.backend.entity.ScheduleProtos.ScheduleRecord> values) {
-        internalGetMutableRecords().getMutableMap()
-            .putAll(values);
-        return this;
+      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
+           getRecordsOrBuilderList() {
+        if (recordsBuilder_ != null) {
+          return recordsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(records_);
+        }
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder addRecordsBuilder() {
+        return getRecordsFieldBuilder().addBuilder(
+            care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder addRecordsBuilder(
+          int index) {
+        return getRecordsFieldBuilder().addBuilder(
+            index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       */
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder> 
+           getRecordsBuilderList() {
+        return getRecordsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
+          getRecordsFieldBuilder() {
+        if (recordsBuilder_ == null) {
+          recordsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder>(
+                  records_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          records_ = null;
+        }
+        return recordsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5557,15 +6372,15 @@ public final class ScheduleProtos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_main_Doctor_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_main_DoctorCollection_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_main_DoctorCollection_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_main_Schedule_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_main_Schedule_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_Schedule_RecordsEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_Schedule_RecordsEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_main_Slot_descriptor;
   private static final 
@@ -5595,19 +6410,18 @@ public final class ScheduleProtos {
       "ame\030\003 \001(\t\022\020\n\010LastName\030\004 \001(\t\022\017\n\007Balance\030\005" +
       " \001(\002\"[\n\006Doctor\022\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030" +
       "\002 \001(\t\022\021\n\tFirstName\030\003 \001(\t\022\020\n\010LastName\030\004 \001" +
-      "(\t\022\r\n\005Level\030\005 \001(\t\"\244\001\n\010Schedule\022\022\n\nSchedu" +
-      "leId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022,\n\007Records\030" +
-      "\003 \003(\0132\033.main.Schedule.RecordsEntry\032D\n\014Re" +
-      "cordsEntry\022\013\n\003key\030\001 \001(\t\022#\n\005value\030\002 \001(\0132\024" +
-      ".main.ScheduleRecord:\0028\001\"-\n\004Slot\022\021\n\tTime",
-      "Start\030\001 \001(\004\022\022\n\nTimeFinish\030\002 \001(\004\"d\n\016Sched" +
-      "uleRecord\022\020\n\010RecordId\030\001 \001(\t\022\023\n\013Descripti" +
-      "on\030\002 \001(\t\022\021\n\tPatientId\030\003 \001(\t\022\030\n\004Slot\030\004 \001(" +
-      "\0132\n.main.Slot\"e\n\017ScheduleRequest\022\021\n\tPati" +
-      "entId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022\023\n\013Descrip" +
-      "tion\030\003 \001(\t\022\030\n\004Slot\030\004 \001(\0132\n.main.SlotB1\n\031" +
-      "care.solve.backend.entityB\016ScheduleProto" +
-      "sZ\004mainb\006proto3"
+      "(\t\022\r\n\005Level\030\005 \001(\t\"1\n\020DoctorCollection\022\035\n" +
+      "\007doctors\030\001 \003(\0132\014.main.Doctor\"W\n\010Schedule" +
+      "\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022%" +
+      "\n\007Records\030\003 \003(\0132\024.main.ScheduleRecord\"-\n" +
+      "\004Slot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFinish\030\002",
+      " \001(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001 \001(\t" +
+      "\022\023\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003 \001(\t" +
+      "\022\030\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017ScheduleRe" +
+      "quest\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
+      "(\t\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(\0132\n." +
+      "main.SlotB1\n\031care.solve.backend.entityB\016" +
+      "ScheduleProtosZ\004mainb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5633,32 +6447,32 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Doctor_descriptor,
         new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Level", });
-    internal_static_main_Schedule_descriptor =
+    internal_static_main_DoctorCollection_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_main_DoctorCollection_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_main_DoctorCollection_descriptor,
+        new java.lang.String[] { "Doctors", });
+    internal_static_main_Schedule_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_main_Schedule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Schedule_descriptor,
         new java.lang.String[] { "ScheduleId", "DoctorId", "Records", });
-    internal_static_main_Schedule_RecordsEntry_descriptor =
-      internal_static_main_Schedule_descriptor.getNestedTypes().get(0);
-    internal_static_main_Schedule_RecordsEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_Schedule_RecordsEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
     internal_static_main_Slot_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_main_Slot_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Slot_descriptor,
         new java.lang.String[] { "TimeStart", "TimeFinish", });
     internal_static_main_ScheduleRecord_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_main_ScheduleRecord_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_ScheduleRecord_descriptor,
         new java.lang.String[] { "RecordId", "Description", "PatientId", "Slot", });
     internal_static_main_ScheduleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_main_ScheduleRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_ScheduleRequest_descriptor,

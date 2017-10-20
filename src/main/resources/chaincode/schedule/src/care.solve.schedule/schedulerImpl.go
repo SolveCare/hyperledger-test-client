@@ -27,7 +27,7 @@ func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, scheduleId string) 
 		return nil, errors.New(fmt.Sprintf("Schedule with id '%v' not found", scheduleId))
 	} else {
 		json.Unmarshal(scheduleBytes, &schedule)
-		fmt.Printf("Retrieve schedule: %v \n", schedule)
+		logger.Infof("Retrieve schedule: %v", schedule)
 	}
 
 	return &schedule, nil
@@ -39,23 +39,14 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string
 
 	var schedule Schedule
 	if scheduleBytes == nil {
-		fmt.Printf("Empty schedule for doctor %v. Creating new... \n", scheduleId)
-		schedule = Schedule{scheduleKey, scheduleId, make(map[string]*ScheduleRecord)}
+		logger.Infof("Empty schedule for doctor %v. Creating new...", scheduleId)
+		schedule = Schedule{scheduleKey, scheduleId, make([]*ScheduleRecord, 0)}
 	} else {
-		fmt.Printf("Found schedule for doctor %v \n", scheduleId)
+		logger.Infof("Found schedule for doctor %v", scheduleId)
 		json.Unmarshal(scheduleBytes, &schedule)
 	}
 
-	slot := scheduleRecord.Slot
-	//fmt.Printf(" > Slot %v \n", *slot)
-
-	slotJson, err := json.Marshal(slot)
-	if err != nil {
-		return err
-	}
-
-	slotString := string(slotJson)
-	schedule.Records[slotString] = &scheduleRecord
+	schedule.Records = append(schedule.Records, &scheduleRecord)
 
 	jsonSchedule, err := json.Marshal(schedule)
 	if err != nil {

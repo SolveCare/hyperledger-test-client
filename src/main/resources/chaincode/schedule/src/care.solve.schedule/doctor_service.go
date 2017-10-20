@@ -5,9 +5,43 @@ import (
 	"errors"
 	"github.com/golang/protobuf/proto"
 	"fmt"
+	"encoding/json"
 )
 
 type DoctorService struct {
+}
+
+func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doctor, error) {
+	query := `{
+		"selector":{
+			"UserId":{"$regex":""}
+		}
+	}
+	`
+
+	resultsIterator, err := stub.GetQueryResult(query)
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	logger.Infof("resultsIterator: %v", resultsIterator)
+
+	doctors := make([]*Doctor, 0)
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		logger.Infof("queryResponse: %v", queryResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		var doctor Doctor
+		json.Unmarshal(queryResponse.Value, &doctor)
+		logger.Infof("doctor: %v", doctor)
+		doctors = append(doctors, &doctor)
+	}
+
+	return doctors, nil
 }
 
 func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId string) (*Doctor, error) {
@@ -25,14 +59,14 @@ func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId
 	logger.Infof("Getting doctor %v", string(doctorBytes))
 
 	var doctor Doctor
-	proto.Unmarshal(doctorBytes, &doctor)
+	json.Unmarshal(doctorBytes, &doctor)
 	return &doctor, nil
 }
 
 func (s *DoctorService) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doctor) (*Doctor, error) {
 	fmt.Printf("Saving doctor %v \n", doctor)
 
-	doctorBytes, err := proto.Marshal(&doctor)
+	doctorBytes, err := json.Marshal(&doctor)
 
 	doctorKey := "doctor:" + doctor.UserId
 	err = stub.PutState(doctorKey, doctorBytes)

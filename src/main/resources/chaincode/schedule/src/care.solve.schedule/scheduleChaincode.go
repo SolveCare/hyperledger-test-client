@@ -32,13 +32,16 @@ func (s *ScheduleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	s.patientService = &PatientService{}
 	logger.Infof("Created PatientService: %v", s.patientService)
 
-	s.scheduleService = new(ScheduleService).New(&s.scheduler, s.doctorService, s.patientService)
-	logger.Infof("Created ScheduleService: %v", s.scheduleService)
+	//s.scheduleService = new(ScheduleService).New(&s.scheduler, s.doctorService, s.patientService)
+	//logger.Infof("Created ScheduleService: %v", s.scheduleService)
 
 	return shim.Success(nil)
 }
 
 func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	s.scheduleService = new(ScheduleService).New(&s.scheduler, s.doctorService, s.patientService)
+	logger.Infof("Created ScheduleService: %v", s.scheduleService)
+
 	function, args := stub.GetFunctionAndParameters()
 
 	logger.Infof("=====================================================")
@@ -79,6 +82,17 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 			return shim.Error(err.Error())
 		}
 		return s.getResponseWithProto(doctor)
+	}
+
+	if function == "getAllDoctors" {
+		doctors, err := s.doctorService.getAllDoctors(stub)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		doctorCollection := DoctorCollection{doctors}
+
+		return s.getResponseWithProto(&doctorCollection)
 	}
 
 	if function == "getPatient" {

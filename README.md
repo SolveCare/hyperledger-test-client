@@ -51,7 +51,7 @@ protoc --proto_path=src/main/resources/protos --java_out=src/main/java src/main/
 ```
 
 ```
-protoc --proto_path=src/main/resources/protos --go_out=src/main/resources/health/gocc/schedule/src/care.solve.schedule src/main/resources/protos/registerDoctor.proto
+protoc --proto_path=src/main/resources/protos --go_out=src/main/resources/chaincode/schedule/src/care.solve.schedule src/main/resources/protos/registerDoctor.proto
 ```
 
 ## Start chaincode in dev mode
