@@ -1,6 +1,6 @@
 package care.solve.backend.controller;
 
-import care.solve.backend.entity.Patient;
+import care.solve.backend.entity.PatientPublic;
 import care.solve.backend.service.PatientService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +21,12 @@ public class PatientController {
     }
 
     @GetMapping("{patientId}")
-    public Patient get(@PathVariable String patientId) throws InvalidProtocolBufferException {
+    public PatientPublic get(@PathVariable String patientId) throws InvalidProtocolBufferException {
         return patientService.get(patientId);
     }
 
     @PostMapping
-    public void create(@RequestBody Patient patient) {
+    public void create(@RequestBody PatientPublic patient) {
         patientService.create(patient);
     }
 

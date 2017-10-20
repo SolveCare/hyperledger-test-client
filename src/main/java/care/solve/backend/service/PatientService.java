@@ -1,11 +1,9 @@
 package care.solve.backend.service;
 
-import care.solve.backend.entity.DoctorPrivate;
-import care.solve.backend.entity.Patient;
-import care.solve.backend.entity.PatientPrivate;
+import care.solve.backend.entity.PatientPublic;
 import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.repository.PatientsRepository;
-import care.solve.backend.transformer.PatientTransformer;
+import care.solve.backend.transformer.PatientToProtoTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.ChaincodeID;
@@ -14,8 +12,6 @@ import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service
 public class PatientService {
@@ -27,21 +23,21 @@ public class PatientService {
     private Channel healthChannel;
     private Peer peer;
 
-    private PatientTransformer patientTransformer;
+    private PatientToProtoTransformer patientToProtoTransformer;
 
     @Autowired
-    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, PatientTransformer patientTransformer) {
+    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, PatientToProtoTransformer patientToProtoTransformer) {
         this.patientsRepository = patientsRepository;
         this.transactionService = transactionService;
         this.client = client;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
         this.peer = peer;
-        this.patientTransformer = patientTransformer;
+        this.patientToProtoTransformer = patientToProtoTransformer;
     }
 
-    public void create(Patient patient) {
-        ScheduleProtos.Patient protoPatient = patientTransformer.transformToProto(patient);
+    public void create(PatientPublic patient) {
+        ScheduleProtos.PatientPublic protoPatient = patientToProtoTransformer.transformToProto(patient);
         String byteString = new String(protoPatient.toByteArray());
         transactionService.sendInvokeTransaction(
                 client,
@@ -52,7 +48,7 @@ public class PatientService {
                 new String[]{byteString});
     }
 
-    public Patient get(String patientId) throws InvalidProtocolBufferException {
+    public PatientPublic get(String patientId) throws InvalidProtocolBufferException {
         ByteString protoPatientByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,
@@ -60,7 +56,7 @@ public class PatientService {
                 "getPatient",
                 new String[]{patientId});
 
-        ScheduleProtos.Patient protoPatient = ScheduleProtos.Patient.parseFrom(protoPatientByteString);
-        return patientTransformer.transformFromProto(protoPatient);
+        ScheduleProtos.PatientPublic protoPatient = ScheduleProtos.PatientPublic.parseFrom(protoPatientByteString);
+        return patientToProtoTransformer.transformFromProto(protoPatient);
     }
 }

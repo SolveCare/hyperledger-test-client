@@ -1,11 +1,10 @@
 package care.solve.backend.service;
 
-import care.solve.backend.entity.Doctor;
-import care.solve.backend.entity.DoctorPrivate;
+import care.solve.backend.entity.DoctorPublic;
 import care.solve.backend.entity.ScheduleProtos;
-import care.solve.backend.transformer.DoctorCollectionTransformer;
+import care.solve.backend.transformer.DoctorToProtoCollectionTransformer;
 import care.solve.backend.repository.DoctorsRepository;
-import care.solve.backend.transformer.DoctorTransformer;
+import care.solve.backend.transformer.DoctorToProtoTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.ChaincodeID;
@@ -27,24 +26,30 @@ public class DoctorService {
     private Channel healthChannel;
     private Peer peer;
 
-    private DoctorTransformer doctorTransformer;
-    private DoctorCollectionTransformer doctorCollectionTransformer;
+    private DoctorToProtoTransformer doctorToProtoTransformer;
+    private DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorTransformer doctorTransformer, DoctorCollectionTransformer doctorCollectionTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.client = client;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
         this.peer = peer;
-        this.doctorTransformer = doctorTransformer;
-        this.doctorCollectionTransformer = doctorCollectionTransformer;
+        this.doctorToProtoTransformer = doctorToProtoTransformer;
+        this.doctorToProtoCollectionTransformer = doctorToProtoCollectionTransformer;
     }
 
+//    @PostConstruct
+//    private void updateLedger() throws InvalidProtocolBufferException {
+//        List<DoctorPrivate> localDoctors = doctorsRepository.findAll();
+//        List<Doctor> ledgerDoctors = getAll();
+//        List<Doctor> difference = CollectionUtils.disjunction(localDoctors, ledgerDoctors);
+//    }
 
-    public void create(Doctor doctor) {
-        ScheduleProtos.Doctor protoDoctor = doctorTransformer.transformToProto(doctor);
+    public void create(DoctorPublic doctor) {
+        ScheduleProtos.DoctorPublic protoDoctor = doctorToProtoTransformer.transformToProto(doctor);
         String byteString = new String(protoDoctor.toByteArray());
         transactionService.sendInvokeTransaction(
                 client,
@@ -55,7 +60,7 @@ public class DoctorService {
                 new String[]{byteString});
     }
 
-    public Doctor get(String doctorId) throws InvalidProtocolBufferException {
+    public DoctorPublic get(String doctorId) throws InvalidProtocolBufferException {
         ByteString protoDoctorByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,
@@ -63,11 +68,11 @@ public class DoctorService {
                 "getDoctor",
                 new String[]{doctorId});
 
-        ScheduleProtos.Doctor protoDoctor = ScheduleProtos.Doctor.parseFrom(protoDoctorByteString);
-        return doctorTransformer.transformFromProto(protoDoctor);
+        ScheduleProtos.DoctorPublic protoDoctor = ScheduleProtos.DoctorPublic.parseFrom(protoDoctorByteString);
+        return doctorToProtoTransformer.transformFromProto(protoDoctor);
     }
 
-    public List<Doctor> getAll() throws InvalidProtocolBufferException {
+    public List<DoctorPublic> getAll() throws InvalidProtocolBufferException {
         ByteString protoDoctorsByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,
@@ -76,6 +81,6 @@ public class DoctorService {
                 new String[]{});
 
         ScheduleProtos.DoctorCollection protoDoctor = ScheduleProtos.DoctorCollection.parseFrom(protoDoctorsByteString);
-        return doctorCollectionTransformer.transformFromProto(protoDoctor);
+        return doctorToProtoCollectionTransformer.transformFromProto(protoDoctor);
     }
 }

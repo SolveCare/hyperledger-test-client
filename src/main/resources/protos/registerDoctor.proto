@@ -7,24 +7,18 @@ option java_outer_classname = "ScheduleProtos";
 
 option go_package = "main";
 
-message Patient {
-    string UserId = 1;
-    string Email = 2;
-    string FirstName = 3;
-    string LastName = 4;
-    float Balance = 5;
+message PatientPublic {
+    string PatientId = 1;
 }
 
-message Doctor {
-    string UserId = 1;
-    string Email = 2;
-    string FirstName = 3;
-    string LastName = 4;
-    string Level = 5;
+message DoctorPublic {
+    string DoctorId = 1;
+    string FirstName = 2;
+    string LastName = 3;
 }
 
 message DoctorCollection {
-    repeated Doctor doctors = 1;
+    repeated DoctorPublic doctors = 1;
 }
 
 message Schedule {

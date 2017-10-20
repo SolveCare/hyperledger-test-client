@@ -11,10 +11,10 @@ import (
 type DoctorService struct {
 }
 
-func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doctor, error) {
+func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*DoctorPublic, error) {
 	query := `{
 		"selector":{
-			"UserId":{"$regex":""}
+			"DoctorId":{"$regex":""}
 		}
 	}
 	`
@@ -27,7 +27,7 @@ func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doct
 
 	logger.Infof("resultsIterator: %v", resultsIterator)
 
-	doctors := make([]*Doctor, 0)
+	doctors := make([]*DoctorPublic, 0)
 	for resultsIterator.HasNext() {
 		queryResponse, err := resultsIterator.Next()
 		logger.Infof("queryResponse: %v", queryResponse)
@@ -35,7 +35,7 @@ func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doct
 			return nil, err
 		}
 
-		var doctor Doctor
+		var doctor DoctorPublic
 		json.Unmarshal(queryResponse.Value, &doctor)
 		logger.Infof("doctor: %v", doctor)
 		doctors = append(doctors, &doctor)
@@ -44,7 +44,7 @@ func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doct
 	return doctors, nil
 }
 
-func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId string) (*Doctor, error) {
+func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId string) (*DoctorPublic, error) {
 	doctorKey := "doctor:" + doctorId
 	doctorBytes, err := stub.GetState(doctorKey)
 	if err != nil {
@@ -58,17 +58,17 @@ func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId
 
 	logger.Infof("Getting doctor %v", string(doctorBytes))
 
-	var doctor Doctor
+	var doctor DoctorPublic
 	json.Unmarshal(doctorBytes, &doctor)
 	return &doctor, nil
 }
 
-func (s *DoctorService) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doctor) (*Doctor, error) {
+func (s *DoctorService) saveDoctor(stub shim.ChaincodeStubInterface, doctor DoctorPublic) (*DoctorPublic, error) {
 	fmt.Printf("Saving doctor %v \n", doctor)
 
 	doctorBytes, err := json.Marshal(&doctor)
 
-	doctorKey := "doctor:" + doctor.UserId
+	doctorKey := "doctor:" + doctor.DoctorId
 	err = stub.PutState(doctorKey, doctorBytes)
 	if err != nil {
 		logger.Errorf("Error while saving doctor '%v'. Error: %v", doctor, err)
@@ -78,10 +78,10 @@ func (s *DoctorService) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doct
 	return &doctor, nil
 }
 
-func (s *DoctorService) decodeProtoByteString(encodedDoctorByteString string) (*Doctor, error) {
+func (s *DoctorService) decodeProtoByteString(encodedDoctorByteString string) (*DoctorPublic, error) {
 	var err error
 
-	doctor := Doctor{}
+	doctor := DoctorPublic{}
 	err = proto.Unmarshal([]byte(encodedDoctorByteString), &doctor)
 	if err != nil {
 		logger.Errorf("Error while unmarshalling Doctor: %v", err.Error())

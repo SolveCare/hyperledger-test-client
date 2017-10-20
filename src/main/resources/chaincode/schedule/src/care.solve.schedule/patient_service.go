@@ -10,10 +10,10 @@ type PatientService struct {
 
 }
 
-func (t *PatientService) decodeProtoByteString(encodedPatientByteString string) (*Patient, error) {
+func (t *PatientService) decodeProtoByteString(encodedPatientByteString string) (*PatientPublic, error) {
 	var err error
 
-	patient := Patient{}
+	patient := PatientPublic{}
 	err = proto.Unmarshal([]byte(encodedPatientByteString), &patient)
 	if err != nil {
 		logger.Errorf("Error while unmarshalling Patient: %v", err.Error())
@@ -22,12 +22,12 @@ func (t *PatientService) decodeProtoByteString(encodedPatientByteString string) 
 	return &patient, err
 }
 
-func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient Patient) (*Patient, error) {
+func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient PatientPublic) (*PatientPublic, error) {
 	logger.Infof("Saving patient %v", patient)
 
 	jsonUser, err := json.Marshal(&patient)
 
-	patientKey := "patient:" + patient.UserId
+	patientKey := "patient:" + patient.PatientId
 
 	err = stub.PutState(patientKey, jsonUser)
 	if err != nil {
@@ -38,7 +38,7 @@ func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient P
 	return &patient, nil
 }
 
-func (t *PatientService) getPatientById(stub shim.ChaincodeStubInterface, patientId string) (*Patient, error) {
+func (t *PatientService) getPatientById(stub shim.ChaincodeStubInterface, patientId string) (*PatientPublic, error) {
 
 	patientKey := "patient:" + patientId
 	patientBytes, err := stub.GetState(patientKey)
@@ -49,7 +49,7 @@ func (t *PatientService) getPatientById(stub shim.ChaincodeStubInterface, patien
 
 	logger.Infof("Getting patient %v \n", string(patientBytes))
 
-	var patient Patient
+	var patient PatientPublic
 	json.Unmarshal(patientBytes, &patient)
 	return &patient, nil
 }

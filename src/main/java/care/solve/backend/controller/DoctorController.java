@@ -1,6 +1,7 @@
 package care.solve.backend.controller;
 
-import care.solve.backend.entity.Doctor;
+import care.solve.backend.entity.DoctorPublic;
+import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.service.DoctorService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,17 @@ public class DoctorController {
     }
 
     @PostMapping
-    public void create(@RequestBody Doctor doctor) {
+    public void create(@RequestBody DoctorPublic doctor) {
         doctorService.create(doctor);
     }
 
     @GetMapping("{doctorId}")
-    public Doctor get(@PathVariable String doctorId) throws InvalidProtocolBufferException {
+    public DoctorPublic get(@PathVariable String doctorId) throws InvalidProtocolBufferException {
         return doctorService.get(doctorId);
     }
 
     @GetMapping
-    public List<Doctor> getAll() throws InvalidProtocolBufferException {
+    public List<DoctorPublic> getAll() throws InvalidProtocolBufferException {
         return doctorService.getAll();
     }
 }

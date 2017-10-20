@@ -14,88 +14,46 @@ public final class ScheduleProtos {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface PatientOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:main.Patient)
+  public interface PatientPublicOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:main.PatientPublic)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string UserId = 1;</code>
+     * <code>string PatientId = 1;</code>
      */
-    java.lang.String getUserId();
+    java.lang.String getPatientId();
     /**
-     * <code>string UserId = 1;</code>
+     * <code>string PatientId = 1;</code>
      */
     com.google.protobuf.ByteString
-        getUserIdBytes();
-
-    /**
-     * <code>string Email = 2;</code>
-     */
-    java.lang.String getEmail();
-    /**
-     * <code>string Email = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getEmailBytes();
-
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    java.lang.String getFirstName();
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getFirstNameBytes();
-
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    java.lang.String getLastName();
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getLastNameBytes();
-
-    /**
-     * <code>float Balance = 5;</code>
-     */
-    float getBalance();
+        getPatientIdBytes();
   }
   /**
-   * Protobuf type {@code main.Patient}
+   * Protobuf type {@code main.PatientPublic}
    */
-  public  static final class Patient extends
+  public  static final class PatientPublic extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:main.Patient)
-      PatientOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Patient.newBuilder() to construct.
-    private Patient(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:main.PatientPublic)
+      PatientPublicOrBuilder {
+    // Use PatientPublic.newBuilder() to construct.
+    private PatientPublic(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Patient() {
-      userId_ = "";
-      email_ = "";
-      firstName_ = "";
-      lastName_ = "";
-      balance_ = 0F;
+    private PatientPublic() {
+      patientId_ = "";
     }
 
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private Patient(
+    private PatientPublic(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -105,8 +63,7 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -114,30 +71,7 @@ public final class ScheduleProtos {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              email_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              firstName_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              lastName_ = s;
-              break;
-            }
-            case 45: {
-
-              balance_ = input.readFloat();
+              patientId_ = s;
               break;
             }
           }
@@ -148,1191 +82,49 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_Patient_descriptor;
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_PatientPublic_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_Patient_fieldAccessorTable
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_PatientPublic_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              care.solve.backend.entity.ScheduleProtos.Patient.class, care.solve.backend.entity.ScheduleProtos.Patient.Builder.class);
+              care.solve.backend.entity.ScheduleProtos.PatientPublic.class, care.solve.backend.entity.ScheduleProtos.PatientPublic.Builder.class);
     }
 
-    public static final int USERID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object userId_;
+    public static final int PATIENTID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object patientId_;
     /**
-     * <code>string UserId = 1;</code>
+     * <code>string PatientId = 1;</code>
      */
-    public java.lang.String getUserId() {
-      java.lang.Object ref = userId_;
+    public java.lang.String getPatientId() {
+      java.lang.Object ref = patientId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userId_ = s;
+        patientId_ = s;
         return s;
       }
     }
     /**
-     * <code>string UserId = 1;</code>
+     * <code>string PatientId = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      java.lang.Object ref = userId_;
+        getPatientIdBytes() {
+      java.lang.Object ref = patientId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EMAIL_FIELD_NUMBER = 2;
-    private volatile java.lang.Object email_;
-    /**
-     * <code>string Email = 2;</code>
-     */
-    public java.lang.String getEmail() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        email_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string Email = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getEmailBytes() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        email_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FIRSTNAME_FIELD_NUMBER = 3;
-    private volatile java.lang.Object firstName_;
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    public java.lang.String getFirstName() {
-      java.lang.Object ref = firstName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        firstName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFirstNameBytes() {
-      java.lang.Object ref = firstName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        firstName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LASTNAME_FIELD_NUMBER = 4;
-    private volatile java.lang.Object lastName_;
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    public java.lang.String getLastName() {
-      java.lang.Object ref = lastName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        lastName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLastNameBytes() {
-      java.lang.Object ref = lastName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        lastName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int BALANCE_FIELD_NUMBER = 5;
-    private float balance_;
-    /**
-     * <code>float Balance = 5;</code>
-     */
-    public float getBalance() {
-      return balance_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getUserIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
-      }
-      if (!getEmailBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, email_);
-      }
-      if (!getFirstNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, firstName_);
-      }
-      if (!getLastNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, lastName_);
-      }
-      if (balance_ != 0F) {
-        output.writeFloat(5, balance_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getUserIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
-      }
-      if (!getEmailBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, email_);
-      }
-      if (!getFirstNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, firstName_);
-      }
-      if (!getLastNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, lastName_);
-      }
-      if (balance_ != 0F) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, balance_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.Patient)) {
-        return super.equals(obj);
-      }
-      care.solve.backend.entity.ScheduleProtos.Patient other = (care.solve.backend.entity.ScheduleProtos.Patient) obj;
-
-      boolean result = true;
-      result = result && getUserId()
-          .equals(other.getUserId());
-      result = result && getEmail()
-          .equals(other.getEmail());
-      result = result && getFirstName()
-          .equals(other.getFirstName());
-      result = result && getLastName()
-          .equals(other.getLastName());
-      result = result && (
-          java.lang.Float.floatToIntBits(getBalance())
-          == java.lang.Float.floatToIntBits(
-              other.getBalance()));
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserId().hashCode();
-      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
-      hash = (53 * hash) + getEmail().hashCode();
-      hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getFirstName().hashCode();
-      hash = (37 * hash) + LASTNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getLastName().hashCode();
-      hash = (37 * hash) + BALANCE_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getBalance());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.Patient parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.Patient prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code main.Patient}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:main.Patient)
-        care.solve.backend.entity.ScheduleProtos.PatientOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Patient_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Patient_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                care.solve.backend.entity.ScheduleProtos.Patient.class, care.solve.backend.entity.ScheduleProtos.Patient.Builder.class);
-      }
-
-      // Construct using care.solve.backend.entity.ScheduleProtos.Patient.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        userId_ = "";
-
-        email_ = "";
-
-        firstName_ = "";
-
-        lastName_ = "";
-
-        balance_ = 0F;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Patient_descriptor;
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.Patient getDefaultInstanceForType() {
-        return care.solve.backend.entity.ScheduleProtos.Patient.getDefaultInstance();
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.Patient build() {
-        care.solve.backend.entity.ScheduleProtos.Patient result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.Patient buildPartial() {
-        care.solve.backend.entity.ScheduleProtos.Patient result = new care.solve.backend.entity.ScheduleProtos.Patient(this);
-        result.userId_ = userId_;
-        result.email_ = email_;
-        result.firstName_ = firstName_;
-        result.lastName_ = lastName_;
-        result.balance_ = balance_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof care.solve.backend.entity.ScheduleProtos.Patient) {
-          return mergeFrom((care.solve.backend.entity.ScheduleProtos.Patient)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.Patient other) {
-        if (other == care.solve.backend.entity.ScheduleProtos.Patient.getDefaultInstance()) return this;
-        if (!other.getUserId().isEmpty()) {
-          userId_ = other.userId_;
-          onChanged();
-        }
-        if (!other.getEmail().isEmpty()) {
-          email_ = other.email_;
-          onChanged();
-        }
-        if (!other.getFirstName().isEmpty()) {
-          firstName_ = other.firstName_;
-          onChanged();
-        }
-        if (!other.getLastName().isEmpty()) {
-          lastName_ = other.lastName_;
-          onChanged();
-        }
-        if (other.getBalance() != 0F) {
-          setBalance(other.getBalance());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        care.solve.backend.entity.ScheduleProtos.Patient parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (care.solve.backend.entity.ScheduleProtos.Patient) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object userId_ = "";
-      /**
-       * <code>string UserId = 1;</code>
-       */
-      public java.lang.String getUserId() {
-        java.lang.Object ref = userId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          userId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string UserId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        java.lang.Object ref = userId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string UserId = 1;</code>
-       */
-      public Builder setUserId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        userId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string UserId = 1;</code>
-       */
-      public Builder clearUserId() {
-        
-        userId_ = getDefaultInstance().getUserId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string UserId = 1;</code>
-       */
-      public Builder setUserIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        userId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object email_ = "";
-      /**
-       * <code>string Email = 2;</code>
-       */
-      public java.lang.String getEmail() {
-        java.lang.Object ref = email_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          email_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string Email = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getEmailBytes() {
-        java.lang.Object ref = email_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          email_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string Email = 2;</code>
-       */
-      public Builder setEmail(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        email_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Email = 2;</code>
-       */
-      public Builder clearEmail() {
-        
-        email_ = getDefaultInstance().getEmail();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Email = 2;</code>
-       */
-      public Builder setEmailBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        email_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object firstName_ = "";
-      /**
-       * <code>string FirstName = 3;</code>
-       */
-      public java.lang.String getFirstName() {
-        java.lang.Object ref = firstName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          firstName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string FirstName = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFirstNameBytes() {
-        java.lang.Object ref = firstName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          firstName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string FirstName = 3;</code>
-       */
-      public Builder setFirstName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        firstName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string FirstName = 3;</code>
-       */
-      public Builder clearFirstName() {
-        
-        firstName_ = getDefaultInstance().getFirstName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string FirstName = 3;</code>
-       */
-      public Builder setFirstNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        firstName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object lastName_ = "";
-      /**
-       * <code>string LastName = 4;</code>
-       */
-      public java.lang.String getLastName() {
-        java.lang.Object ref = lastName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          lastName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string LastName = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLastNameBytes() {
-        java.lang.Object ref = lastName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          lastName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string LastName = 4;</code>
-       */
-      public Builder setLastName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        lastName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string LastName = 4;</code>
-       */
-      public Builder clearLastName() {
-        
-        lastName_ = getDefaultInstance().getLastName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string LastName = 4;</code>
-       */
-      public Builder setLastNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        lastName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private float balance_ ;
-      /**
-       * <code>float Balance = 5;</code>
-       */
-      public float getBalance() {
-        return balance_;
-      }
-      /**
-       * <code>float Balance = 5;</code>
-       */
-      public Builder setBalance(float value) {
-        
-        balance_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>float Balance = 5;</code>
-       */
-      public Builder clearBalance() {
-        
-        balance_ = 0F;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:main.Patient)
-    }
-
-    // @@protoc_insertion_point(class_scope:main.Patient)
-    private static final care.solve.backend.entity.ScheduleProtos.Patient DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.Patient();
-    }
-
-    public static care.solve.backend.entity.ScheduleProtos.Patient getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Patient>
-        PARSER = new com.google.protobuf.AbstractParser<Patient>() {
-      public Patient parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Patient(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Patient> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Patient> getParserForType() {
-      return PARSER;
-    }
-
-    public care.solve.backend.entity.ScheduleProtos.Patient getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DoctorOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:main.Doctor)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string UserId = 1;</code>
-     */
-    java.lang.String getUserId();
-    /**
-     * <code>string UserId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserIdBytes();
-
-    /**
-     * <code>string Email = 2;</code>
-     */
-    java.lang.String getEmail();
-    /**
-     * <code>string Email = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getEmailBytes();
-
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    java.lang.String getFirstName();
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getFirstNameBytes();
-
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    java.lang.String getLastName();
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getLastNameBytes();
-
-    /**
-     * <code>string Level = 5;</code>
-     */
-    java.lang.String getLevel();
-    /**
-     * <code>string Level = 5;</code>
-     */
-    com.google.protobuf.ByteString
-        getLevelBytes();
-  }
-  /**
-   * Protobuf type {@code main.Doctor}
-   */
-  public  static final class Doctor extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:main.Doctor)
-      DoctorOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Doctor.newBuilder() to construct.
-    private Doctor(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Doctor() {
-      userId_ = "";
-      email_ = "";
-      firstName_ = "";
-      lastName_ = "";
-      level_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Doctor(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              userId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              email_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              firstName_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              lastName_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              level_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_Doctor_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_Doctor_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              care.solve.backend.entity.ScheduleProtos.Doctor.class, care.solve.backend.entity.ScheduleProtos.Doctor.Builder.class);
-    }
-
-    public static final int USERID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object userId_;
-    /**
-     * <code>string UserId = 1;</code>
-     */
-    public java.lang.String getUserId() {
-      java.lang.Object ref = userId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        userId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string UserId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      java.lang.Object ref = userId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EMAIL_FIELD_NUMBER = 2;
-    private volatile java.lang.Object email_;
-    /**
-     * <code>string Email = 2;</code>
-     */
-    public java.lang.String getEmail() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        email_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string Email = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getEmailBytes() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        email_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FIRSTNAME_FIELD_NUMBER = 3;
-    private volatile java.lang.Object firstName_;
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    public java.lang.String getFirstName() {
-      java.lang.Object ref = firstName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        firstName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string FirstName = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFirstNameBytes() {
-      java.lang.Object ref = firstName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        firstName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LASTNAME_FIELD_NUMBER = 4;
-    private volatile java.lang.Object lastName_;
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    public java.lang.String getLastName() {
-      java.lang.Object ref = lastName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        lastName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string LastName = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLastNameBytes() {
-      java.lang.Object ref = lastName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        lastName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LEVEL_FIELD_NUMBER = 5;
-    private volatile java.lang.Object level_;
-    /**
-     * <code>string Level = 5;</code>
-     */
-    public java.lang.String getLevel() {
-      java.lang.Object ref = level_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        level_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string Level = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getLevelBytes() {
-      java.lang.Object ref = level_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        level_ = b;
+        patientId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1351,22 +143,9 @@ public final class ScheduleProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUserIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
+      if (!getPatientIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, patientId_);
       }
-      if (!getEmailBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, email_);
-      }
-      if (!getFirstNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, firstName_);
-      }
-      if (!getLastNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, lastName_);
-      }
-      if (!getLevelBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, level_);
-      }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -1374,48 +153,27 @@ public final class ScheduleProtos {
       if (size != -1) return size;
 
       size = 0;
-      if (!getUserIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
+      if (!getPatientIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, patientId_);
       }
-      if (!getEmailBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, email_);
-      }
-      if (!getFirstNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, firstName_);
-      }
-      if (!getLastNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, lastName_);
-      }
-      if (!getLevelBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, level_);
-      }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.Doctor)) {
+      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.PatientPublic)) {
         return super.equals(obj);
       }
-      care.solve.backend.entity.ScheduleProtos.Doctor other = (care.solve.backend.entity.ScheduleProtos.Doctor) obj;
+      care.solve.backend.entity.ScheduleProtos.PatientPublic other = (care.solve.backend.entity.ScheduleProtos.PatientPublic) obj;
 
       boolean result = true;
-      result = result && getUserId()
-          .equals(other.getUserId());
-      result = result && getEmail()
-          .equals(other.getEmail());
-      result = result && getFirstName()
-          .equals(other.getFirstName());
-      result = result && getLastName()
-          .equals(other.getLastName());
-      result = result && getLevel()
-          .equals(other.getLevel());
-      result = result && unknownFields.equals(other.unknownFields);
+      result = result && getPatientId()
+          .equals(other.getPatientId());
       return result;
     }
 
@@ -1426,84 +184,76 @@ public final class ScheduleProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserId().hashCode();
-      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
-      hash = (53 * hash) + getEmail().hashCode();
-      hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getFirstName().hashCode();
-      hash = (37 * hash) + LASTNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getLastName().hashCode();
-      hash = (37 * hash) + LEVEL_FIELD_NUMBER;
-      hash = (53 * hash) + getLevel().hashCode();
+      hash = (37 * hash) + PATIENTID_FIELD_NUMBER;
+      hash = (53 * hash) + getPatientId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(byte[] data)
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(java.io.InputStream input)
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseDelimitedFrom(java.io.InputStream input)
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseDelimitedFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.Doctor parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1515,7 +265,7 @@ public final class ScheduleProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.Doctor prototype) {
+    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.PatientPublic prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1530,25 +280,25 @@ public final class ScheduleProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code main.Doctor}
+     * Protobuf type {@code main.PatientPublic}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:main.Doctor)
-        care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder {
+        // @@protoc_insertion_point(builder_implements:main.PatientPublic)
+        care.solve.backend.entity.ScheduleProtos.PatientPublicOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Doctor_descriptor;
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_PatientPublic_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Doctor_fieldAccessorTable
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_PatientPublic_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                care.solve.backend.entity.ScheduleProtos.Doctor.class, care.solve.backend.entity.ScheduleProtos.Doctor.Builder.class);
+                care.solve.backend.entity.ScheduleProtos.PatientPublic.class, care.solve.backend.entity.ScheduleProtos.PatientPublic.Builder.class);
       }
 
-      // Construct using care.solve.backend.entity.ScheduleProtos.Doctor.newBuilder()
+      // Construct using care.solve.backend.entity.ScheduleProtos.PatientPublic.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1565,43 +315,31 @@ public final class ScheduleProtos {
       }
       public Builder clear() {
         super.clear();
-        userId_ = "";
-
-        email_ = "";
-
-        firstName_ = "";
-
-        lastName_ = "";
-
-        level_ = "";
+        patientId_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_Doctor_descriptor;
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_PatientPublic_descriptor;
       }
 
-      public care.solve.backend.entity.ScheduleProtos.Doctor getDefaultInstanceForType() {
-        return care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance();
+      public care.solve.backend.entity.ScheduleProtos.PatientPublic getDefaultInstanceForType() {
+        return care.solve.backend.entity.ScheduleProtos.PatientPublic.getDefaultInstance();
       }
 
-      public care.solve.backend.entity.ScheduleProtos.Doctor build() {
-        care.solve.backend.entity.ScheduleProtos.Doctor result = buildPartial();
+      public care.solve.backend.entity.ScheduleProtos.PatientPublic build() {
+        care.solve.backend.entity.ScheduleProtos.PatientPublic result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public care.solve.backend.entity.ScheduleProtos.Doctor buildPartial() {
-        care.solve.backend.entity.ScheduleProtos.Doctor result = new care.solve.backend.entity.ScheduleProtos.Doctor(this);
-        result.userId_ = userId_;
-        result.email_ = email_;
-        result.firstName_ = firstName_;
-        result.lastName_ = lastName_;
-        result.level_ = level_;
+      public care.solve.backend.entity.ScheduleProtos.PatientPublic buildPartial() {
+        care.solve.backend.entity.ScheduleProtos.PatientPublic result = new care.solve.backend.entity.ScheduleProtos.PatientPublic(this);
+        result.patientId_ = patientId_;
         onBuilt();
         return result;
       }
@@ -1611,7 +349,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -1624,46 +362,29 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof care.solve.backend.entity.ScheduleProtos.Doctor) {
-          return mergeFrom((care.solve.backend.entity.ScheduleProtos.Doctor)other);
+        if (other instanceof care.solve.backend.entity.ScheduleProtos.PatientPublic) {
+          return mergeFrom((care.solve.backend.entity.ScheduleProtos.PatientPublic)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.Doctor other) {
-        if (other == care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance()) return this;
-        if (!other.getUserId().isEmpty()) {
-          userId_ = other.userId_;
+      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.PatientPublic other) {
+        if (other == care.solve.backend.entity.ScheduleProtos.PatientPublic.getDefaultInstance()) return this;
+        if (!other.getPatientId().isEmpty()) {
+          patientId_ = other.patientId_;
           onChanged();
         }
-        if (!other.getEmail().isEmpty()) {
-          email_ = other.email_;
-          onChanged();
-        }
-        if (!other.getFirstName().isEmpty()) {
-          firstName_ = other.firstName_;
-          onChanged();
-        }
-        if (!other.getLastName().isEmpty()) {
-          lastName_ = other.lastName_;
-          onChanged();
-        }
-        if (!other.getLevel().isEmpty()) {
-          level_ = other.level_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -1676,11 +397,11 @@ public final class ScheduleProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        care.solve.backend.entity.ScheduleProtos.Doctor parsedMessage = null;
+        care.solve.backend.entity.ScheduleProtos.PatientPublic parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (care.solve.backend.entity.ScheduleProtos.Doctor) e.getUnfinishedMessage();
+          parsedMessage = (care.solve.backend.entity.ScheduleProtos.PatientPublic) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1690,147 +411,728 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private java.lang.Object userId_ = "";
+      private java.lang.Object patientId_ = "";
       /**
-       * <code>string UserId = 1;</code>
+       * <code>string PatientId = 1;</code>
        */
-      public java.lang.String getUserId() {
-        java.lang.Object ref = userId_;
+      public java.lang.String getPatientId() {
+        java.lang.Object ref = patientId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userId_ = s;
+          patientId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string UserId = 1;</code>
+       * <code>string PatientId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        java.lang.Object ref = userId_;
+          getPatientIdBytes() {
+        java.lang.Object ref = patientId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userId_ = b;
+          patientId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string UserId = 1;</code>
+       * <code>string PatientId = 1;</code>
        */
-      public Builder setUserId(
+      public Builder setPatientId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userId_ = value;
+        patientId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string UserId = 1;</code>
+       * <code>string PatientId = 1;</code>
        */
-      public Builder clearUserId() {
+      public Builder clearPatientId() {
         
-        userId_ = getDefaultInstance().getUserId();
+        patientId_ = getDefaultInstance().getPatientId();
         onChanged();
         return this;
       }
       /**
-       * <code>string UserId = 1;</code>
+       * <code>string PatientId = 1;</code>
        */
-      public Builder setUserIdBytes(
+      public Builder setPatientIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userId_ = value;
+        patientId_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:main.PatientPublic)
+    }
+
+    // @@protoc_insertion_point(class_scope:main.PatientPublic)
+    private static final care.solve.backend.entity.ScheduleProtos.PatientPublic DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.PatientPublic();
+    }
+
+    public static care.solve.backend.entity.ScheduleProtos.PatientPublic getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PatientPublic>
+        PARSER = new com.google.protobuf.AbstractParser<PatientPublic>() {
+      public PatientPublic parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new PatientPublic(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PatientPublic> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PatientPublic> getParserForType() {
+      return PARSER;
+    }
+
+    public care.solve.backend.entity.ScheduleProtos.PatientPublic getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DoctorPublicOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:main.DoctorPublic)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string DoctorId = 1;</code>
+     */
+    java.lang.String getDoctorId();
+    /**
+     * <code>string DoctorId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getDoctorIdBytes();
+
+    /**
+     * <code>string FirstName = 2;</code>
+     */
+    java.lang.String getFirstName();
+    /**
+     * <code>string FirstName = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFirstNameBytes();
+
+    /**
+     * <code>string LastName = 3;</code>
+     */
+    java.lang.String getLastName();
+    /**
+     * <code>string LastName = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getLastNameBytes();
+  }
+  /**
+   * Protobuf type {@code main.DoctorPublic}
+   */
+  public  static final class DoctorPublic extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:main.DoctorPublic)
+      DoctorPublicOrBuilder {
+    // Use DoctorPublic.newBuilder() to construct.
+    private DoctorPublic(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DoctorPublic() {
+      doctorId_ = "";
+      firstName_ = "";
+      lastName_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private DoctorPublic(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              doctorId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              firstName_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              lastName_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorPublic_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorPublic_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              care.solve.backend.entity.ScheduleProtos.DoctorPublic.class, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder.class);
+    }
+
+    public static final int DOCTORID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object doctorId_;
+    /**
+     * <code>string DoctorId = 1;</code>
+     */
+    public java.lang.String getDoctorId() {
+      java.lang.Object ref = doctorId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        doctorId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string DoctorId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDoctorIdBytes() {
+      java.lang.Object ref = doctorId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        doctorId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FIRSTNAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object firstName_;
+    /**
+     * <code>string FirstName = 2;</code>
+     */
+    public java.lang.String getFirstName() {
+      java.lang.Object ref = firstName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        firstName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string FirstName = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFirstNameBytes() {
+      java.lang.Object ref = firstName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        firstName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LASTNAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object lastName_;
+    /**
+     * <code>string LastName = 3;</code>
+     */
+    public java.lang.String getLastName() {
+      java.lang.Object ref = lastName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lastName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string LastName = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLastNameBytes() {
+      java.lang.Object ref = lastName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lastName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDoctorIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, doctorId_);
+      }
+      if (!getFirstNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, firstName_);
+      }
+      if (!getLastNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, lastName_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDoctorIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, doctorId_);
+      }
+      if (!getFirstNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, firstName_);
+      }
+      if (!getLastNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, lastName_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.DoctorPublic)) {
+        return super.equals(obj);
+      }
+      care.solve.backend.entity.ScheduleProtos.DoctorPublic other = (care.solve.backend.entity.ScheduleProtos.DoctorPublic) obj;
+
+      boolean result = true;
+      result = result && getDoctorId()
+          .equals(other.getDoctorId());
+      result = result && getFirstName()
+          .equals(other.getFirstName());
+      result = result && getLastName()
+          .equals(other.getLastName());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DOCTORID_FIELD_NUMBER;
+      hash = (53 * hash) + getDoctorId().hashCode();
+      hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getFirstName().hashCode();
+      hash = (37 * hash) + LASTNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getLastName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.DoctorPublic prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code main.DoctorPublic}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:main.DoctorPublic)
+        care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorPublic_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorPublic_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                care.solve.backend.entity.ScheduleProtos.DoctorPublic.class, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder.class);
+      }
+
+      // Construct using care.solve.backend.entity.ScheduleProtos.DoctorPublic.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        doctorId_ = "";
+
+        firstName_ = "";
+
+        lastName_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_DoctorPublic_descriptor;
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic getDefaultInstanceForType() {
+        return care.solve.backend.entity.ScheduleProtos.DoctorPublic.getDefaultInstance();
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic build() {
+        care.solve.backend.entity.ScheduleProtos.DoctorPublic result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic buildPartial() {
+        care.solve.backend.entity.ScheduleProtos.DoctorPublic result = new care.solve.backend.entity.ScheduleProtos.DoctorPublic(this);
+        result.doctorId_ = doctorId_;
+        result.firstName_ = firstName_;
+        result.lastName_ = lastName_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof care.solve.backend.entity.ScheduleProtos.DoctorPublic) {
+          return mergeFrom((care.solve.backend.entity.ScheduleProtos.DoctorPublic)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.DoctorPublic other) {
+        if (other == care.solve.backend.entity.ScheduleProtos.DoctorPublic.getDefaultInstance()) return this;
+        if (!other.getDoctorId().isEmpty()) {
+          doctorId_ = other.doctorId_;
+          onChanged();
+        }
+        if (!other.getFirstName().isEmpty()) {
+          firstName_ = other.firstName_;
+          onChanged();
+        }
+        if (!other.getLastName().isEmpty()) {
+          lastName_ = other.lastName_;
+          onChanged();
+        }
         onChanged();
         return this;
       }
 
-      private java.lang.Object email_ = "";
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        care.solve.backend.entity.ScheduleProtos.DoctorPublic parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (care.solve.backend.entity.ScheduleProtos.DoctorPublic) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object doctorId_ = "";
       /**
-       * <code>string Email = 2;</code>
+       * <code>string DoctorId = 1;</code>
        */
-      public java.lang.String getEmail() {
-        java.lang.Object ref = email_;
+      public java.lang.String getDoctorId() {
+        java.lang.Object ref = doctorId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          email_ = s;
+          doctorId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string Email = 2;</code>
+       * <code>string DoctorId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getEmailBytes() {
-        java.lang.Object ref = email_;
+          getDoctorIdBytes() {
+        java.lang.Object ref = doctorId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          email_ = b;
+          doctorId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string Email = 2;</code>
+       * <code>string DoctorId = 1;</code>
        */
-      public Builder setEmail(
+      public Builder setDoctorId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        email_ = value;
+        doctorId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string Email = 2;</code>
+       * <code>string DoctorId = 1;</code>
        */
-      public Builder clearEmail() {
+      public Builder clearDoctorId() {
         
-        email_ = getDefaultInstance().getEmail();
+        doctorId_ = getDefaultInstance().getDoctorId();
         onChanged();
         return this;
       }
       /**
-       * <code>string Email = 2;</code>
+       * <code>string DoctorId = 1;</code>
        */
-      public Builder setEmailBytes(
+      public Builder setDoctorIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        email_ = value;
+        doctorId_ = value;
         onChanged();
         return this;
       }
 
       private java.lang.Object firstName_ = "";
       /**
-       * <code>string FirstName = 3;</code>
+       * <code>string FirstName = 2;</code>
        */
       public java.lang.String getFirstName() {
         java.lang.Object ref = firstName_;
@@ -1845,7 +1147,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string FirstName = 3;</code>
+       * <code>string FirstName = 2;</code>
        */
       public com.google.protobuf.ByteString
           getFirstNameBytes() {
@@ -1861,7 +1163,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string FirstName = 3;</code>
+       * <code>string FirstName = 2;</code>
        */
       public Builder setFirstName(
           java.lang.String value) {
@@ -1874,7 +1176,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string FirstName = 3;</code>
+       * <code>string FirstName = 2;</code>
        */
       public Builder clearFirstName() {
         
@@ -1883,7 +1185,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string FirstName = 3;</code>
+       * <code>string FirstName = 2;</code>
        */
       public Builder setFirstNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1899,7 +1201,7 @@ public final class ScheduleProtos {
 
       private java.lang.Object lastName_ = "";
       /**
-       * <code>string LastName = 4;</code>
+       * <code>string LastName = 3;</code>
        */
       public java.lang.String getLastName() {
         java.lang.Object ref = lastName_;
@@ -1914,7 +1216,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string LastName = 4;</code>
+       * <code>string LastName = 3;</code>
        */
       public com.google.protobuf.ByteString
           getLastNameBytes() {
@@ -1930,7 +1232,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string LastName = 4;</code>
+       * <code>string LastName = 3;</code>
        */
       public Builder setLastName(
           java.lang.String value) {
@@ -1943,7 +1245,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string LastName = 4;</code>
+       * <code>string LastName = 3;</code>
        */
       public Builder clearLastName() {
         
@@ -1952,7 +1254,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string LastName = 4;</code>
+       * <code>string LastName = 3;</code>
        */
       public Builder setLastNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1965,119 +1267,50 @@ public final class ScheduleProtos {
         onChanged();
         return this;
       }
-
-      private java.lang.Object level_ = "";
-      /**
-       * <code>string Level = 5;</code>
-       */
-      public java.lang.String getLevel() {
-        java.lang.Object ref = level_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          level_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string Level = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getLevelBytes() {
-        java.lang.Object ref = level_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          level_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string Level = 5;</code>
-       */
-      public Builder setLevel(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        level_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Level = 5;</code>
-       */
-      public Builder clearLevel() {
-        
-        level_ = getDefaultInstance().getLevel();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Level = 5;</code>
-       */
-      public Builder setLevelBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        level_ = value;
-        onChanged();
-        return this;
-      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
-      // @@protoc_insertion_point(builder_scope:main.Doctor)
+      // @@protoc_insertion_point(builder_scope:main.DoctorPublic)
     }
 
-    // @@protoc_insertion_point(class_scope:main.Doctor)
-    private static final care.solve.backend.entity.ScheduleProtos.Doctor DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:main.DoctorPublic)
+    private static final care.solve.backend.entity.ScheduleProtos.DoctorPublic DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.Doctor();
+      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.DoctorPublic();
     }
 
-    public static care.solve.backend.entity.ScheduleProtos.Doctor getDefaultInstance() {
+    public static care.solve.backend.entity.ScheduleProtos.DoctorPublic getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Doctor>
-        PARSER = new com.google.protobuf.AbstractParser<Doctor>() {
-      public Doctor parsePartialFrom(
+    private static final com.google.protobuf.Parser<DoctorPublic>
+        PARSER = new com.google.protobuf.AbstractParser<DoctorPublic>() {
+      public DoctorPublic parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Doctor(input, extensionRegistry);
+          return new DoctorPublic(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Doctor> parser() {
+    public static com.google.protobuf.Parser<DoctorPublic> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Doctor> getParserForType() {
+    public com.google.protobuf.Parser<DoctorPublic> getParserForType() {
       return PARSER;
     }
 
-    public care.solve.backend.entity.ScheduleProtos.Doctor getDefaultInstanceForType() {
+    public care.solve.backend.entity.ScheduleProtos.DoctorPublic getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2088,27 +1321,27 @@ public final class ScheduleProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> 
+    java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic> 
         getDoctorsList();
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index);
+    care.solve.backend.entity.ScheduleProtos.DoctorPublic getDoctors(int index);
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
     int getDoctorsCount();
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder> 
         getDoctorsOrBuilderList();
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+    care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder getDoctorsOrBuilder(
         int index);
   }
   /**
@@ -2118,7 +1351,6 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.DoctorCollection)
       DoctorCollectionOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use DoctorCollection.newBuilder() to construct.
     private DoctorCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2130,7 +1362,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private DoctorCollection(
         com.google.protobuf.CodedInputStream input,
@@ -2138,8 +1370,6 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2149,19 +1379,18 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Doctor>();
+                doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.DoctorPublic>();
                 mutable_bitField0_ |= 0x00000001;
               }
               doctors_.add(
-                  input.readMessage(care.solve.backend.entity.ScheduleProtos.Doctor.parser(), extensionRegistry));
+                  input.readMessage(care.solve.backend.entity.ScheduleProtos.DoctorPublic.parser(), extensionRegistry));
               break;
             }
           }
@@ -2175,7 +1404,6 @@ public final class ScheduleProtos {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           doctors_ = java.util.Collections.unmodifiableList(doctors_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2192,36 +1420,36 @@ public final class ScheduleProtos {
     }
 
     public static final int DOCTORS_FIELD_NUMBER = 1;
-    private java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> doctors_;
+    private java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic> doctors_;
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> getDoctorsList() {
+    public java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic> getDoctorsList() {
       return doctors_;
     }
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder> 
         getDoctorsOrBuilderList() {
       return doctors_;
     }
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
     public int getDoctorsCount() {
       return doctors_.size();
     }
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    public care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index) {
+    public care.solve.backend.entity.ScheduleProtos.DoctorPublic getDoctors(int index) {
       return doctors_.get(index);
     }
     /**
-     * <code>repeated .main.Doctor doctors = 1;</code>
+     * <code>repeated .main.DoctorPublic doctors = 1;</code>
      */
-    public care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+    public care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder getDoctorsOrBuilder(
         int index) {
       return doctors_.get(index);
     }
@@ -2241,7 +1469,6 @@ public final class ScheduleProtos {
       for (int i = 0; i < doctors_.size(); i++) {
         output.writeMessage(1, doctors_.get(i));
       }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -2253,11 +1480,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, doctors_.get(i));
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2271,7 +1498,6 @@ public final class ScheduleProtos {
       boolean result = true;
       result = result && getDoctorsList()
           .equals(other.getDoctorsList());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2463,7 +1689,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -2476,12 +1702,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2521,7 +1747,6 @@ public final class ScheduleProtos {
             }
           }
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -2549,22 +1774,22 @@ public final class ScheduleProtos {
       }
       private int bitField0_;
 
-      private java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> doctors_ =
+      private java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic> doctors_ =
         java.util.Collections.emptyList();
       private void ensureDoctorsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Doctor>(doctors_);
+          doctors_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.DoctorPublic>(doctors_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> doctorsBuilder_;
+          care.solve.backend.entity.ScheduleProtos.DoctorPublic, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder, care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder> doctorsBuilder_;
 
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor> getDoctorsList() {
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic> getDoctorsList() {
         if (doctorsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(doctors_);
         } else {
@@ -2572,7 +1797,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public int getDoctorsCount() {
         if (doctorsBuilder_ == null) {
@@ -2582,9 +1807,9 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.Doctor getDoctors(int index) {
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic getDoctors(int index) {
         if (doctorsBuilder_ == null) {
           return doctors_.get(index);
         } else {
@@ -2592,10 +1817,10 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder setDoctors(
-          int index, care.solve.backend.entity.ScheduleProtos.Doctor value) {
+          int index, care.solve.backend.entity.ScheduleProtos.DoctorPublic value) {
         if (doctorsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2609,10 +1834,10 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder setDoctors(
-          int index, care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+          int index, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder builderForValue) {
         if (doctorsBuilder_ == null) {
           ensureDoctorsIsMutable();
           doctors_.set(index, builderForValue.build());
@@ -2623,9 +1848,9 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public Builder addDoctors(care.solve.backend.entity.ScheduleProtos.Doctor value) {
+      public Builder addDoctors(care.solve.backend.entity.ScheduleProtos.DoctorPublic value) {
         if (doctorsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2639,10 +1864,10 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder addDoctors(
-          int index, care.solve.backend.entity.ScheduleProtos.Doctor value) {
+          int index, care.solve.backend.entity.ScheduleProtos.DoctorPublic value) {
         if (doctorsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2656,10 +1881,10 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder addDoctors(
-          care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+          care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder builderForValue) {
         if (doctorsBuilder_ == null) {
           ensureDoctorsIsMutable();
           doctors_.add(builderForValue.build());
@@ -2670,10 +1895,10 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder addDoctors(
-          int index, care.solve.backend.entity.ScheduleProtos.Doctor.Builder builderForValue) {
+          int index, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder builderForValue) {
         if (doctorsBuilder_ == null) {
           ensureDoctorsIsMutable();
           doctors_.add(index, builderForValue.build());
@@ -2684,10 +1909,10 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder addAllDoctors(
-          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.Doctor> values) {
+          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.DoctorPublic> values) {
         if (doctorsBuilder_ == null) {
           ensureDoctorsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2699,7 +1924,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder clearDoctors() {
         if (doctorsBuilder_ == null) {
@@ -2712,7 +1937,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
       public Builder removeDoctors(int index) {
         if (doctorsBuilder_ == null) {
@@ -2725,16 +1950,16 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder getDoctorsBuilder(
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder getDoctorsBuilder(
           int index) {
         return getDoctorsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder getDoctorsOrBuilder(
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder getDoctorsOrBuilder(
           int index) {
         if (doctorsBuilder_ == null) {
           return doctors_.get(index);  } else {
@@ -2742,9 +1967,9 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder> 
            getDoctorsOrBuilderList() {
         if (doctorsBuilder_ != null) {
           return doctorsBuilder_.getMessageOrBuilderList();
@@ -2753,33 +1978,33 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder addDoctorsBuilder() {
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder addDoctorsBuilder() {
         return getDoctorsFieldBuilder().addBuilder(
-            care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance());
+            care.solve.backend.entity.ScheduleProtos.DoctorPublic.getDefaultInstance());
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.Doctor.Builder addDoctorsBuilder(
+      public care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder addDoctorsBuilder(
           int index) {
         return getDoctorsFieldBuilder().addBuilder(
-            index, care.solve.backend.entity.ScheduleProtos.Doctor.getDefaultInstance());
+            index, care.solve.backend.entity.ScheduleProtos.DoctorPublic.getDefaultInstance());
       }
       /**
-       * <code>repeated .main.Doctor doctors = 1;</code>
+       * <code>repeated .main.DoctorPublic doctors = 1;</code>
        */
-      public java.util.List<care.solve.backend.entity.ScheduleProtos.Doctor.Builder> 
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder> 
            getDoctorsBuilderList() {
         return getDoctorsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder> 
+          care.solve.backend.entity.ScheduleProtos.DoctorPublic, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder, care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder> 
           getDoctorsFieldBuilder() {
         if (doctorsBuilder_ == null) {
           doctorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              care.solve.backend.entity.ScheduleProtos.Doctor, care.solve.backend.entity.ScheduleProtos.Doctor.Builder, care.solve.backend.entity.ScheduleProtos.DoctorOrBuilder>(
+              care.solve.backend.entity.ScheduleProtos.DoctorPublic, care.solve.backend.entity.ScheduleProtos.DoctorPublic.Builder, care.solve.backend.entity.ScheduleProtos.DoctorPublicOrBuilder>(
                   doctors_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -2790,12 +2015,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -2892,7 +2117,6 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.Schedule)
       ScheduleOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Schedule.newBuilder() to construct.
     private Schedule(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2906,7 +2130,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Schedule(
         com.google.protobuf.CodedInputStream input,
@@ -2914,8 +2138,6 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2925,8 +2147,7 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -2963,7 +2184,6 @@ public final class ScheduleProtos {
         if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           records_ = java.util.Collections.unmodifiableList(records_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3104,7 +2324,6 @@ public final class ScheduleProtos {
       for (int i = 0; i < records_.size(); i++) {
         output.writeMessage(3, records_.get(i));
       }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -3122,11 +2341,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, records_.get(i));
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3144,7 +2363,6 @@ public final class ScheduleProtos {
           .equals(other.getDoctorId());
       result = result && getRecordsList()
           .equals(other.getRecordsList());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3348,7 +2566,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -3361,12 +2579,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3414,7 +2632,6 @@ public final class ScheduleProtos {
             }
           }
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -3821,12 +3038,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -3889,7 +3106,6 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.Slot)
       SlotOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Slot.newBuilder() to construct.
     private Slot(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -3902,7 +3118,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Slot(
         com.google.protobuf.CodedInputStream input,
@@ -3910,8 +3126,6 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3921,8 +3135,7 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -3945,7 +3158,6 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3997,7 +3209,6 @@ public final class ScheduleProtos {
       if (timeFinish_ != 0L) {
         output.writeUInt64(2, timeFinish_);
       }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -4013,11 +3224,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, timeFinish_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4033,7 +3244,6 @@ public final class ScheduleProtos {
           == other.getTimeStart());
       result = result && (getTimeFinish()
           == other.getTimeFinish());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4216,7 +3426,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -4229,12 +3439,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4254,7 +3464,6 @@ public final class ScheduleProtos {
         if (other.getTimeFinish() != 0L) {
           setTimeFinish(other.getTimeFinish());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -4334,12 +3543,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -4435,7 +3644,6 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.ScheduleRecord)
       ScheduleRecordOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ScheduleRecord.newBuilder() to construct.
     private ScheduleRecord(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4449,7 +3657,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ScheduleRecord(
         com.google.protobuf.CodedInputStream input,
@@ -4457,8 +3665,6 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4468,8 +3674,7 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -4513,7 +3718,6 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4676,7 +3880,6 @@ public final class ScheduleProtos {
       if (slot_ != null) {
         output.writeMessage(4, getSlot());
       }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -4697,11 +3900,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getSlot());
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4724,7 +3927,6 @@ public final class ScheduleProtos {
         result = result && getSlot()
             .equals(other.getSlot());
       }
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4925,7 +4127,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -4938,12 +4140,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4972,7 +4174,6 @@ public final class ScheduleProtos {
         if (other.hasSlot()) {
           mergeSlot(other.getSlot());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -5324,12 +4525,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -5425,7 +4626,6 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.ScheduleRequest)
       ScheduleRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ScheduleRequest.newBuilder() to construct.
     private ScheduleRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5439,7 +4639,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ScheduleRequest(
         com.google.protobuf.CodedInputStream input,
@@ -5447,8 +4647,6 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5458,8 +4656,7 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -5503,7 +4700,6 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5666,7 +4862,6 @@ public final class ScheduleProtos {
       if (slot_ != null) {
         output.writeMessage(4, getSlot());
       }
-      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -5687,11 +4882,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getSlot());
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5714,7 +4909,6 @@ public final class ScheduleProtos {
         result = result && getSlot()
             .equals(other.getSlot());
       }
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -5915,7 +5109,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -5928,12 +5122,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5962,7 +5156,6 @@ public final class ScheduleProtos {
         if (other.hasSlot()) {
           mergeSlot(other.getSlot());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -6314,12 +5507,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -6362,15 +5555,15 @@ public final class ScheduleProtos {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_Patient_descriptor;
+    internal_static_main_PatientPublic_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_Patient_fieldAccessorTable;
+      internal_static_main_PatientPublic_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_Doctor_descriptor;
+    internal_static_main_DoctorPublic_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_Doctor_fieldAccessorTable;
+      internal_static_main_DoctorPublic_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_main_DoctorCollection_descriptor;
   private static final 
@@ -6405,23 +5598,21 @@ public final class ScheduleProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024registerDoctor.proto\022\004main\"^\n\007Patient\022" +
-      "\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030\002 \001(\t\022\021\n\tFirstN" +
-      "ame\030\003 \001(\t\022\020\n\010LastName\030\004 \001(\t\022\017\n\007Balance\030\005" +
-      " \001(\002\"[\n\006Doctor\022\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030" +
-      "\002 \001(\t\022\021\n\tFirstName\030\003 \001(\t\022\020\n\010LastName\030\004 \001" +
-      "(\t\022\r\n\005Level\030\005 \001(\t\"1\n\020DoctorCollection\022\035\n" +
-      "\007doctors\030\001 \003(\0132\014.main.Doctor\"W\n\010Schedule" +
-      "\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022%" +
-      "\n\007Records\030\003 \003(\0132\024.main.ScheduleRecord\"-\n" +
-      "\004Slot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFinish\030\002",
-      " \001(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001 \001(\t" +
-      "\022\023\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003 \001(\t" +
-      "\022\030\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017ScheduleRe" +
-      "quest\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
-      "(\t\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(\0132\n." +
-      "main.SlotB1\n\031care.solve.backend.entityB\016" +
-      "ScheduleProtosZ\004mainb\006proto3"
+      "\n\024registerDoctor.proto\022\004main\"\"\n\rPatientP" +
+      "ublic\022\021\n\tPatientId\030\001 \001(\t\"E\n\014DoctorPublic" +
+      "\022\020\n\010DoctorId\030\001 \001(\t\022\021\n\tFirstName\030\002 \001(\t\022\020\n" +
+      "\010LastName\030\003 \001(\t\"7\n\020DoctorCollection\022#\n\007d" +
+      "octors\030\001 \003(\0132\022.main.DoctorPublic\"W\n\010Sche" +
+      "dule\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
+      "(\t\022%\n\007Records\030\003 \003(\0132\024.main.ScheduleRecor" +
+      "d\"-\n\004Slot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFini" +
+      "sh\030\002 \001(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001" +
+      " \001(\t\022\023\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003",
+      " \001(\t\022\030\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017Schedu" +
+      "leRequest\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId" +
+      "\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(" +
+      "\0132\n.main.SlotB1\n\031care.solve.backend.enti" +
+      "tyB\016ScheduleProtosZ\004mainb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6435,18 +5626,18 @@ public final class ScheduleProtos {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_main_Patient_descriptor =
+    internal_static_main_PatientPublic_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_main_Patient_fieldAccessorTable = new
+    internal_static_main_PatientPublic_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_Patient_descriptor,
-        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Balance", });
-    internal_static_main_Doctor_descriptor =
+        internal_static_main_PatientPublic_descriptor,
+        new java.lang.String[] { "PatientId", });
+    internal_static_main_DoctorPublic_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_main_Doctor_fieldAccessorTable = new
+    internal_static_main_DoctorPublic_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_Doctor_descriptor,
-        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Level", });
+        internal_static_main_DoctorPublic_descriptor,
+        new java.lang.String[] { "DoctorId", "FirstName", "LastName", });
     internal_static_main_DoctorCollection_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_main_DoctorCollection_fieldAccessorTable = new

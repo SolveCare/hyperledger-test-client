@@ -56,7 +56,7 @@ public class ChaincodeService {
         InstallProposalRequest installProposalRequest = client.newInstallProposalRequest();
         installProposalRequest.setChaincodeID(chaincodeId);
 
-        installProposalRequest.setChaincodeSourceLocation(new File("src/main/resources/health/gocc/schedule"));
+        installProposalRequest.setChaincodeSourceLocation(new File("src/main/resources/chaincode/schedule"));
         installProposalRequest.setChaincodeVersion(chaincodeId.getVersion());
 
         Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, ImmutableSet.of(peer));
