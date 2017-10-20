@@ -51,8 +51,6 @@ public class DoctorService {
     }
 
     public Doctor get(String doctorId) throws InvalidProtocolBufferException {
-        DoctorPrivate doctorPrivate = doctorsRepository.getOne(doctorId);
-        System.out.println(doctorPrivate.toString());
         ByteString protoDoctorByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,

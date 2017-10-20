@@ -42,6 +42,9 @@
     </changeSet>
 
     <changeSet author="tbelonosov" id="populate-doctors">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="0">select count(*) from clinic.doctors</sqlCheck>
+        </preConditions>
         <sqlFile dbms="postgresql"
                  encoding="utf8"
                  path="../sql/populate-doctors.sql"
@@ -49,6 +52,9 @@
     </changeSet>
 
     <changeSet author="tbelonosov" id="populate-patients">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="0">select count(*) from clinic.patients</sqlCheck>
+        </preConditions>
         <sqlFile dbms="postgresql"
                  encoding="utf8"
                  path="../sql/populate-patients.sql"
