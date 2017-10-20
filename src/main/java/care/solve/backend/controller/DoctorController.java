@@ -28,7 +28,7 @@ public class DoctorController {
     }
 
     @GetMapping("{doctorId}")
-    public Doctor create(@PathVariable String doctorId) throws InvalidProtocolBufferException {
+    public Doctor get(@PathVariable String doctorId) throws InvalidProtocolBufferException {
         return doctorService.get(doctorId);
     }
 }
