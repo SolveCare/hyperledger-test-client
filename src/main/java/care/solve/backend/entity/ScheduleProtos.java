@@ -14,6 +14,104 @@ public final class ScheduleProtos {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code main.EntityType}
+   */
+  public enum EntityType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>PATIENT = 0;</code>
+     */
+    PATIENT(0),
+    /**
+     * <code>DOCTOR = 1;</code>
+     */
+    DOCTOR(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>PATIENT = 0;</code>
+     */
+    public static final int PATIENT_VALUE = 0;
+    /**
+     * <code>DOCTOR = 1;</code>
+     */
+    public static final int DOCTOR_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static EntityType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static EntityType forNumber(int value) {
+      switch (value) {
+        case 0: return PATIENT;
+        case 1: return DOCTOR;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<EntityType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        EntityType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<EntityType>() {
+            public EntityType findValueByNumber(int number) {
+              return EntityType.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return care.solve.backend.entity.ScheduleProtos.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final EntityType[] VALUES = values();
+
+    public static EntityType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private EntityType(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:main.EntityType)
+  }
+
   public interface PatientOrBuilder extends
       // @@protoc_insertion_point(interface_extends:main.Patient)
       com.google.protobuf.MessageOrBuilder {
@@ -62,6 +160,15 @@ public final class ScheduleProtos {
      * <code>float Balance = 5;</code>
      */
     float getBalance();
+
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    int getEntityTypeValue();
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.EntityType getEntityType();
   }
   /**
    * Protobuf type {@code main.Patient}
@@ -81,6 +188,7 @@ public final class ScheduleProtos {
       firstName_ = "";
       lastName_ = "";
       balance_ = 0F;
+      entityType_ = 0;
     }
 
     @java.lang.Override
@@ -138,6 +246,12 @@ public final class ScheduleProtos {
             case 45: {
 
               balance_ = input.readFloat();
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+
+              entityType_ = rawValue;
               break;
             }
           }
@@ -309,6 +423,22 @@ public final class ScheduleProtos {
       return balance_;
     }
 
+    public static final int ENTITYTYPE_FIELD_NUMBER = 6;
+    private int entityType_;
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    public int getEntityTypeValue() {
+      return entityType_;
+    }
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.EntityType getEntityType() {
+      care.solve.backend.entity.ScheduleProtos.EntityType result = care.solve.backend.entity.ScheduleProtos.EntityType.valueOf(entityType_);
+      return result == null ? care.solve.backend.entity.ScheduleProtos.EntityType.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -336,6 +466,9 @@ public final class ScheduleProtos {
       if (balance_ != 0F) {
         output.writeFloat(5, balance_);
       }
+      if (entityType_ != care.solve.backend.entity.ScheduleProtos.EntityType.PATIENT.getNumber()) {
+        output.writeEnum(6, entityType_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -359,6 +492,10 @@ public final class ScheduleProtos {
       if (balance_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(5, balance_);
+      }
+      if (entityType_ != care.solve.backend.entity.ScheduleProtos.EntityType.PATIENT.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, entityType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -388,6 +525,7 @@ public final class ScheduleProtos {
           java.lang.Float.floatToIntBits(getBalance())
           == java.lang.Float.floatToIntBits(
               other.getBalance()));
+      result = result && entityType_ == other.entityType_;
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -410,6 +548,8 @@ public final class ScheduleProtos {
       hash = (37 * hash) + BALANCE_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getBalance());
+      hash = (37 * hash) + ENTITYTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + entityType_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -549,6 +689,8 @@ public final class ScheduleProtos {
 
         balance_ = 0F;
 
+        entityType_ = 0;
+
         return this;
       }
 
@@ -576,6 +718,7 @@ public final class ScheduleProtos {
         result.firstName_ = firstName_;
         result.lastName_ = lastName_;
         result.balance_ = balance_;
+        result.entityType_ = entityType_;
         onBuilt();
         return result;
       }
@@ -635,6 +778,9 @@ public final class ScheduleProtos {
         }
         if (other.getBalance() != 0F) {
           setBalance(other.getBalance());
+        }
+        if (other.entityType_ != 0) {
+          setEntityTypeValue(other.getEntityTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -964,6 +1110,50 @@ public final class ScheduleProtos {
         onChanged();
         return this;
       }
+
+      private int entityType_ = 0;
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public int getEntityTypeValue() {
+        return entityType_;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder setEntityTypeValue(int value) {
+        entityType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.EntityType getEntityType() {
+        care.solve.backend.entity.ScheduleProtos.EntityType result = care.solve.backend.entity.ScheduleProtos.EntityType.valueOf(entityType_);
+        return result == null ? care.solve.backend.entity.ScheduleProtos.EntityType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder setEntityType(care.solve.backend.entity.ScheduleProtos.EntityType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        entityType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder clearEntityType() {
+        
+        entityType_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
@@ -1066,6 +1256,15 @@ public final class ScheduleProtos {
      */
     com.google.protobuf.ByteString
         getLevelBytes();
+
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    int getEntityTypeValue();
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.EntityType getEntityType();
   }
   /**
    * Protobuf type {@code main.Doctor}
@@ -1085,6 +1284,7 @@ public final class ScheduleProtos {
       firstName_ = "";
       lastName_ = "";
       level_ = "";
+      entityType_ = 0;
     }
 
     @java.lang.Override
@@ -1143,6 +1343,12 @@ public final class ScheduleProtos {
               java.lang.String s = input.readStringRequireUtf8();
 
               level_ = s;
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+
+              entityType_ = rawValue;
               break;
             }
           }
@@ -1339,6 +1545,22 @@ public final class ScheduleProtos {
       }
     }
 
+    public static final int ENTITYTYPE_FIELD_NUMBER = 6;
+    private int entityType_;
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    public int getEntityTypeValue() {
+      return entityType_;
+    }
+    /**
+     * <code>.main.EntityType EntityType = 6;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.EntityType getEntityType() {
+      care.solve.backend.entity.ScheduleProtos.EntityType result = care.solve.backend.entity.ScheduleProtos.EntityType.valueOf(entityType_);
+      return result == null ? care.solve.backend.entity.ScheduleProtos.EntityType.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1366,6 +1588,9 @@ public final class ScheduleProtos {
       if (!getLevelBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, level_);
       }
+      if (entityType_ != care.solve.backend.entity.ScheduleProtos.EntityType.PATIENT.getNumber()) {
+        output.writeEnum(6, entityType_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1388,6 +1613,10 @@ public final class ScheduleProtos {
       }
       if (!getLevelBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, level_);
+      }
+      if (entityType_ != care.solve.backend.entity.ScheduleProtos.EntityType.PATIENT.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, entityType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1415,6 +1644,7 @@ public final class ScheduleProtos {
           .equals(other.getLastName());
       result = result && getLevel()
           .equals(other.getLevel());
+      result = result && entityType_ == other.entityType_;
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1436,6 +1666,8 @@ public final class ScheduleProtos {
       hash = (53 * hash) + getLastName().hashCode();
       hash = (37 * hash) + LEVEL_FIELD_NUMBER;
       hash = (53 * hash) + getLevel().hashCode();
+      hash = (37 * hash) + ENTITYTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + entityType_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1575,6 +1807,8 @@ public final class ScheduleProtos {
 
         level_ = "";
 
+        entityType_ = 0;
+
         return this;
       }
 
@@ -1602,6 +1836,7 @@ public final class ScheduleProtos {
         result.firstName_ = firstName_;
         result.lastName_ = lastName_;
         result.level_ = level_;
+        result.entityType_ = entityType_;
         onBuilt();
         return result;
       }
@@ -1662,6 +1897,9 @@ public final class ScheduleProtos {
         if (!other.getLevel().isEmpty()) {
           level_ = other.level_;
           onChanged();
+        }
+        if (other.entityType_ != 0) {
+          setEntityTypeValue(other.getEntityTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2031,6 +2269,50 @@ public final class ScheduleProtos {
   checkByteStringIsUtf8(value);
         
         level_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int entityType_ = 0;
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public int getEntityTypeValue() {
+        return entityType_;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder setEntityTypeValue(int value) {
+        entityType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.EntityType getEntityType() {
+        care.solve.backend.entity.ScheduleProtos.EntityType result = care.solve.backend.entity.ScheduleProtos.EntityType.valueOf(entityType_);
+        return result == null ? care.solve.backend.entity.ScheduleProtos.EntityType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder setEntityType(care.solve.backend.entity.ScheduleProtos.EntityType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        entityType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.EntityType EntityType = 6;</code>
+       */
+      public Builder clearEntityType() {
+        
+        entityType_ = 0;
         onChanged();
         return this;
       }
@@ -6405,23 +6687,26 @@ public final class ScheduleProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024registerDoctor.proto\022\004main\"^\n\007Patient\022" +
-      "\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030\002 \001(\t\022\021\n\tFirstN" +
-      "ame\030\003 \001(\t\022\020\n\010LastName\030\004 \001(\t\022\017\n\007Balance\030\005" +
-      " \001(\002\"[\n\006Doctor\022\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030" +
+      "\n\024registerDoctor.proto\022\004main\"\204\001\n\007Patient" +
+      "\022\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030\002 \001(\t\022\021\n\tFirst" +
+      "Name\030\003 \001(\t\022\020\n\010LastName\030\004 \001(\t\022\017\n\007Balance\030" +
+      "\005 \001(\002\022$\n\nEntityType\030\006 \001(\0162\020.main.EntityT" +
+      "ype\"\201\001\n\006Doctor\022\016\n\006UserId\030\001 \001(\t\022\r\n\005Email\030" +
       "\002 \001(\t\022\021\n\tFirstName\030\003 \001(\t\022\020\n\010LastName\030\004 \001" +
-      "(\t\022\r\n\005Level\030\005 \001(\t\"1\n\020DoctorCollection\022\035\n" +
-      "\007doctors\030\001 \003(\0132\014.main.Doctor\"W\n\010Schedule" +
-      "\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022%" +
-      "\n\007Records\030\003 \003(\0132\024.main.ScheduleRecord\"-\n" +
-      "\004Slot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFinish\030\002",
-      " \001(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001 \001(\t" +
-      "\022\023\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003 \001(\t" +
-      "\022\030\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017ScheduleRe" +
-      "quest\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
-      "(\t\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(\0132\n." +
-      "main.SlotB1\n\031care.solve.backend.entityB\016" +
-      "ScheduleProtosZ\004mainb\006proto3"
+      "(\t\022\r\n\005Level\030\005 \001(\t\022$\n\nEntityType\030\006 \001(\0162\020." +
+      "main.EntityType\"1\n\020DoctorCollection\022\035\n\007d" +
+      "octors\030\001 \003(\0132\014.main.Doctor\"W\n\010Schedule\022\022" +
+      "\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t\022%\n\007",
+      "Records\030\003 \003(\0132\024.main.ScheduleRecord\"-\n\004S" +
+      "lot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFinish\030\002 \001" +
+      "(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001 \001(\t\022\023" +
+      "\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003 \001(\t\022\030" +
+      "\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017ScheduleRequ" +
+      "est\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001(\t" +
+      "\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(\0132\n.ma" +
+      "in.Slot*%\n\nEntityType\022\013\n\007PATIENT\020\000\022\n\n\006DO" +
+      "CTOR\020\001B1\n\031care.solve.backend.entityB\016Sch" +
+      "eduleProtosZ\004mainb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6440,13 +6725,13 @@ public final class ScheduleProtos {
     internal_static_main_Patient_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Patient_descriptor,
-        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Balance", });
+        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Balance", "EntityType", });
     internal_static_main_Doctor_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_main_Doctor_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Doctor_descriptor,
-        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Level", });
+        new java.lang.String[] { "UserId", "Email", "FirstName", "LastName", "Level", "EntityType", });
     internal_static_main_DoctorCollection_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_main_DoctorCollection_fieldAccessorTable = new

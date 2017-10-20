@@ -25,6 +25,7 @@ func (t *PatientService) decodeProtoByteString(encodedPatientByteString string) 
 func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient Patient) (*Patient, error) {
 	logger.Infof("Saving patient %v", patient)
 
+	patient.EntityType = EntityType_PATIENT
 	jsonUser, err := json.Marshal(&patient)
 
 	patientKey := "patient:" + patient.UserId

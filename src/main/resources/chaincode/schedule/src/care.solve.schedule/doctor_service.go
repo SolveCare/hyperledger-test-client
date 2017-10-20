@@ -12,12 +12,14 @@ type DoctorService struct {
 }
 
 func (s *DoctorService) getAllDoctors(stub shim.ChaincodeStubInterface) ([]*Doctor, error) {
-	query := `{
+	query := fmt.Sprintf(`{
 		"selector":{
-			"UserId":{"$regex":""}
+			"EntityType": %v
 		}
 	}
-	`
+	`, EntityType_value[EntityType_DOCTOR.String()])
+
+	logger.Infof("queryString: %v", query)
 
 	resultsIterator, err := stub.GetQueryResult(query)
 	if err != nil {
@@ -66,6 +68,7 @@ func (s *DoctorService) getDoctorById(stub shim.ChaincodeStubInterface, doctorId
 func (s *DoctorService) saveDoctor(stub shim.ChaincodeStubInterface, doctor Doctor) (*Doctor, error) {
 	fmt.Printf("Saving doctor %v \n", doctor)
 
+	doctor.EntityType = EntityType_DOCTOR
 	doctorBytes, err := json.Marshal(&doctor)
 
 	doctorKey := "doctor:" + doctor.UserId

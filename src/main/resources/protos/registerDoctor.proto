@@ -7,12 +7,18 @@ option java_outer_classname = "ScheduleProtos";
 
 option go_package = "main";
 
+enum EntityType {
+    PATIENT = 0;
+    DOCTOR = 1;
+}
+
 message Patient {
     string UserId = 1;
     string Email = 2;
     string FirstName = 3;
     string LastName = 4;
     float Balance = 5;
+    EntityType EntityType = 6;
 }
 
 message Doctor {
@@ -21,6 +27,7 @@ message Doctor {
     string FirstName = 3;
     string LastName = 4;
     string Level = 5;
+    EntityType EntityType = 6;
 }
 
 message DoctorCollection {
