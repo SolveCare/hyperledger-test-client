@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {
@@ -30,5 +32,10 @@ public class DoctorController {
     @GetMapping("{doctorId}")
     public Doctor create(@PathVariable String doctorId) throws InvalidProtocolBufferException {
         return doctorService.get(doctorId);
+    }
+
+    @GetMapping
+    public List<Doctor> getAll() throws InvalidProtocolBufferException {
+        return doctorService.getAll();
     }
 }

@@ -3,13 +3,14 @@ package main
 import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/golang/protobuf/proto"
+	"encoding/json"
 )
 
 type PatientService struct {
 
 }
 
-func (s *PatientService) decodeProtoByteString(encodedPatientByteString string) (*Patient, error) {
+func (t *PatientService) decodeProtoByteString(encodedPatientByteString string) (*Patient, error) {
 	var err error
 
 	patient := Patient{}
@@ -24,7 +25,7 @@ func (s *PatientService) decodeProtoByteString(encodedPatientByteString string) 
 func (t *PatientService) savePatient(stub shim.ChaincodeStubInterface, patient Patient) (*Patient, error) {
 	logger.Infof("Saving patient %v", patient)
 
-	jsonUser, err := proto.Marshal(&patient)
+	jsonUser, err := json.Marshal(&patient)
 
 	patientKey := "patient:" + patient.UserId
 
@@ -49,6 +50,6 @@ func (t *PatientService) getPatientById(stub shim.ChaincodeStubInterface, patien
 	logger.Infof("Getting patient %v \n", string(patientBytes))
 
 	var patient Patient
-	proto.Unmarshal(patientBytes, &patient)
+	json.Unmarshal(patientBytes, &patient)
 	return &patient, nil
 }

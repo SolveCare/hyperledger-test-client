@@ -23,6 +23,10 @@ message Doctor {
     string Level = 5;
 }
 
+message DoctorCollection {
+    repeated Doctor doctors = 1;
+}
+
 message Schedule {
     string ScheduleId = 1;
     string DoctorId = 2;

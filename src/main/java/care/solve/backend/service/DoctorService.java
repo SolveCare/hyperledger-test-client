@@ -3,6 +3,7 @@ package care.solve.backend.service;
 import care.solve.backend.entity.Doctor;
 import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.entity.ScheduleProtos;
+import care.solve.backend.transformer.DoctorCollectionTransformer;
 import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorTransformer;
 import com.google.protobuf.ByteString;
@@ -13,6 +14,8 @@ import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DoctorService {
@@ -25,9 +28,10 @@ public class DoctorService {
     private Peer peer;
 
     private DoctorTransformer doctorTransformer;
+    private DoctorCollectionTransformer doctorCollectionTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorTransformer doctorTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorTransformer doctorTransformer, DoctorCollectionTransformer doctorCollectionTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.client = client;
@@ -35,6 +39,7 @@ public class DoctorService {
         this.healthChannel = healthChannel;
         this.peer = peer;
         this.doctorTransformer = doctorTransformer;
+        this.doctorCollectionTransformer = doctorCollectionTransformer;
     }
 
 
@@ -62,4 +67,15 @@ public class DoctorService {
         return doctorTransformer.transformFromProto(protoDoctor);
     }
 
+    public List<Doctor> getAll() throws InvalidProtocolBufferException {
+        ByteString protoDoctorsByteString = transactionService.sendQueryTransaction(
+                client,
+                chaincodeId,
+                healthChannel,
+                "getAllDoctors",
+                new String[]{});
+
+        ScheduleProtos.DoctorCollection protoDoctor = ScheduleProtos.DoctorCollection.parseFrom(protoDoctorsByteString);
+        return doctorCollectionTransformer.transformFromProto(protoDoctor);
+    }
 }
