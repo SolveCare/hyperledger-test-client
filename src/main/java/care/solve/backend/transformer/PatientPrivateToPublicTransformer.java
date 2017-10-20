@@ -4,7 +4,9 @@ import care.solve.backend.entity.DoctorPublic;
 import care.solve.backend.entity.PatientPrivate;
 import care.solve.backend.entity.PatientPublic;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PatientPrivateToPublicTransformer implements Transformer<PatientPrivate, PatientPublic> {
 
     @Override

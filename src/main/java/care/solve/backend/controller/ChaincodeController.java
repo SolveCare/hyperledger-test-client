@@ -1,6 +1,7 @@
 package care.solve.backend.controller;
 
 import care.solve.backend.service.ChaincodeService;
+import care.solve.backend.service.DoctorService;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeoutException;
 public class ChaincodeController {
 
     private ChaincodeService chaincodeService;
+    private DoctorService doctorService;
     private HFClient client;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
@@ -31,8 +33,9 @@ public class ChaincodeController {
     private Orderer orderer;
 
     @Autowired
-    public ChaincodeController(ChaincodeService chaincodeService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, Orderer orderer) {
+    public ChaincodeController(ChaincodeService chaincodeService, DoctorService doctorService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, Orderer orderer) {
         this.chaincodeService = chaincodeService;
+        this.doctorService = doctorService;
         this.client = client;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
@@ -40,12 +43,12 @@ public class ChaincodeController {
         this.orderer = orderer;
     }
 
-
     @PostMapping
     public void install() throws ProposalException, IOException, InvalidArgumentException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
         chaincodeService.installChaincode(client, chaincodeId, peer);
         chaincodeService.instantiateChaincode(client, chaincodeId, healthChannel, orderer, peer)
                 .get(20000L, TimeUnit.SECONDS);
+        doctorService.chaincodeInitialSync();
     }
 
 }

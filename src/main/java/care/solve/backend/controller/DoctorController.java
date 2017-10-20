@@ -1,5 +1,6 @@
 package care.solve.backend.controller;
 
+import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.entity.DoctorPublic;
 import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.service.DoctorService;
@@ -26,7 +27,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public void create(@RequestBody DoctorPublic doctor) {
+    public void create(@RequestBody DoctorPrivate doctor) {
         doctorService.create(doctor);
     }
 

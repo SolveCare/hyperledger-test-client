@@ -1,5 +1,6 @@
 package care.solve.backend.controller;
 
+import care.solve.backend.entity.PatientPrivate;
 import care.solve.backend.entity.PatientPublic;
 import care.solve.backend.service.PatientService;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -26,7 +27,7 @@ public class PatientController {
     }
 
     @PostMapping
-    public void create(@RequestBody PatientPublic patient) {
+    public void create(@RequestBody PatientPrivate patient) {
         patientService.create(patient);
     }
 
