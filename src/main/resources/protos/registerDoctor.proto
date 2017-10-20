@@ -30,7 +30,7 @@ message DoctorCollection {
 message Schedule {
     string ScheduleId = 1;
     string DoctorId = 2;
-    map<string, ScheduleRecord> Records = 3;
+    repeated ScheduleRecord Records = 3;
 }
 
 message Slot {
