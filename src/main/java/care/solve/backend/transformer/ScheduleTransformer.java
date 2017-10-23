@@ -2,7 +2,7 @@ package care.solve.backend.transformer;
 
 import care.solve.backend.entity.Schedule;
 import care.solve.backend.entity.ScheduleProtos;
-import care.solve.backend.entity.ScheduleRecord;
+import care.solve.backend.entity.Slot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,40 +12,49 @@ import java.util.stream.Collectors;
 @Service
 public class ScheduleTransformer implements ProtoTransformer<Schedule, ScheduleProtos.Schedule> {
 
-    private ScheduleRecordTransformer scheduleRecordTransformer;
+    private SlotTransformer slotTransformer;
 
     @Autowired
-    public ScheduleTransformer(ScheduleRecordTransformer scheduleRecordTransformer) {
-        this.scheduleRecordTransformer = scheduleRecordTransformer;
+    public ScheduleTransformer(SlotTransformer slotTransformer) {
+        this.slotTransformer = slotTransformer;
     }
 
     @Override
     public ScheduleProtos.Schedule transformToProto(Schedule obj) {
-        List<ScheduleRecord> scheduleRecords = obj.getRecords();
+        List<Slot> scheduleRecords = obj.getSlots();
+        ScheduleProtos.Schedule.Builder builder = ScheduleProtos.Schedule.newBuilder();
 
-        List<ScheduleProtos.ScheduleRecord> protoScheduleRecordList = scheduleRecords.stream()
-                .map(scheduleRecordTransformer::transformToProto)
-                .collect(Collectors.toList());
+        if (scheduleRecords != null) {
+            List<ScheduleProtos.Slot> protoScheduleRecordList = scheduleRecords.stream()
+                    .map(slotTransformer::transformToProto)
+                    .collect(Collectors.toList());
 
-        return ScheduleProtos.Schedule.newBuilder()
-                .setDoctorId(obj.getDoctorId())
-                .setScheduleId(obj.getScheduleId())
-                .addAllRecords(protoScheduleRecordList)
-                .build();
+            builder.addAllSlots(protoScheduleRecordList);
+        }
+
+        if (obj.getDoctorId() != null) { builder.setDoctorId(obj.getDoctorId()); }
+        if (obj.getScheduleId() != null) { builder.setScheduleId(obj.getScheduleId()); }
+
+        return builder.build();
     }
 
     @Override
     public Schedule transformFromProto(ScheduleProtos.Schedule proto) {
-        List<ScheduleProtos.ScheduleRecord> protoScheduleRecords = proto.getRecordsList();
+        List<ScheduleProtos.Slot> protoScheduleRecords = proto.getSlotsList();
 
-        List<ScheduleRecord> scheduleRecordList = protoScheduleRecords.stream()
-                .map(scheduleRecordTransformer::transformFromProto)
-                .collect(Collectors.toList());
+        Schedule.ScheduleBuilder builder = Schedule.builder();
 
-        return Schedule.builder()
+        if (protoScheduleRecords != null) {
+            List<Slot> scheduleRecordList = protoScheduleRecords.stream()
+                    .map(slotTransformer::transformFromProto)
+                    .collect(Collectors.toList());
+
+            builder.slots(scheduleRecordList);
+        }
+
+        return builder
                 .doctorId(proto.getDoctorId())
                 .scheduleId(proto.getScheduleId())
-                .records(scheduleRecordList)
                 .build();
     }
 }

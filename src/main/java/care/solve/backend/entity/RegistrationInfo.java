@@ -5,11 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ScheduleRequest {
+public class RegistrationInfo {
 
-    private String doctorId;
     private String patientId;
-    private Slot slot;
     private String description;
 
 }

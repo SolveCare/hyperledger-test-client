@@ -42,6 +42,7 @@ public class TransactionService {
             }
 
             CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp);
+
             return proposalResponces;
         } catch (InvalidArgumentException | ProposalException e) {
             throw new RuntimeException(e);

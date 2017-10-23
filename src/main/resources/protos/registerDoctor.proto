@@ -24,24 +24,23 @@ message DoctorCollection {
 message Schedule {
     string ScheduleId = 1;
     string DoctorId = 2;
-    repeated ScheduleRecord Records = 3;
+    repeated Slot slots = 3;
 }
 
 message Slot {
-    uint64 TimeStart = 1;
-    uint64 TimeFinish = 2;
+    string SlotId = 1;
+    uint64 TimeStart = 2;
+    uint64 TimeFinish = 3;
+    Type avaliable = 4;
+    RegistrationInfo registrationInfo = 5;
+
+    enum Type {
+        FREE = 0;
+        BUSY = 1;
+    }
 }
 
-message ScheduleRecord {
-    string RecordId = 1;
-    string Description = 2;
-    string PatientId = 3;
-    Slot Slot = 4;
-}
-
-message ScheduleRequest {
-    string PatientId = 1;
-    string DoctorId = 2;
-    string Description = 3;
-    Slot Slot = 4;
+message RegistrationInfo {
+    string Description = 1;
+    string PatientId = 2;
 }

@@ -7,7 +7,15 @@ import lombok.Data;
 @Builder
 public class Slot {
 
+    private String slotId;
     private Long timeStart;
-    private Long timeEnd;
+    private Long timeFinish;
+    private Type availability;
+    RegistrationInfo registrationInfo;
+
+    enum Type {
+        FREE,
+        BUSY
+    }
 
 }

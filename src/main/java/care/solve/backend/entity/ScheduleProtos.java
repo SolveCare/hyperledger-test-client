@@ -35,6 +35,7 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.PatientPublic)
       PatientPublicOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use PatientPublic.newBuilder() to construct.
     private PatientPublic(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -46,7 +47,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private PatientPublic(
         com.google.protobuf.CodedInputStream input,
@@ -54,6 +55,8 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -63,7 +66,8 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -82,6 +86,7 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -146,6 +151,7 @@ public final class ScheduleProtos {
       if (!getPatientIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, patientId_);
       }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -156,11 +162,11 @@ public final class ScheduleProtos {
       if (!getPatientIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, patientId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -174,6 +180,7 @@ public final class ScheduleProtos {
       boolean result = true;
       result = result && getPatientId()
           .equals(other.getPatientId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -349,7 +356,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -362,12 +369,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -385,6 +392,7 @@ public final class ScheduleProtos {
           patientId_ = other.patientId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -481,12 +489,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -569,6 +577,7 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.DoctorPublic)
       DoctorPublicOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DoctorPublic.newBuilder() to construct.
     private DoctorPublic(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -582,7 +591,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DoctorPublic(
         com.google.protobuf.CodedInputStream input,
@@ -590,6 +599,8 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -599,7 +610,8 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -630,6 +642,7 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -768,6 +781,7 @@ public final class ScheduleProtos {
       if (!getLastNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, lastName_);
       }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -784,11 +798,11 @@ public final class ScheduleProtos {
       if (!getLastNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, lastName_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -806,6 +820,7 @@ public final class ScheduleProtos {
           .equals(other.getFirstName());
       result = result && getLastName()
           .equals(other.getLastName());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -991,7 +1006,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -1004,12 +1019,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1035,6 +1050,7 @@ public final class ScheduleProtos {
           lastName_ = other.lastName_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -1269,12 +1285,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -1351,6 +1367,7 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.DoctorCollection)
       DoctorCollectionOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DoctorCollection.newBuilder() to construct.
     private DoctorCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1362,7 +1379,7 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DoctorCollection(
         com.google.protobuf.CodedInputStream input,
@@ -1370,6 +1387,8 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1379,7 +1398,8 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -1404,6 +1424,7 @@ public final class ScheduleProtos {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           doctors_ = java.util.Collections.unmodifiableList(doctors_);
         }
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1469,6 +1490,7 @@ public final class ScheduleProtos {
       for (int i = 0; i < doctors_.size(); i++) {
         output.writeMessage(1, doctors_.get(i));
       }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -1480,11 +1502,11 @@ public final class ScheduleProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, doctors_.get(i));
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1498,6 +1520,7 @@ public final class ScheduleProtos {
       boolean result = true;
       result = result && getDoctorsList()
           .equals(other.getDoctorsList());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1689,7 +1712,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -1702,12 +1725,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1747,6 +1770,7 @@ public final class ScheduleProtos {
             }
           }
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -2015,12 +2039,12 @@ public final class ScheduleProtos {
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2087,27 +2111,27 @@ public final class ScheduleProtos {
         getDoctorIdBytes();
 
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> 
-        getRecordsList();
+    java.util.List<care.solve.backend.entity.ScheduleProtos.Slot> 
+        getSlotsList();
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index);
+    care.solve.backend.entity.ScheduleProtos.Slot getSlots(int index);
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    int getRecordsCount();
+    int getSlotsCount();
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
-        getRecordsOrBuilderList();
+    java.util.List<? extends care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
+        getSlotsOrBuilderList();
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+    care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotsOrBuilder(
         int index);
   }
   /**
@@ -2117,6 +2141,7 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.Schedule)
       ScheduleOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Schedule.newBuilder() to construct.
     private Schedule(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2124,13 +2149,13 @@ public final class ScheduleProtos {
     private Schedule() {
       scheduleId_ = "";
       doctorId_ = "";
-      records_ = java.util.Collections.emptyList();
+      slots_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Schedule(
         com.google.protobuf.CodedInputStream input,
@@ -2138,6 +2163,8 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2147,7 +2174,8 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -2166,11 +2194,11 @@ public final class ScheduleProtos {
             }
             case 26: {
               if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                records_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.ScheduleRecord>();
+                slots_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Slot>();
                 mutable_bitField0_ |= 0x00000004;
               }
-              records_.add(
-                  input.readMessage(care.solve.backend.entity.ScheduleProtos.ScheduleRecord.parser(), extensionRegistry));
+              slots_.add(
+                  input.readMessage(care.solve.backend.entity.ScheduleProtos.Slot.parser(), extensionRegistry));
               break;
             }
           }
@@ -2182,8 +2210,9 @@ public final class ScheduleProtos {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-          records_ = java.util.Collections.unmodifiableList(records_);
+          slots_ = java.util.Collections.unmodifiableList(slots_);
         }
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2268,39 +2297,39 @@ public final class ScheduleProtos {
       }
     }
 
-    public static final int RECORDS_FIELD_NUMBER = 3;
-    private java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_;
+    public static final int SLOTS_FIELD_NUMBER = 3;
+    private java.util.List<care.solve.backend.entity.ScheduleProtos.Slot> slots_;
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsList() {
-      return records_;
+    public java.util.List<care.solve.backend.entity.ScheduleProtos.Slot> getSlotsList() {
+      return slots_;
     }
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
-        getRecordsOrBuilderList() {
-      return records_;
+    public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
+        getSlotsOrBuilderList() {
+      return slots_;
     }
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    public int getRecordsCount() {
-      return records_.size();
+    public int getSlotsCount() {
+      return slots_.size();
     }
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index) {
-      return records_.get(index);
+    public care.solve.backend.entity.ScheduleProtos.Slot getSlots(int index) {
+      return slots_.get(index);
     }
     /**
-     * <code>repeated .main.ScheduleRecord Records = 3;</code>
+     * <code>repeated .main.Slot slots = 3;</code>
      */
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+    public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotsOrBuilder(
         int index) {
-      return records_.get(index);
+      return slots_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2321,9 +2350,10 @@ public final class ScheduleProtos {
       if (!getDoctorIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, doctorId_);
       }
-      for (int i = 0; i < records_.size(); i++) {
-        output.writeMessage(3, records_.get(i));
+      for (int i = 0; i < slots_.size(); i++) {
+        output.writeMessage(3, slots_.get(i));
       }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -2337,15 +2367,15 @@ public final class ScheduleProtos {
       if (!getDoctorIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, doctorId_);
       }
-      for (int i = 0; i < records_.size(); i++) {
+      for (int i = 0; i < slots_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, records_.get(i));
+          .computeMessageSize(3, slots_.get(i));
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2361,8 +2391,9 @@ public final class ScheduleProtos {
           .equals(other.getScheduleId());
       result = result && getDoctorId()
           .equals(other.getDoctorId());
-      result = result && getRecordsList()
-          .equals(other.getRecordsList());
+      result = result && getSlotsList()
+          .equals(other.getSlotsList());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2377,9 +2408,9 @@ public final class ScheduleProtos {
       hash = (53 * hash) + getScheduleId().hashCode();
       hash = (37 * hash) + DOCTORID_FIELD_NUMBER;
       hash = (53 * hash) + getDoctorId().hashCode();
-      if (getRecordsCount() > 0) {
-        hash = (37 * hash) + RECORDS_FIELD_NUMBER;
-        hash = (53 * hash) + getRecordsList().hashCode();
+      if (getSlotsCount() > 0) {
+        hash = (37 * hash) + SLOTS_FIELD_NUMBER;
+        hash = (53 * hash) + getSlotsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2506,7 +2537,7 @@ public final class ScheduleProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getRecordsFieldBuilder();
+          getSlotsFieldBuilder();
         }
       }
       public Builder clear() {
@@ -2515,11 +2546,11 @@ public final class ScheduleProtos {
 
         doctorId_ = "";
 
-        if (recordsBuilder_ == null) {
-          records_ = java.util.Collections.emptyList();
+        if (slotsBuilder_ == null) {
+          slots_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000004);
         } else {
-          recordsBuilder_.clear();
+          slotsBuilder_.clear();
         }
         return this;
       }
@@ -2547,14 +2578,14 @@ public final class ScheduleProtos {
         int to_bitField0_ = 0;
         result.scheduleId_ = scheduleId_;
         result.doctorId_ = doctorId_;
-        if (recordsBuilder_ == null) {
+        if (slotsBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            records_ = java.util.Collections.unmodifiableList(records_);
+            slots_ = java.util.Collections.unmodifiableList(slots_);
             bitField0_ = (bitField0_ & ~0x00000004);
           }
-          result.records_ = records_;
+          result.slots_ = slots_;
         } else {
-          result.records_ = recordsBuilder_.build();
+          result.slots_ = slotsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -2566,7 +2597,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -2579,12 +2610,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2606,32 +2637,33 @@ public final class ScheduleProtos {
           doctorId_ = other.doctorId_;
           onChanged();
         }
-        if (recordsBuilder_ == null) {
-          if (!other.records_.isEmpty()) {
-            if (records_.isEmpty()) {
-              records_ = other.records_;
+        if (slotsBuilder_ == null) {
+          if (!other.slots_.isEmpty()) {
+            if (slots_.isEmpty()) {
+              slots_ = other.slots_;
               bitField0_ = (bitField0_ & ~0x00000004);
             } else {
-              ensureRecordsIsMutable();
-              records_.addAll(other.records_);
+              ensureSlotsIsMutable();
+              slots_.addAll(other.slots_);
             }
             onChanged();
           }
         } else {
-          if (!other.records_.isEmpty()) {
-            if (recordsBuilder_.isEmpty()) {
-              recordsBuilder_.dispose();
-              recordsBuilder_ = null;
-              records_ = other.records_;
+          if (!other.slots_.isEmpty()) {
+            if (slotsBuilder_.isEmpty()) {
+              slotsBuilder_.dispose();
+              slotsBuilder_ = null;
+              slots_ = other.slots_;
               bitField0_ = (bitField0_ & ~0x00000004);
-              recordsBuilder_ = 
+              slotsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getRecordsFieldBuilder() : null;
+                   getSlotsFieldBuilder() : null;
             } else {
-              recordsBuilder_.addAllMessages(other.records_);
+              slotsBuilder_.addAllMessages(other.slots_);
             }
           }
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -2797,253 +2829,253 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> records_ =
+      private java.util.List<care.solve.backend.entity.ScheduleProtos.Slot> slots_ =
         java.util.Collections.emptyList();
-      private void ensureRecordsIsMutable() {
+      private void ensureSlotsIsMutable() {
         if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-          records_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.ScheduleRecord>(records_);
+          slots_ = new java.util.ArrayList<care.solve.backend.entity.ScheduleProtos.Slot>(slots_);
           bitField0_ |= 0x00000004;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> recordsBuilder_;
+          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> slotsBuilder_;
 
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord> getRecordsList() {
-        if (recordsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(records_);
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.Slot> getSlotsList() {
+        if (slotsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(slots_);
         } else {
-          return recordsBuilder_.getMessageList();
+          return slotsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public int getRecordsCount() {
-        if (recordsBuilder_ == null) {
-          return records_.size();
+      public int getSlotsCount() {
+        if (slotsBuilder_ == null) {
+          return slots_.size();
         } else {
-          return recordsBuilder_.getCount();
+          return slotsBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getRecords(int index) {
-        if (recordsBuilder_ == null) {
-          return records_.get(index);
+      public care.solve.backend.entity.ScheduleProtos.Slot getSlots(int index) {
+        if (slotsBuilder_ == null) {
+          return slots_.get(index);
         } else {
-          return recordsBuilder_.getMessage(index);
+          return slotsBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder setRecords(
-          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
-        if (recordsBuilder_ == null) {
+      public Builder setSlots(
+          int index, care.solve.backend.entity.ScheduleProtos.Slot value) {
+        if (slotsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRecordsIsMutable();
-          records_.set(index, value);
+          ensureSlotsIsMutable();
+          slots_.set(index, value);
           onChanged();
         } else {
-          recordsBuilder_.setMessage(index, value);
+          slotsBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder setRecords(
-          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
-        if (recordsBuilder_ == null) {
-          ensureRecordsIsMutable();
-          records_.set(index, builderForValue.build());
+      public Builder setSlots(
+          int index, care.solve.backend.entity.ScheduleProtos.Slot.Builder builderForValue) {
+        if (slotsBuilder_ == null) {
+          ensureSlotsIsMutable();
+          slots_.set(index, builderForValue.build());
           onChanged();
         } else {
-          recordsBuilder_.setMessage(index, builderForValue.build());
+          slotsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder addRecords(care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
-        if (recordsBuilder_ == null) {
+      public Builder addSlots(care.solve.backend.entity.ScheduleProtos.Slot value) {
+        if (slotsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRecordsIsMutable();
-          records_.add(value);
+          ensureSlotsIsMutable();
+          slots_.add(value);
           onChanged();
         } else {
-          recordsBuilder_.addMessage(value);
+          slotsBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder addRecords(
-          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord value) {
-        if (recordsBuilder_ == null) {
+      public Builder addSlots(
+          int index, care.solve.backend.entity.ScheduleProtos.Slot value) {
+        if (slotsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureRecordsIsMutable();
-          records_.add(index, value);
+          ensureSlotsIsMutable();
+          slots_.add(index, value);
           onChanged();
         } else {
-          recordsBuilder_.addMessage(index, value);
+          slotsBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder addRecords(
-          care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
-        if (recordsBuilder_ == null) {
-          ensureRecordsIsMutable();
-          records_.add(builderForValue.build());
+      public Builder addSlots(
+          care.solve.backend.entity.ScheduleProtos.Slot.Builder builderForValue) {
+        if (slotsBuilder_ == null) {
+          ensureSlotsIsMutable();
+          slots_.add(builderForValue.build());
           onChanged();
         } else {
-          recordsBuilder_.addMessage(builderForValue.build());
+          slotsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder addRecords(
-          int index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder builderForValue) {
-        if (recordsBuilder_ == null) {
-          ensureRecordsIsMutable();
-          records_.add(index, builderForValue.build());
+      public Builder addSlots(
+          int index, care.solve.backend.entity.ScheduleProtos.Slot.Builder builderForValue) {
+        if (slotsBuilder_ == null) {
+          ensureSlotsIsMutable();
+          slots_.add(index, builderForValue.build());
           onChanged();
         } else {
-          recordsBuilder_.addMessage(index, builderForValue.build());
+          slotsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder addAllRecords(
-          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecord> values) {
-        if (recordsBuilder_ == null) {
-          ensureRecordsIsMutable();
+      public Builder addAllSlots(
+          java.lang.Iterable<? extends care.solve.backend.entity.ScheduleProtos.Slot> values) {
+        if (slotsBuilder_ == null) {
+          ensureSlotsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, records_);
+              values, slots_);
           onChanged();
         } else {
-          recordsBuilder_.addAllMessages(values);
+          slotsBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder clearRecords() {
-        if (recordsBuilder_ == null) {
-          records_ = java.util.Collections.emptyList();
+      public Builder clearSlots() {
+        if (slotsBuilder_ == null) {
+          slots_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
         } else {
-          recordsBuilder_.clear();
+          slotsBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public Builder removeRecords(int index) {
-        if (recordsBuilder_ == null) {
-          ensureRecordsIsMutable();
-          records_.remove(index);
+      public Builder removeSlots(int index) {
+        if (slotsBuilder_ == null) {
+          ensureSlotsIsMutable();
+          slots_.remove(index);
           onChanged();
         } else {
-          recordsBuilder_.remove(index);
+          slotsBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder getRecordsBuilder(
+      public care.solve.backend.entity.ScheduleProtos.Slot.Builder getSlotsBuilder(
           int index) {
-        return getRecordsFieldBuilder().getBuilder(index);
+        return getSlotsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder getRecordsOrBuilder(
+      public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotsOrBuilder(
           int index) {
-        if (recordsBuilder_ == null) {
-          return records_.get(index);  } else {
-          return recordsBuilder_.getMessageOrBuilder(index);
+        if (slotsBuilder_ == null) {
+          return slots_.get(index);  } else {
+          return slotsBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
-           getRecordsOrBuilderList() {
-        if (recordsBuilder_ != null) {
-          return recordsBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
+           getSlotsOrBuilderList() {
+        if (slotsBuilder_ != null) {
+          return slotsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(records_);
+          return java.util.Collections.unmodifiableList(slots_);
         }
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder addRecordsBuilder() {
-        return getRecordsFieldBuilder().addBuilder(
-            care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance());
+      public care.solve.backend.entity.ScheduleProtos.Slot.Builder addSlotsBuilder() {
+        return getSlotsFieldBuilder().addBuilder(
+            care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance());
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder addRecordsBuilder(
+      public care.solve.backend.entity.ScheduleProtos.Slot.Builder addSlotsBuilder(
           int index) {
-        return getRecordsFieldBuilder().addBuilder(
-            index, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance());
+        return getSlotsFieldBuilder().addBuilder(
+            index, care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance());
       }
       /**
-       * <code>repeated .main.ScheduleRecord Records = 3;</code>
+       * <code>repeated .main.Slot slots = 3;</code>
        */
-      public java.util.List<care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder> 
-           getRecordsBuilderList() {
-        return getRecordsFieldBuilder().getBuilderList();
+      public java.util.List<care.solve.backend.entity.ScheduleProtos.Slot.Builder> 
+           getSlotsBuilderList() {
+        return getSlotsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder> 
-          getRecordsFieldBuilder() {
-        if (recordsBuilder_ == null) {
-          recordsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              care.solve.backend.entity.ScheduleProtos.ScheduleRecord, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder, care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder>(
-                  records_,
+          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
+          getSlotsFieldBuilder() {
+        if (slotsBuilder_ == null) {
+          slotsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder>(
+                  slots_,
                   ((bitField0_ & 0x00000004) == 0x00000004),
                   getParentForChildren(),
                   isClean());
-          records_ = null;
+          slots_ = null;
         }
-        return recordsBuilder_;
+        return slotsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3090,14 +3122,46 @@ public final class ScheduleProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 TimeStart = 1;</code>
+     * <code>string SlotId = 1;</code>
+     */
+    java.lang.String getSlotId();
+    /**
+     * <code>string SlotId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getSlotIdBytes();
+
+    /**
+     * <code>uint64 TimeStart = 2;</code>
      */
     long getTimeStart();
 
     /**
-     * <code>uint64 TimeFinish = 2;</code>
+     * <code>uint64 TimeFinish = 3;</code>
      */
     long getTimeFinish();
+
+    /**
+     * <code>.main.Slot.Type avaliable = 4;</code>
+     */
+    int getAvaliableValue();
+    /**
+     * <code>.main.Slot.Type avaliable = 4;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.Slot.Type getAvaliable();
+
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    boolean hasRegistrationInfo();
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.RegistrationInfo getRegistrationInfo();
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder getRegistrationInfoOrBuilder();
   }
   /**
    * Protobuf type {@code main.Slot}
@@ -3106,19 +3170,22 @@ public final class ScheduleProtos {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:main.Slot)
       SlotOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Slot.newBuilder() to construct.
     private Slot(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
     private Slot() {
+      slotId_ = "";
       timeStart_ = 0L;
       timeFinish_ = 0L;
+      avaliable_ = 0;
     }
 
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Slot(
         com.google.protobuf.CodedInputStream input,
@@ -3126,6 +3193,8 @@ public final class ScheduleProtos {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3135,19 +3204,45 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
             }
-            case 8: {
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              timeStart_ = input.readUInt64();
+              slotId_ = s;
               break;
             }
             case 16: {
 
+              timeStart_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+
               timeFinish_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              avaliable_ = rawValue;
+              break;
+            }
+            case 42: {
+              care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder subBuilder = null;
+              if (registrationInfo_ != null) {
+                subBuilder = registrationInfo_.toBuilder();
+              }
+              registrationInfo_ = input.readMessage(care.solve.backend.entity.ScheduleProtos.RegistrationInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(registrationInfo_);
+                registrationInfo_ = subBuilder.buildPartial();
+              }
+
               break;
             }
           }
@@ -3158,6 +3253,7 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3173,22 +3269,191 @@ public final class ScheduleProtos {
               care.solve.backend.entity.ScheduleProtos.Slot.class, care.solve.backend.entity.ScheduleProtos.Slot.Builder.class);
     }
 
-    public static final int TIMESTART_FIELD_NUMBER = 1;
+    /**
+     * Protobuf enum {@code main.Slot.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>FREE = 0;</code>
+       */
+      FREE(0),
+      /**
+       * <code>BUSY = 1;</code>
+       */
+      BUSY(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>FREE = 0;</code>
+       */
+      public static final int FREE_VALUE = 0;
+      /**
+       * <code>BUSY = 1;</code>
+       */
+      public static final int BUSY_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Type valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static Type forNumber(int value) {
+        switch (value) {
+          case 0: return FREE;
+          case 1: return BUSY;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Type> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return care.solve.backend.entity.ScheduleProtos.Slot.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Type(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:main.Slot.Type)
+    }
+
+    public static final int SLOTID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object slotId_;
+    /**
+     * <code>string SlotId = 1;</code>
+     */
+    public java.lang.String getSlotId() {
+      java.lang.Object ref = slotId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        slotId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string SlotId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSlotIdBytes() {
+      java.lang.Object ref = slotId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        slotId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TIMESTART_FIELD_NUMBER = 2;
     private long timeStart_;
     /**
-     * <code>uint64 TimeStart = 1;</code>
+     * <code>uint64 TimeStart = 2;</code>
      */
     public long getTimeStart() {
       return timeStart_;
     }
 
-    public static final int TIMEFINISH_FIELD_NUMBER = 2;
+    public static final int TIMEFINISH_FIELD_NUMBER = 3;
     private long timeFinish_;
     /**
-     * <code>uint64 TimeFinish = 2;</code>
+     * <code>uint64 TimeFinish = 3;</code>
      */
     public long getTimeFinish() {
       return timeFinish_;
+    }
+
+    public static final int AVALIABLE_FIELD_NUMBER = 4;
+    private int avaliable_;
+    /**
+     * <code>.main.Slot.Type avaliable = 4;</code>
+     */
+    public int getAvaliableValue() {
+      return avaliable_;
+    }
+    /**
+     * <code>.main.Slot.Type avaliable = 4;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.Slot.Type getAvaliable() {
+      care.solve.backend.entity.ScheduleProtos.Slot.Type result = care.solve.backend.entity.ScheduleProtos.Slot.Type.valueOf(avaliable_);
+      return result == null ? care.solve.backend.entity.ScheduleProtos.Slot.Type.UNRECOGNIZED : result;
+    }
+
+    public static final int REGISTRATIONINFO_FIELD_NUMBER = 5;
+    private care.solve.backend.entity.ScheduleProtos.RegistrationInfo registrationInfo_;
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    public boolean hasRegistrationInfo() {
+      return registrationInfo_ != null;
+    }
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.RegistrationInfo getRegistrationInfo() {
+      return registrationInfo_ == null ? care.solve.backend.entity.ScheduleProtos.RegistrationInfo.getDefaultInstance() : registrationInfo_;
+    }
+    /**
+     * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+     */
+    public care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder getRegistrationInfoOrBuilder() {
+      return getRegistrationInfo();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3203,12 +3468,22 @@ public final class ScheduleProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getSlotIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, slotId_);
+      }
       if (timeStart_ != 0L) {
-        output.writeUInt64(1, timeStart_);
+        output.writeUInt64(2, timeStart_);
       }
       if (timeFinish_ != 0L) {
-        output.writeUInt64(2, timeFinish_);
+        output.writeUInt64(3, timeFinish_);
       }
+      if (avaliable_ != care.solve.backend.entity.ScheduleProtos.Slot.Type.FREE.getNumber()) {
+        output.writeEnum(4, avaliable_);
+      }
+      if (registrationInfo_ != null) {
+        output.writeMessage(5, getRegistrationInfo());
+      }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -3216,19 +3491,30 @@ public final class ScheduleProtos {
       if (size != -1) return size;
 
       size = 0;
+      if (!getSlotIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, slotId_);
+      }
       if (timeStart_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, timeStart_);
+          .computeUInt64Size(2, timeStart_);
       }
       if (timeFinish_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, timeFinish_);
+          .computeUInt64Size(3, timeFinish_);
       }
+      if (avaliable_ != care.solve.backend.entity.ScheduleProtos.Slot.Type.FREE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, avaliable_);
+      }
+      if (registrationInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getRegistrationInfo());
+      }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3240,10 +3526,19 @@ public final class ScheduleProtos {
       care.solve.backend.entity.ScheduleProtos.Slot other = (care.solve.backend.entity.ScheduleProtos.Slot) obj;
 
       boolean result = true;
+      result = result && getSlotId()
+          .equals(other.getSlotId());
       result = result && (getTimeStart()
           == other.getTimeStart());
       result = result && (getTimeFinish()
           == other.getTimeFinish());
+      result = result && avaliable_ == other.avaliable_;
+      result = result && (hasRegistrationInfo() == other.hasRegistrationInfo());
+      if (hasRegistrationInfo()) {
+        result = result && getRegistrationInfo()
+            .equals(other.getRegistrationInfo());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3254,12 +3549,20 @@ public final class ScheduleProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SLOTID_FIELD_NUMBER;
+      hash = (53 * hash) + getSlotId().hashCode();
       hash = (37 * hash) + TIMESTART_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTimeStart());
       hash = (37 * hash) + TIMEFINISH_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTimeFinish());
+      hash = (37 * hash) + AVALIABLE_FIELD_NUMBER;
+      hash = (53 * hash) + avaliable_;
+      if (hasRegistrationInfo()) {
+        hash = (37 * hash) + REGISTRATIONINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getRegistrationInfo().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3389,10 +3692,20 @@ public final class ScheduleProtos {
       }
       public Builder clear() {
         super.clear();
+        slotId_ = "";
+
         timeStart_ = 0L;
 
         timeFinish_ = 0L;
 
+        avaliable_ = 0;
+
+        if (registrationInfoBuilder_ == null) {
+          registrationInfo_ = null;
+        } else {
+          registrationInfo_ = null;
+          registrationInfoBuilder_ = null;
+        }
         return this;
       }
 
@@ -3415,8 +3728,15 @@ public final class ScheduleProtos {
 
       public care.solve.backend.entity.ScheduleProtos.Slot buildPartial() {
         care.solve.backend.entity.ScheduleProtos.Slot result = new care.solve.backend.entity.ScheduleProtos.Slot(this);
+        result.slotId_ = slotId_;
         result.timeStart_ = timeStart_;
         result.timeFinish_ = timeFinish_;
+        result.avaliable_ = avaliable_;
+        if (registrationInfoBuilder_ == null) {
+          result.registrationInfo_ = registrationInfo_;
+        } else {
+          result.registrationInfo_ = registrationInfoBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -3426,7 +3746,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -3439,12 +3759,12 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3458,12 +3778,23 @@ public final class ScheduleProtos {
 
       public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.Slot other) {
         if (other == care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance()) return this;
+        if (!other.getSlotId().isEmpty()) {
+          slotId_ = other.slotId_;
+          onChanged();
+        }
         if (other.getTimeStart() != 0L) {
           setTimeStart(other.getTimeStart());
         }
         if (other.getTimeFinish() != 0L) {
           setTimeFinish(other.getTimeFinish());
         }
+        if (other.avaliable_ != 0) {
+          setAvaliableValue(other.getAvaliableValue());
+        }
+        if (other.hasRegistrationInfo()) {
+          mergeRegistrationInfo(other.getRegistrationInfo());
+        }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -3490,15 +3821,84 @@ public final class ScheduleProtos {
         return this;
       }
 
+      private java.lang.Object slotId_ = "";
+      /**
+       * <code>string SlotId = 1;</code>
+       */
+      public java.lang.String getSlotId() {
+        java.lang.Object ref = slotId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          slotId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string SlotId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSlotIdBytes() {
+        java.lang.Object ref = slotId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          slotId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string SlotId = 1;</code>
+       */
+      public Builder setSlotId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        slotId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string SlotId = 1;</code>
+       */
+      public Builder clearSlotId() {
+        
+        slotId_ = getDefaultInstance().getSlotId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string SlotId = 1;</code>
+       */
+      public Builder setSlotIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        slotId_ = value;
+        onChanged();
+        return this;
+      }
+
       private long timeStart_ ;
       /**
-       * <code>uint64 TimeStart = 1;</code>
+       * <code>uint64 TimeStart = 2;</code>
        */
       public long getTimeStart() {
         return timeStart_;
       }
       /**
-       * <code>uint64 TimeStart = 1;</code>
+       * <code>uint64 TimeStart = 2;</code>
        */
       public Builder setTimeStart(long value) {
         
@@ -3507,7 +3907,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>uint64 TimeStart = 1;</code>
+       * <code>uint64 TimeStart = 2;</code>
        */
       public Builder clearTimeStart() {
         
@@ -3518,13 +3918,13 @@ public final class ScheduleProtos {
 
       private long timeFinish_ ;
       /**
-       * <code>uint64 TimeFinish = 2;</code>
+       * <code>uint64 TimeFinish = 3;</code>
        */
       public long getTimeFinish() {
         return timeFinish_;
       }
       /**
-       * <code>uint64 TimeFinish = 2;</code>
+       * <code>uint64 TimeFinish = 3;</code>
        */
       public Builder setTimeFinish(long value) {
         
@@ -3533,7 +3933,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>uint64 TimeFinish = 2;</code>
+       * <code>uint64 TimeFinish = 3;</code>
        */
       public Builder clearTimeFinish() {
         
@@ -3541,14 +3941,175 @@ public final class ScheduleProtos {
         onChanged();
         return this;
       }
+
+      private int avaliable_ = 0;
+      /**
+       * <code>.main.Slot.Type avaliable = 4;</code>
+       */
+      public int getAvaliableValue() {
+        return avaliable_;
+      }
+      /**
+       * <code>.main.Slot.Type avaliable = 4;</code>
+       */
+      public Builder setAvaliableValue(int value) {
+        avaliable_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.Slot.Type avaliable = 4;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.Slot.Type getAvaliable() {
+        care.solve.backend.entity.ScheduleProtos.Slot.Type result = care.solve.backend.entity.ScheduleProtos.Slot.Type.valueOf(avaliable_);
+        return result == null ? care.solve.backend.entity.ScheduleProtos.Slot.Type.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.main.Slot.Type avaliable = 4;</code>
+       */
+      public Builder setAvaliable(care.solve.backend.entity.ScheduleProtos.Slot.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        avaliable_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.main.Slot.Type avaliable = 4;</code>
+       */
+      public Builder clearAvaliable() {
+        
+        avaliable_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private care.solve.backend.entity.ScheduleProtos.RegistrationInfo registrationInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.RegistrationInfo, care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder, care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder> registrationInfoBuilder_;
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public boolean hasRegistrationInfo() {
+        return registrationInfoBuilder_ != null || registrationInfo_ != null;
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfo getRegistrationInfo() {
+        if (registrationInfoBuilder_ == null) {
+          return registrationInfo_ == null ? care.solve.backend.entity.ScheduleProtos.RegistrationInfo.getDefaultInstance() : registrationInfo_;
+        } else {
+          return registrationInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public Builder setRegistrationInfo(care.solve.backend.entity.ScheduleProtos.RegistrationInfo value) {
+        if (registrationInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          registrationInfo_ = value;
+          onChanged();
+        } else {
+          registrationInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public Builder setRegistrationInfo(
+          care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder builderForValue) {
+        if (registrationInfoBuilder_ == null) {
+          registrationInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          registrationInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public Builder mergeRegistrationInfo(care.solve.backend.entity.ScheduleProtos.RegistrationInfo value) {
+        if (registrationInfoBuilder_ == null) {
+          if (registrationInfo_ != null) {
+            registrationInfo_ =
+              care.solve.backend.entity.ScheduleProtos.RegistrationInfo.newBuilder(registrationInfo_).mergeFrom(value).buildPartial();
+          } else {
+            registrationInfo_ = value;
+          }
+          onChanged();
+        } else {
+          registrationInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public Builder clearRegistrationInfo() {
+        if (registrationInfoBuilder_ == null) {
+          registrationInfo_ = null;
+          onChanged();
+        } else {
+          registrationInfo_ = null;
+          registrationInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder getRegistrationInfoBuilder() {
+        
+        onChanged();
+        return getRegistrationInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder getRegistrationInfoOrBuilder() {
+        if (registrationInfoBuilder_ != null) {
+          return registrationInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return registrationInfo_ == null ?
+              care.solve.backend.entity.ScheduleProtos.RegistrationInfo.getDefaultInstance() : registrationInfo_;
+        }
+      }
+      /**
+       * <code>.main.RegistrationInfo registrationInfo = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          care.solve.backend.entity.ScheduleProtos.RegistrationInfo, care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder, care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder> 
+          getRegistrationInfoFieldBuilder() {
+        if (registrationInfoBuilder_ == null) {
+          registrationInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              care.solve.backend.entity.ScheduleProtos.RegistrationInfo, care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder, care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder>(
+                  getRegistrationInfo(),
+                  getParentForChildren(),
+                  isClean());
+          registrationInfo_ = null;
+        }
+        return registrationInfoBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3590,66 +4151,43 @@ public final class ScheduleProtos {
 
   }
 
-  public interface ScheduleRecordOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:main.ScheduleRecord)
+  public interface RegistrationInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:main.RegistrationInfo)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string RecordId = 1;</code>
-     */
-    java.lang.String getRecordId();
-    /**
-     * <code>string RecordId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getRecordIdBytes();
-
-    /**
-     * <code>string Description = 2;</code>
+     * <code>string Description = 1;</code>
      */
     java.lang.String getDescription();
     /**
-     * <code>string Description = 2;</code>
+     * <code>string Description = 1;</code>
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
 
     /**
-     * <code>string PatientId = 3;</code>
+     * <code>string PatientId = 2;</code>
      */
     java.lang.String getPatientId();
     /**
-     * <code>string PatientId = 3;</code>
+     * <code>string PatientId = 2;</code>
      */
     com.google.protobuf.ByteString
         getPatientIdBytes();
-
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    boolean hasSlot();
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    care.solve.backend.entity.ScheduleProtos.Slot getSlot();
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder();
   }
   /**
-   * Protobuf type {@code main.ScheduleRecord}
+   * Protobuf type {@code main.RegistrationInfo}
    */
-  public  static final class ScheduleRecord extends
+  public  static final class RegistrationInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:main.ScheduleRecord)
-      ScheduleRecordOrBuilder {
-    // Use ScheduleRecord.newBuilder() to construct.
-    private ScheduleRecord(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:main.RegistrationInfo)
+      RegistrationInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RegistrationInfo.newBuilder() to construct.
+    private RegistrationInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ScheduleRecord() {
-      recordId_ = "";
+    private RegistrationInfo() {
       description_ = "";
       patientId_ = "";
     }
@@ -3657,14 +4195,16 @@ public final class ScheduleProtos {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
-    private ScheduleRecord(
+    private RegistrationInfo(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3674,7 +4214,8 @@ public final class ScheduleProtos {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -3682,32 +4223,13 @@ public final class ScheduleProtos {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              recordId_ = s;
+              description_ = s;
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              description_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
               patientId_ = s;
-              break;
-            }
-            case 34: {
-              care.solve.backend.entity.ScheduleProtos.Slot.Builder subBuilder = null;
-              if (slot_ != null) {
-                subBuilder = slot_.toBuilder();
-              }
-              slot_ = input.readMessage(care.solve.backend.entity.ScheduleProtos.Slot.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(slot_);
-                slot_ = subBuilder.buildPartial();
-              }
-
               break;
             }
           }
@@ -3718,59 +4240,26 @@ public final class ScheduleProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRecord_descriptor;
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_RegistrationInfo_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRecord_fieldAccessorTable
+      return care.solve.backend.entity.ScheduleProtos.internal_static_main_RegistrationInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              care.solve.backend.entity.ScheduleProtos.ScheduleRecord.class, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder.class);
+              care.solve.backend.entity.ScheduleProtos.RegistrationInfo.class, care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder.class);
     }
 
-    public static final int RECORDID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object recordId_;
-    /**
-     * <code>string RecordId = 1;</code>
-     */
-    public java.lang.String getRecordId() {
-      java.lang.Object ref = recordId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        recordId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string RecordId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRecordIdBytes() {
-      java.lang.Object ref = recordId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        recordId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DESCRIPTION_FIELD_NUMBER = 2;
+    public static final int DESCRIPTION_FIELD_NUMBER = 1;
     private volatile java.lang.Object description_;
     /**
-     * <code>string Description = 2;</code>
+     * <code>string Description = 1;</code>
      */
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
@@ -3785,7 +4274,7 @@ public final class ScheduleProtos {
       }
     }
     /**
-     * <code>string Description = 2;</code>
+     * <code>string Description = 1;</code>
      */
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
@@ -3801,10 +4290,10 @@ public final class ScheduleProtos {
       }
     }
 
-    public static final int PATIENTID_FIELD_NUMBER = 3;
+    public static final int PATIENTID_FIELD_NUMBER = 2;
     private volatile java.lang.Object patientId_;
     /**
-     * <code>string PatientId = 3;</code>
+     * <code>string PatientId = 2;</code>
      */
     public java.lang.String getPatientId() {
       java.lang.Object ref = patientId_;
@@ -3819,7 +4308,7 @@ public final class ScheduleProtos {
       }
     }
     /**
-     * <code>string PatientId = 3;</code>
+     * <code>string PatientId = 2;</code>
      */
     public com.google.protobuf.ByteString
         getPatientIdBytes() {
@@ -3835,27 +4324,6 @@ public final class ScheduleProtos {
       }
     }
 
-    public static final int SLOT_FIELD_NUMBER = 4;
-    private care.solve.backend.entity.ScheduleProtos.Slot slot_;
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public boolean hasSlot() {
-      return slot_ != null;
-    }
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public care.solve.backend.entity.ScheduleProtos.Slot getSlot() {
-      return slot_ == null ? care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-    }
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder() {
-      return getSlot();
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3868,18 +4336,13 @@ public final class ScheduleProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getRecordIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, recordId_);
-      }
       if (!getDescriptionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, description_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, description_);
       }
       if (!getPatientIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, patientId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, patientId_);
       }
-      if (slot_ != null) {
-        output.writeMessage(4, getSlot());
-      }
+      unknownFields.writeTo(output);
     }
 
     public int getSerializedSize() {
@@ -3887,46 +4350,33 @@ public final class ScheduleProtos {
       if (size != -1) return size;
 
       size = 0;
-      if (!getRecordIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, recordId_);
-      }
       if (!getDescriptionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, description_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, description_);
       }
       if (!getPatientIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, patientId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, patientId_);
       }
-      if (slot_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getSlot());
-      }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.ScheduleRecord)) {
+      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.RegistrationInfo)) {
         return super.equals(obj);
       }
-      care.solve.backend.entity.ScheduleProtos.ScheduleRecord other = (care.solve.backend.entity.ScheduleProtos.ScheduleRecord) obj;
+      care.solve.backend.entity.ScheduleProtos.RegistrationInfo other = (care.solve.backend.entity.ScheduleProtos.RegistrationInfo) obj;
 
       boolean result = true;
-      result = result && getRecordId()
-          .equals(other.getRecordId());
       result = result && getDescription()
           .equals(other.getDescription());
       result = result && getPatientId()
           .equals(other.getPatientId());
-      result = result && (hasSlot() == other.hasSlot());
-      if (hasSlot()) {
-        result = result && getSlot()
-            .equals(other.getSlot());
-      }
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3937,84 +4387,78 @@ public final class ScheduleProtos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + RECORDID_FIELD_NUMBER;
-      hash = (53 * hash) + getRecordId().hashCode();
       hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
       hash = (53 * hash) + getDescription().hashCode();
       hash = (37 * hash) + PATIENTID_FIELD_NUMBER;
       hash = (53 * hash) + getPatientId().hashCode();
-      if (hasSlot()) {
-        hash = (37 * hash) + SLOT_FIELD_NUMBER;
-        hash = (53 * hash) + getSlot().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(byte[] data)
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(java.io.InputStream input)
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseDelimitedFrom(java.io.InputStream input)
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseDelimitedFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord parseFrom(
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4026,7 +4470,7 @@ public final class ScheduleProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.ScheduleRecord prototype) {
+    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.RegistrationInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4041,25 +4485,25 @@ public final class ScheduleProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code main.ScheduleRecord}
+     * Protobuf type {@code main.RegistrationInfo}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:main.ScheduleRecord)
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecordOrBuilder {
+        // @@protoc_insertion_point(builder_implements:main.RegistrationInfo)
+        care.solve.backend.entity.ScheduleProtos.RegistrationInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRecord_descriptor;
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_RegistrationInfo_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRecord_fieldAccessorTable
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_RegistrationInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                care.solve.backend.entity.ScheduleProtos.ScheduleRecord.class, care.solve.backend.entity.ScheduleProtos.ScheduleRecord.Builder.class);
+                care.solve.backend.entity.ScheduleProtos.RegistrationInfo.class, care.solve.backend.entity.ScheduleProtos.RegistrationInfo.Builder.class);
       }
 
-      // Construct using care.solve.backend.entity.ScheduleProtos.ScheduleRecord.newBuilder()
+      // Construct using care.solve.backend.entity.ScheduleProtos.RegistrationInfo.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4076,48 +4520,34 @@ public final class ScheduleProtos {
       }
       public Builder clear() {
         super.clear();
-        recordId_ = "";
-
         description_ = "";
 
         patientId_ = "";
 
-        if (slotBuilder_ == null) {
-          slot_ = null;
-        } else {
-          slot_ = null;
-          slotBuilder_ = null;
-        }
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRecord_descriptor;
+        return care.solve.backend.entity.ScheduleProtos.internal_static_main_RegistrationInfo_descriptor;
       }
 
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getDefaultInstanceForType() {
-        return care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance();
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfo getDefaultInstanceForType() {
+        return care.solve.backend.entity.ScheduleProtos.RegistrationInfo.getDefaultInstance();
       }
 
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord build() {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecord result = buildPartial();
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfo build() {
+        care.solve.backend.entity.ScheduleProtos.RegistrationInfo result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRecord buildPartial() {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecord result = new care.solve.backend.entity.ScheduleProtos.ScheduleRecord(this);
-        result.recordId_ = recordId_;
+      public care.solve.backend.entity.ScheduleProtos.RegistrationInfo buildPartial() {
+        care.solve.backend.entity.ScheduleProtos.RegistrationInfo result = new care.solve.backend.entity.ScheduleProtos.RegistrationInfo(this);
         result.description_ = description_;
         result.patientId_ = patientId_;
-        if (slotBuilder_ == null) {
-          result.slot_ = slot_;
-        } else {
-          result.slot_ = slotBuilder_.build();
-        }
         onBuilt();
         return result;
       }
@@ -4127,7 +4557,7 @@ public final class ScheduleProtos {
       }
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
       public Builder clearField(
@@ -4140,29 +4570,25 @@ public final class ScheduleProtos {
       }
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof care.solve.backend.entity.ScheduleProtos.ScheduleRecord) {
-          return mergeFrom((care.solve.backend.entity.ScheduleProtos.ScheduleRecord)other);
+        if (other instanceof care.solve.backend.entity.ScheduleProtos.RegistrationInfo) {
+          return mergeFrom((care.solve.backend.entity.ScheduleProtos.RegistrationInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.ScheduleRecord other) {
-        if (other == care.solve.backend.entity.ScheduleProtos.ScheduleRecord.getDefaultInstance()) return this;
-        if (!other.getRecordId().isEmpty()) {
-          recordId_ = other.recordId_;
-          onChanged();
-        }
+      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.RegistrationInfo other) {
+        if (other == care.solve.backend.entity.ScheduleProtos.RegistrationInfo.getDefaultInstance()) return this;
         if (!other.getDescription().isEmpty()) {
           description_ = other.description_;
           onChanged();
@@ -4171,9 +4597,7 @@ public final class ScheduleProtos {
           patientId_ = other.patientId_;
           onChanged();
         }
-        if (other.hasSlot()) {
-          mergeSlot(other.getSlot());
-        }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
@@ -4186,11 +4610,11 @@ public final class ScheduleProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRecord parsedMessage = null;
+        care.solve.backend.entity.ScheduleProtos.RegistrationInfo parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (care.solve.backend.entity.ScheduleProtos.ScheduleRecord) e.getUnfinishedMessage();
+          parsedMessage = (care.solve.backend.entity.ScheduleProtos.RegistrationInfo) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4200,78 +4624,9 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private java.lang.Object recordId_ = "";
-      /**
-       * <code>string RecordId = 1;</code>
-       */
-      public java.lang.String getRecordId() {
-        java.lang.Object ref = recordId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          recordId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string RecordId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRecordIdBytes() {
-        java.lang.Object ref = recordId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          recordId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string RecordId = 1;</code>
-       */
-      public Builder setRecordId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        recordId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string RecordId = 1;</code>
-       */
-      public Builder clearRecordId() {
-        
-        recordId_ = getDefaultInstance().getRecordId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string RecordId = 1;</code>
-       */
-      public Builder setRecordIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        recordId_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object description_ = "";
       /**
-       * <code>string Description = 2;</code>
+       * <code>string Description = 1;</code>
        */
       public java.lang.String getDescription() {
         java.lang.Object ref = description_;
@@ -4286,7 +4641,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string Description = 2;</code>
+       * <code>string Description = 1;</code>
        */
       public com.google.protobuf.ByteString
           getDescriptionBytes() {
@@ -4302,7 +4657,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string Description = 2;</code>
+       * <code>string Description = 1;</code>
        */
       public Builder setDescription(
           java.lang.String value) {
@@ -4315,7 +4670,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string Description = 2;</code>
+       * <code>string Description = 1;</code>
        */
       public Builder clearDescription() {
         
@@ -4324,7 +4679,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string Description = 2;</code>
+       * <code>string Description = 1;</code>
        */
       public Builder setDescriptionBytes(
           com.google.protobuf.ByteString value) {
@@ -4340,7 +4695,7 @@ public final class ScheduleProtos {
 
       private java.lang.Object patientId_ = "";
       /**
-       * <code>string PatientId = 3;</code>
+       * <code>string PatientId = 2;</code>
        */
       public java.lang.String getPatientId() {
         java.lang.Object ref = patientId_;
@@ -4355,7 +4710,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string PatientId = 3;</code>
+       * <code>string PatientId = 2;</code>
        */
       public com.google.protobuf.ByteString
           getPatientIdBytes() {
@@ -4371,7 +4726,7 @@ public final class ScheduleProtos {
         }
       }
       /**
-       * <code>string PatientId = 3;</code>
+       * <code>string PatientId = 2;</code>
        */
       public Builder setPatientId(
           java.lang.String value) {
@@ -4384,7 +4739,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string PatientId = 3;</code>
+       * <code>string PatientId = 2;</code>
        */
       public Builder clearPatientId() {
         
@@ -4393,7 +4748,7 @@ public final class ScheduleProtos {
         return this;
       }
       /**
-       * <code>string PatientId = 3;</code>
+       * <code>string PatientId = 2;</code>
        */
       public Builder setPatientIdBytes(
           com.google.protobuf.ByteString value) {
@@ -4406,1149 +4761,50 @@ public final class ScheduleProtos {
         onChanged();
         return this;
       }
-
-      private care.solve.backend.entity.ScheduleProtos.Slot slot_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> slotBuilder_;
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public boolean hasSlot() {
-        return slotBuilder_ != null || slot_ != null;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.Slot getSlot() {
-        if (slotBuilder_ == null) {
-          return slot_ == null ? care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-        } else {
-          return slotBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder setSlot(care.solve.backend.entity.ScheduleProtos.Slot value) {
-        if (slotBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          slot_ = value;
-          onChanged();
-        } else {
-          slotBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder setSlot(
-          care.solve.backend.entity.ScheduleProtos.Slot.Builder builderForValue) {
-        if (slotBuilder_ == null) {
-          slot_ = builderForValue.build();
-          onChanged();
-        } else {
-          slotBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder mergeSlot(care.solve.backend.entity.ScheduleProtos.Slot value) {
-        if (slotBuilder_ == null) {
-          if (slot_ != null) {
-            slot_ =
-              care.solve.backend.entity.ScheduleProtos.Slot.newBuilder(slot_).mergeFrom(value).buildPartial();
-          } else {
-            slot_ = value;
-          }
-          onChanged();
-        } else {
-          slotBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder clearSlot() {
-        if (slotBuilder_ == null) {
-          slot_ = null;
-          onChanged();
-        } else {
-          slot_ = null;
-          slotBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.Slot.Builder getSlotBuilder() {
-        
-        onChanged();
-        return getSlotFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder() {
-        if (slotBuilder_ != null) {
-          return slotBuilder_.getMessageOrBuilder();
-        } else {
-          return slot_ == null ?
-              care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-        }
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
-          getSlotFieldBuilder() {
-        if (slotBuilder_ == null) {
-          slotBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder>(
-                  getSlot(),
-                  getParentForChildren(),
-                  isClean());
-          slot_ = null;
-        }
-        return slotBuilder_;
-      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
-      // @@protoc_insertion_point(builder_scope:main.ScheduleRecord)
+      // @@protoc_insertion_point(builder_scope:main.RegistrationInfo)
     }
 
-    // @@protoc_insertion_point(class_scope:main.ScheduleRecord)
-    private static final care.solve.backend.entity.ScheduleProtos.ScheduleRecord DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:main.RegistrationInfo)
+    private static final care.solve.backend.entity.ScheduleProtos.RegistrationInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.ScheduleRecord();
+      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.RegistrationInfo();
     }
 
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRecord getDefaultInstance() {
+    public static care.solve.backend.entity.ScheduleProtos.RegistrationInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ScheduleRecord>
-        PARSER = new com.google.protobuf.AbstractParser<ScheduleRecord>() {
-      public ScheduleRecord parsePartialFrom(
+    private static final com.google.protobuf.Parser<RegistrationInfo>
+        PARSER = new com.google.protobuf.AbstractParser<RegistrationInfo>() {
+      public RegistrationInfo parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ScheduleRecord(input, extensionRegistry);
+          return new RegistrationInfo(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<ScheduleRecord> parser() {
+    public static com.google.protobuf.Parser<RegistrationInfo> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ScheduleRecord> getParserForType() {
+    public com.google.protobuf.Parser<RegistrationInfo> getParserForType() {
       return PARSER;
     }
 
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRecord getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface ScheduleRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:main.ScheduleRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string PatientId = 1;</code>
-     */
-    java.lang.String getPatientId();
-    /**
-     * <code>string PatientId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getPatientIdBytes();
-
-    /**
-     * <code>string DoctorId = 2;</code>
-     */
-    java.lang.String getDoctorId();
-    /**
-     * <code>string DoctorId = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getDoctorIdBytes();
-
-    /**
-     * <code>string Description = 3;</code>
-     */
-    java.lang.String getDescription();
-    /**
-     * <code>string Description = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getDescriptionBytes();
-
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    boolean hasSlot();
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    care.solve.backend.entity.ScheduleProtos.Slot getSlot();
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder();
-  }
-  /**
-   * Protobuf type {@code main.ScheduleRequest}
-   */
-  public  static final class ScheduleRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:main.ScheduleRequest)
-      ScheduleRequestOrBuilder {
-    // Use ScheduleRequest.newBuilder() to construct.
-    private ScheduleRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ScheduleRequest() {
-      patientId_ = "";
-      doctorId_ = "";
-      description_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private ScheduleRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              patientId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              doctorId_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              description_ = s;
-              break;
-            }
-            case 34: {
-              care.solve.backend.entity.ScheduleProtos.Slot.Builder subBuilder = null;
-              if (slot_ != null) {
-                subBuilder = slot_.toBuilder();
-              }
-              slot_ = input.readMessage(care.solve.backend.entity.ScheduleProtos.Slot.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(slot_);
-                slot_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRequest_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              care.solve.backend.entity.ScheduleProtos.ScheduleRequest.class, care.solve.backend.entity.ScheduleProtos.ScheduleRequest.Builder.class);
-    }
-
-    public static final int PATIENTID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object patientId_;
-    /**
-     * <code>string PatientId = 1;</code>
-     */
-    public java.lang.String getPatientId() {
-      java.lang.Object ref = patientId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        patientId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string PatientId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPatientIdBytes() {
-      java.lang.Object ref = patientId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        patientId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DOCTORID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object doctorId_;
-    /**
-     * <code>string DoctorId = 2;</code>
-     */
-    public java.lang.String getDoctorId() {
-      java.lang.Object ref = doctorId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        doctorId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string DoctorId = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDoctorIdBytes() {
-      java.lang.Object ref = doctorId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        doctorId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DESCRIPTION_FIELD_NUMBER = 3;
-    private volatile java.lang.Object description_;
-    /**
-     * <code>string Description = 3;</code>
-     */
-    public java.lang.String getDescription() {
-      java.lang.Object ref = description_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        description_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string Description = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDescriptionBytes() {
-      java.lang.Object ref = description_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        description_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SLOT_FIELD_NUMBER = 4;
-    private care.solve.backend.entity.ScheduleProtos.Slot slot_;
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public boolean hasSlot() {
-      return slot_ != null;
-    }
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public care.solve.backend.entity.ScheduleProtos.Slot getSlot() {
-      return slot_ == null ? care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-    }
-    /**
-     * <code>.main.Slot Slot = 4;</code>
-     */
-    public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder() {
-      return getSlot();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getPatientIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, patientId_);
-      }
-      if (!getDoctorIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, doctorId_);
-      }
-      if (!getDescriptionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, description_);
-      }
-      if (slot_ != null) {
-        output.writeMessage(4, getSlot());
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getPatientIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, patientId_);
-      }
-      if (!getDoctorIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, doctorId_);
-      }
-      if (!getDescriptionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, description_);
-      }
-      if (slot_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getSlot());
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof care.solve.backend.entity.ScheduleProtos.ScheduleRequest)) {
-        return super.equals(obj);
-      }
-      care.solve.backend.entity.ScheduleProtos.ScheduleRequest other = (care.solve.backend.entity.ScheduleProtos.ScheduleRequest) obj;
-
-      boolean result = true;
-      result = result && getPatientId()
-          .equals(other.getPatientId());
-      result = result && getDoctorId()
-          .equals(other.getDoctorId());
-      result = result && getDescription()
-          .equals(other.getDescription());
-      result = result && (hasSlot() == other.hasSlot());
-      if (hasSlot()) {
-        result = result && getSlot()
-            .equals(other.getSlot());
-      }
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PATIENTID_FIELD_NUMBER;
-      hash = (53 * hash) + getPatientId().hashCode();
-      hash = (37 * hash) + DOCTORID_FIELD_NUMBER;
-      hash = (53 * hash) + getDoctorId().hashCode();
-      hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
-      hash = (53 * hash) + getDescription().hashCode();
-      if (hasSlot()) {
-        hash = (37 * hash) + SLOT_FIELD_NUMBER;
-        hash = (53 * hash) + getSlot().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(care.solve.backend.entity.ScheduleProtos.ScheduleRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code main.ScheduleRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:main.ScheduleRequest)
-        care.solve.backend.entity.ScheduleProtos.ScheduleRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRequest_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                care.solve.backend.entity.ScheduleProtos.ScheduleRequest.class, care.solve.backend.entity.ScheduleProtos.ScheduleRequest.Builder.class);
-      }
-
-      // Construct using care.solve.backend.entity.ScheduleProtos.ScheduleRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        patientId_ = "";
-
-        doctorId_ = "";
-
-        description_ = "";
-
-        if (slotBuilder_ == null) {
-          slot_ = null;
-        } else {
-          slot_ = null;
-          slotBuilder_ = null;
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return care.solve.backend.entity.ScheduleProtos.internal_static_main_ScheduleRequest_descriptor;
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRequest getDefaultInstanceForType() {
-        return care.solve.backend.entity.ScheduleProtos.ScheduleRequest.getDefaultInstance();
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRequest build() {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public care.solve.backend.entity.ScheduleProtos.ScheduleRequest buildPartial() {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRequest result = new care.solve.backend.entity.ScheduleProtos.ScheduleRequest(this);
-        result.patientId_ = patientId_;
-        result.doctorId_ = doctorId_;
-        result.description_ = description_;
-        if (slotBuilder_ == null) {
-          result.slot_ = slot_;
-        } else {
-          result.slot_ = slotBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof care.solve.backend.entity.ScheduleProtos.ScheduleRequest) {
-          return mergeFrom((care.solve.backend.entity.ScheduleProtos.ScheduleRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(care.solve.backend.entity.ScheduleProtos.ScheduleRequest other) {
-        if (other == care.solve.backend.entity.ScheduleProtos.ScheduleRequest.getDefaultInstance()) return this;
-        if (!other.getPatientId().isEmpty()) {
-          patientId_ = other.patientId_;
-          onChanged();
-        }
-        if (!other.getDoctorId().isEmpty()) {
-          doctorId_ = other.doctorId_;
-          onChanged();
-        }
-        if (!other.getDescription().isEmpty()) {
-          description_ = other.description_;
-          onChanged();
-        }
-        if (other.hasSlot()) {
-          mergeSlot(other.getSlot());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        care.solve.backend.entity.ScheduleProtos.ScheduleRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (care.solve.backend.entity.ScheduleProtos.ScheduleRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object patientId_ = "";
-      /**
-       * <code>string PatientId = 1;</code>
-       */
-      public java.lang.String getPatientId() {
-        java.lang.Object ref = patientId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          patientId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string PatientId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPatientIdBytes() {
-        java.lang.Object ref = patientId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          patientId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string PatientId = 1;</code>
-       */
-      public Builder setPatientId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        patientId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string PatientId = 1;</code>
-       */
-      public Builder clearPatientId() {
-        
-        patientId_ = getDefaultInstance().getPatientId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string PatientId = 1;</code>
-       */
-      public Builder setPatientIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        patientId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object doctorId_ = "";
-      /**
-       * <code>string DoctorId = 2;</code>
-       */
-      public java.lang.String getDoctorId() {
-        java.lang.Object ref = doctorId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          doctorId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string DoctorId = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDoctorIdBytes() {
-        java.lang.Object ref = doctorId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          doctorId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string DoctorId = 2;</code>
-       */
-      public Builder setDoctorId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        doctorId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string DoctorId = 2;</code>
-       */
-      public Builder clearDoctorId() {
-        
-        doctorId_ = getDefaultInstance().getDoctorId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string DoctorId = 2;</code>
-       */
-      public Builder setDoctorIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        doctorId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object description_ = "";
-      /**
-       * <code>string Description = 3;</code>
-       */
-      public java.lang.String getDescription() {
-        java.lang.Object ref = description_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          description_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string Description = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDescriptionBytes() {
-        java.lang.Object ref = description_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          description_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string Description = 3;</code>
-       */
-      public Builder setDescription(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        description_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Description = 3;</code>
-       */
-      public Builder clearDescription() {
-        
-        description_ = getDefaultInstance().getDescription();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Description = 3;</code>
-       */
-      public Builder setDescriptionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        description_ = value;
-        onChanged();
-        return this;
-      }
-
-      private care.solve.backend.entity.ScheduleProtos.Slot slot_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> slotBuilder_;
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public boolean hasSlot() {
-        return slotBuilder_ != null || slot_ != null;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.Slot getSlot() {
-        if (slotBuilder_ == null) {
-          return slot_ == null ? care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-        } else {
-          return slotBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder setSlot(care.solve.backend.entity.ScheduleProtos.Slot value) {
-        if (slotBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          slot_ = value;
-          onChanged();
-        } else {
-          slotBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder setSlot(
-          care.solve.backend.entity.ScheduleProtos.Slot.Builder builderForValue) {
-        if (slotBuilder_ == null) {
-          slot_ = builderForValue.build();
-          onChanged();
-        } else {
-          slotBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder mergeSlot(care.solve.backend.entity.ScheduleProtos.Slot value) {
-        if (slotBuilder_ == null) {
-          if (slot_ != null) {
-            slot_ =
-              care.solve.backend.entity.ScheduleProtos.Slot.newBuilder(slot_).mergeFrom(value).buildPartial();
-          } else {
-            slot_ = value;
-          }
-          onChanged();
-        } else {
-          slotBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public Builder clearSlot() {
-        if (slotBuilder_ == null) {
-          slot_ = null;
-          onChanged();
-        } else {
-          slot_ = null;
-          slotBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.Slot.Builder getSlotBuilder() {
-        
-        onChanged();
-        return getSlotFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      public care.solve.backend.entity.ScheduleProtos.SlotOrBuilder getSlotOrBuilder() {
-        if (slotBuilder_ != null) {
-          return slotBuilder_.getMessageOrBuilder();
-        } else {
-          return slot_ == null ?
-              care.solve.backend.entity.ScheduleProtos.Slot.getDefaultInstance() : slot_;
-        }
-      }
-      /**
-       * <code>.main.Slot Slot = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder> 
-          getSlotFieldBuilder() {
-        if (slotBuilder_ == null) {
-          slotBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              care.solve.backend.entity.ScheduleProtos.Slot, care.solve.backend.entity.ScheduleProtos.Slot.Builder, care.solve.backend.entity.ScheduleProtos.SlotOrBuilder>(
-                  getSlot(),
-                  getParentForChildren(),
-                  isClean());
-          slot_ = null;
-        }
-        return slotBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:main.ScheduleRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:main.ScheduleRequest)
-    private static final care.solve.backend.entity.ScheduleProtos.ScheduleRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new care.solve.backend.entity.ScheduleProtos.ScheduleRequest();
-    }
-
-    public static care.solve.backend.entity.ScheduleProtos.ScheduleRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ScheduleRequest>
-        PARSER = new com.google.protobuf.AbstractParser<ScheduleRequest>() {
-      public ScheduleRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ScheduleRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ScheduleRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ScheduleRequest> getParserForType() {
-      return PARSER;
-    }
-
-    public care.solve.backend.entity.ScheduleProtos.ScheduleRequest getDefaultInstanceForType() {
+    public care.solve.backend.entity.ScheduleProtos.RegistrationInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5580,15 +4836,10 @@ public final class ScheduleProtos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_main_Slot_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_ScheduleRecord_descriptor;
+    internal_static_main_RegistrationInfo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_ScheduleRecord_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_ScheduleRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_ScheduleRequest_fieldAccessorTable;
+      internal_static_main_RegistrationInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5602,17 +4853,17 @@ public final class ScheduleProtos {
       "ublic\022\021\n\tPatientId\030\001 \001(\t\"E\n\014DoctorPublic" +
       "\022\020\n\010DoctorId\030\001 \001(\t\022\021\n\tFirstName\030\002 \001(\t\022\020\n" +
       "\010LastName\030\003 \001(\t\"7\n\020DoctorCollection\022#\n\007d" +
-      "octors\030\001 \003(\0132\022.main.DoctorPublic\"W\n\010Sche" +
+      "octors\030\001 \003(\0132\022.main.DoctorPublic\"K\n\010Sche" +
       "dule\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
-      "(\t\022%\n\007Records\030\003 \003(\0132\024.main.ScheduleRecor" +
-      "d\"-\n\004Slot\022\021\n\tTimeStart\030\001 \001(\004\022\022\n\nTimeFini" +
-      "sh\030\002 \001(\004\"d\n\016ScheduleRecord\022\020\n\010RecordId\030\001" +
-      " \001(\t\022\023\n\013Description\030\002 \001(\t\022\021\n\tPatientId\030\003",
-      " \001(\t\022\030\n\004Slot\030\004 \001(\0132\n.main.Slot\"e\n\017Schedu" +
-      "leRequest\022\021\n\tPatientId\030\001 \001(\t\022\020\n\010DoctorId" +
-      "\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022\030\n\004Slot\030\004 \001(" +
-      "\0132\n.main.SlotB1\n\031care.solve.backend.enti" +
-      "tyB\016ScheduleProtosZ\004mainb\006proto3"
+      "(\t\022\031\n\005slots\030\003 \003(\0132\n.main.Slot\"\257\001\n\004Slot\022\016" +
+      "\n\006SlotId\030\001 \001(\t\022\021\n\tTimeStart\030\002 \001(\004\022\022\n\nTim" +
+      "eFinish\030\003 \001(\004\022\"\n\tavaliable\030\004 \001(\0162\017.main." +
+      "Slot.Type\0220\n\020registrationInfo\030\005 \001(\0132\026.ma",
+      "in.RegistrationInfo\"\032\n\004Type\022\010\n\004FREE\020\000\022\010\n" +
+      "\004BUSY\020\001\":\n\020RegistrationInfo\022\023\n\013Descripti" +
+      "on\030\001 \001(\t\022\021\n\tPatientId\030\002 \001(\tB1\n\031care.solv" +
+      "e.backend.entityB\016ScheduleProtosZ\004mainb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5649,25 +4900,19 @@ public final class ScheduleProtos {
     internal_static_main_Schedule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Schedule_descriptor,
-        new java.lang.String[] { "ScheduleId", "DoctorId", "Records", });
+        new java.lang.String[] { "ScheduleId", "DoctorId", "Slots", });
     internal_static_main_Slot_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_main_Slot_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Slot_descriptor,
-        new java.lang.String[] { "TimeStart", "TimeFinish", });
-    internal_static_main_ScheduleRecord_descriptor =
+        new java.lang.String[] { "SlotId", "TimeStart", "TimeFinish", "Avaliable", "RegistrationInfo", });
+    internal_static_main_RegistrationInfo_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_main_ScheduleRecord_fieldAccessorTable = new
+    internal_static_main_RegistrationInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_ScheduleRecord_descriptor,
-        new java.lang.String[] { "RecordId", "Description", "PatientId", "Slot", });
-    internal_static_main_ScheduleRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_main_ScheduleRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_ScheduleRequest_descriptor,
-        new java.lang.String[] { "PatientId", "DoctorId", "Description", "Slot", });
+        internal_static_main_RegistrationInfo_descriptor,
+        new java.lang.String[] { "Description", "PatientId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -150,6 +150,12 @@
 			"revisionTime": "2017-08-31T08:13:04Z"
 		},
 		{
+			"checksumSHA1": "1vQyx/TpUGbKzJcTGhTddJxJiD0=",
+			"path": "github.com/google/uuid",
+			"revision": "e367a344cbe8e08149f9951115dc299ebd42b919",
+			"revisionTime": "2017-10-19T17:36:51Z"
+		},
+		{
 			"checksumSHA1": "Uzyon2091lmwacNsl1hCytjhHtg=",
 			"origin": "github.com/hyperledger/fabric/vendor/github.com/hashicorp/go-cleanhttp",
 			"path": "github.com/hashicorp/go-cleanhttp",
@@ -578,5 +584,5 @@
 			"revisionTime": "2017-08-31T08:13:04Z"
 		}
 	],
-	"rootPath": "github.com/hyperledger/fabric/schedule/src/care.solve.schedule"
+	"rootPath": "care.solve.schedule"
 }

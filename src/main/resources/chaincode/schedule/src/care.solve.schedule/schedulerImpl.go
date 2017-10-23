@@ -10,13 +10,13 @@ import (
 type SchedulerImpl struct {
 }
 
-func (s SchedulerImpl) constructScheduleId(scheduleId string) string {
-	return "schedule:" + scheduleId
+func (s SchedulerImpl) ConstructScheduleKey(doctorId string) string {
+	return "schedule:doctorId:" + doctorId
 }
 
-func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, scheduleId string) (*Schedule, error) {
-	scheduleKey := s.constructScheduleId(scheduleId)
-	scheduleBytes, err := stub.GetState(scheduleKey)
+func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, doctorId string) (*Schedule, error) {
+	scheduleId := s.ConstructScheduleKey(doctorId)
+	scheduleBytes, err := stub.GetState(scheduleId)
 
 	if err != nil {
 		return nil, err
@@ -24,7 +24,7 @@ func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, scheduleId string) 
 
 	var schedule Schedule
 	if scheduleBytes == nil {
-		return nil, errors.New(fmt.Sprintf("Schedule with id '%v' not found", scheduleId))
+		return nil, errors.New(fmt.Sprintf("Schedule with key '%v' not found", scheduleId))
 	} else {
 		json.Unmarshal(scheduleBytes, &schedule)
 		logger.Infof("Retrieve schedule: %v", schedule)
@@ -33,30 +33,30 @@ func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, scheduleId string) 
 	return &schedule, nil
 }
 
-func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, scheduleId string, scheduleRecord ScheduleRecord) error {
-	scheduleKey := s.constructScheduleId(scheduleId)
+func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
+	scheduleKey := s.ConstructScheduleKey(schedule.DoctorId)
+
 	scheduleBytes, err := stub.GetState(scheduleKey)
 
-	var schedule Schedule
-	if scheduleBytes == nil {
-		logger.Infof("Empty schedule for doctor %v. Creating new...", scheduleId)
-		schedule = Schedule{scheduleKey, scheduleId, make([]*ScheduleRecord, 0)}
-	} else {
-		logger.Infof("Found schedule for doctor %v", scheduleId)
-		json.Unmarshal(scheduleBytes, &schedule)
+	if scheduleBytes != nil {
+		errorMsg := fmt.Sprintf("Schedule with key '%v' already exists", scheduleKey)
+		logger.Errorf(errorMsg)
+		errors.New(errorMsg)
 	}
 
-	schedule.Records = append(schedule.Records, &scheduleRecord)
+	logger.Infof("Creating new schedule for doctor %v", schedule.DoctorId)
+
+	schedule.ScheduleId = scheduleKey;
 
 	jsonSchedule, err := json.Marshal(schedule)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = stub.PutState(scheduleKey, jsonSchedule)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &schedule, nil
 }

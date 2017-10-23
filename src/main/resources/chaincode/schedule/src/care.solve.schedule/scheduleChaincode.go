@@ -106,21 +106,44 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 
 	if function == "getDoctorsSchedule" {
 		doctorId := args[0]
-		schedule, err := s.scheduleService.getDoctorsSchedule(stub, doctorId)
+		schedule, err := s.scheduleService.getScheduleByDoctorId(stub, doctorId)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
 		return s.getResponseWithProto(schedule)
 	}
 
-	if function == "registerToDoctor" {
-		scheduleRequestByteString := args[0];
-		scheduleRequest, err := s.scheduleService.decodeProtoByteString(scheduleRequestByteString)
+	if function == "createSchedule" {
+		scheduleByteString := args[0]
+		schedule, err := s.scheduleService.decodeScheduleByteString(scheduleByteString)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-		scheduleRecord, err := s.scheduleService.createScheduleRecord(stub, *scheduleRequest)
-		return s.getResponseWithProto(scheduleRecord)
+		createdSchedule, err := s.scheduleService.createSchedule(stub, *schedule)
+		return s.getResponseWithProto(createdSchedule)
+	}
+
+	if function == "createSlot" {
+		scheduleId := args[0]
+		slotByteString := args[1]
+		slot, err := s.scheduleService.decodeSlotByteString(slotByteString)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		createdSlot, err := s.scheduleService.createSlot(stub, scheduleId, *slot)
+		return s.getResponseWithProto(createdSlot)
+	}
+
+	if function == "updateSlot" {
+		scheduleId := args[0]
+		slotId := args[1]
+		slotByteString := args[2]
+		slot, err := s.scheduleService.decodeSlotByteString(slotByteString)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		err = s.scheduleService.updateSlot(stub, scheduleId, slotId, *slot)
+		return shim.Success(nil)
 	}
 
 	return shim.Error(fmt.Sprintf("Unknown function '%v'", function))
