@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

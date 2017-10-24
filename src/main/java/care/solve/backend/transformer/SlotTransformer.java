@@ -21,6 +21,7 @@ public class SlotTransformer implements ProtoTransformer<Slot, ScheduleProtos.Sl
         if (obj.getSlotId() != null) { builder.setSlotId(obj.getSlotId());}
         if (obj.getTimeStart() != null) { builder.setTimeStart(obj.getTimeStart());}
         if (obj.getTimeFinish() != null) { builder.setTimeFinish(obj.getTimeFinish());}
+        if (obj.getAvailability() != null) { builder.setAvaliable(ScheduleProtos.Slot.Type.valueOf(obj.getAvailability().name()));}
         if (obj.getRegistrationInfo() != null) { builder.setRegistrationInfo(registrationInfoTransformer.transformToProto(obj.getRegistrationInfo()));}
 
         return builder.build();
@@ -33,6 +34,7 @@ public class SlotTransformer implements ProtoTransformer<Slot, ScheduleProtos.Sl
                 .timeStart(proto.getTimeStart())
                 .timeFinish(proto.getTimeFinish())
                 .registrationInfo(registrationInfoTransformer.transformFromProto(proto.getRegistrationInfo()))
+                .availability(Slot.Type.valueOf(proto.getAvaliable().name()))
                 .build();
     }
 }

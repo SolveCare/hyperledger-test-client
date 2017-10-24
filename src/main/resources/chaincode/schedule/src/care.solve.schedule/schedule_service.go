@@ -106,12 +106,13 @@ func (s *ScheduleService) updateSlot(stub shim.ChaincodeStubInterface, scheduleI
 				existedSlot.TimeFinish = newSlot.TimeFinish
 			}
 
-			if newSlot.RegistrationInfo != nil {
+			if newSlot.RegistrationInfo != nil && newSlot.RegistrationInfo.PatientId != "" {
 				newSlot.Avaliable = Slot_BUSY
 			} else {
-				newSlot.Avaliable = Slot_FREE
+				existedSlot.Avaliable = newSlot.Avaliable
 			}
 			existedSlot.RegistrationInfo = newSlot.RegistrationInfo
+			break
 		}
 	}
 

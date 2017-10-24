@@ -10,6 +10,7 @@ import care.solve.backend.transformer.DoctorToProtoTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.apache.commons.collections.CollectionUtils;
+import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class DoctorService {
@@ -58,23 +61,33 @@ public class DoctorService {
         //TODO: Make the same to remove redundant doctors
     }
 
-    public void create(DoctorPrivate doctorPrivate) {
+    public DoctorPublic create(DoctorPrivate doctorPrivate) {
         doctorPrivate = doctorsRepository.save(doctorPrivate);
         doctorsRepository.flush();
         DoctorPublic doctorPublic = doctorPrivateToPublicTransformer.transform(doctorPrivate);
-        publishDoctorToChaincode(doctorPublic);
+        return publishDoctorToChaincode(doctorPublic);
     }
 
-    public void publishDoctorToChaincode(DoctorPublic doctor) {
+    public DoctorPublic publishDoctorToChaincode(DoctorPublic doctor) {
         ScheduleProtos.DoctorPublic protoDoctor = doctorToProtoTransformer.transformToProto(doctor);
         String byteString = new String(protoDoctor.toByteArray());
-        transactionService.sendInvokeTransaction(
+        CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 peer,
                 "createDoctor",
                 new String[]{byteString});
+
+        ScheduleProtos.DoctorPublic savedProtoDoctor = null;
+        try {
+            byte[] payload = futureEvents.get().getTransactionActionInfo(0).getProposalResponsePayload();
+            savedProtoDoctor = ScheduleProtos.DoctorPublic.parseFrom(payload);
+        } catch (InterruptedException | InvalidProtocolBufferException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return doctorToProtoTransformer.transformFromProto(savedProtoDoctor);
     }
 
     public DoctorPublic get(String doctorId) throws InvalidProtocolBufferException {

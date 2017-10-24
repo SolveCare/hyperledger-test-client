@@ -33,13 +33,13 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public void createSchedule(@RequestBody Schedule schedule) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        scheduleService.createSchedule(schedule);
+    public Schedule createSchedule(@RequestBody Schedule schedule) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
+        return scheduleService.createSchedule(schedule);
     }
 
     @PostMapping("{scheduleId}/slot")
-    public void createSlot(@PathVariable String scheduleId, @RequestBody Slot slot) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        scheduleService.createSlot(scheduleId, slot);
+    public Slot createSlot(@PathVariable String scheduleId, @RequestBody Slot slot) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
+        return scheduleService.createSlot(scheduleId, slot);
     }
 
     @PatchMapping("{scheduleId}/slot/{slotId}")

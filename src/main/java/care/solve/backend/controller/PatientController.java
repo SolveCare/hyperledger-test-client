@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
@@ -27,8 +29,8 @@ public class PatientController {
     }
 
     @PostMapping
-    public void create(@RequestBody PatientPrivate patient) {
-        patientService.create(patient);
+    public PatientPublic create(@RequestBody PatientPrivate patient) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
+        return patientService.create(patient);
     }
 
 }

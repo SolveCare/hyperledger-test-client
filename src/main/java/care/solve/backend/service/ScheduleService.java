@@ -8,12 +8,16 @@ import care.solve.backend.transformer.SlotTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.TextFormat;
+import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ScheduleService {
@@ -38,31 +42,50 @@ public class ScheduleService {
         this.slotTransformer = slotTransformer;
     }
 
-    public void createSchedule(Schedule schedule) {
+    public Schedule createSchedule(Schedule schedule) {
         ScheduleProtos.Schedule scheduleProto = scheduleTransformer.transformToProto(schedule);
 
 //        String byteString = TextFormat.printToString(scheduleProto);
         String byteString = new String(scheduleProto.toByteArray());
-        transactionService.sendInvokeTransaction(
+        CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 peer,
                 "createSchedule",
                 new String[]{byteString});
+
+        ScheduleProtos.Schedule savedSchedule = null;
+        try {
+            byte[] payload = futureEvents.get().getTransactionActionInfo(0).getProposalResponsePayload();
+            savedSchedule = ScheduleProtos.Schedule.parseFrom(payload);
+        } catch (InterruptedException | InvalidProtocolBufferException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return scheduleTransformer.transformFromProto(savedSchedule);
     }
 
-    public void createSlot(String scheduleId, Slot slot) {
+    public Slot createSlot(String scheduleId, Slot slot) {
         ScheduleProtos.Slot protoSlot = slotTransformer.transformToProto(slot);
 
         String byteString = TextFormat.printToString(protoSlot);
-        transactionService.sendInvokeTransaction(
+        CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 peer,
                 "createSlot",
                 new String[]{scheduleId, byteString});
+
+        ScheduleProtos.Slot savedSlot = null;
+        try {
+            byte[] payload = futureEvents.get().getTransactionActionInfo(0).getProposalResponsePayload();
+            savedSlot = ScheduleProtos.Slot.parseFrom(payload);
+        } catch (InterruptedException | InvalidProtocolBufferException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return slotTransformer.transformFromProto(savedSlot);
     }
 
     public void updateSlot(String scheduleId, String slotId, Slot slot) {

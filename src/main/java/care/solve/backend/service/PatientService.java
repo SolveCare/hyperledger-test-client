@@ -8,12 +8,16 @@ import care.solve.backend.transformer.PatientPrivateToPublicTransformer;
 import care.solve.backend.transformer.PatientToProtoTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class PatientService {
@@ -40,23 +44,27 @@ public class PatientService {
         this.patientPrivateToPublicTransformer = patientPrivateToPublicTransformer;
     }
 
-    public void create(PatientPrivate patientPrivate) {
+    public PatientPublic create(PatientPrivate patientPrivate) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
         patientPrivate = patientsRepository.save(patientPrivate);
         patientsRepository.flush();
         PatientPublic patientPublic = patientPrivateToPublicTransformer.transform(patientPrivate);
-        publishPatientToChaincode(patientPublic);
+        return publishPatientToChaincode(patientPublic);
     }
 
-    public void publishPatientToChaincode(PatientPublic patientPublic) {
+    public PatientPublic publishPatientToChaincode(PatientPublic patientPublic) throws ExecutionException, InterruptedException, InvalidProtocolBufferException {
         ScheduleProtos.PatientPublic protoPatient = patientToProtoTransformer.transformToProto(patientPublic);
         String byteString = new String(protoPatient.toByteArray());
-        transactionService.sendInvokeTransaction(
+        CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 peer,
                 "createPatient",
                 new String[]{byteString});
+
+        byte[] payload = futureEvents.get().getTransactionActionInfo(0).getProposalResponsePayload();
+        ScheduleProtos.PatientPublic savedProtoPatient = ScheduleProtos.PatientPublic.parseFrom(payload);
+        return patientToProtoTransformer.transformFromProto(savedProtoPatient);
     }
 
     public PatientPublic get(String patientId) throws InvalidProtocolBufferException {

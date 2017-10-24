@@ -2,8 +2,9 @@ package care.solve.backend.controller;
 
 import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.entity.DoctorPublic;
-import care.solve.backend.entity.ScheduleProtos;
+import care.solve.backend.entity.Schedule;
 import care.solve.backend.service.DoctorService;
+import care.solve.backend.service.ScheduleService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +21,21 @@ import java.util.List;
 public class DoctorController {
 
     private DoctorService doctorService;
+    private ScheduleService scheduleService;
 
     @Autowired
-    public DoctorController(DoctorService doctorService) {
+    public DoctorController(DoctorService doctorService, ScheduleService scheduleService) {
         this.doctorService = doctorService;
+        this.scheduleService = scheduleService;
     }
 
     @PostMapping
-    public void create(@RequestBody DoctorPrivate doctor) {
-        doctorService.create(doctor);
+    public DoctorPublic create(@RequestBody DoctorPrivate doctor) {
+        DoctorPublic doctorPublic = doctorService.create(doctor);
+        Schedule doctorsSchedule = Schedule.builder().doctorId(doctorPublic.getId()).build();
+        scheduleService.createSchedule(doctorsSchedule);
+
+        return doctorPublic;
     }
 
     @GetMapping("{doctorId}")

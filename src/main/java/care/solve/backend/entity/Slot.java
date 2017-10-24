@@ -10,10 +10,10 @@ public class Slot {
     private String slotId;
     private Long timeStart;
     private Long timeFinish;
-    private Type availability;
+    private Type availability = Type.FREE;
     RegistrationInfo registrationInfo;
 
-    enum Type {
+    public enum Type {
         FREE,
         BUSY
     }
