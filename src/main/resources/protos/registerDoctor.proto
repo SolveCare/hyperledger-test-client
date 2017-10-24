@@ -23,7 +23,7 @@ message DoctorCollection {
 
 message Schedule {
     string ScheduleId = 1;
-    string DoctorId = 2;
+    string OwnerId = 2;
     repeated Slot slots = 3;
 }
 
@@ -42,5 +42,5 @@ message Slot {
 
 message RegistrationInfo {
     string Description = 1;
-    string PatientId = 2;
+    string AttendeeId = 2;
 }

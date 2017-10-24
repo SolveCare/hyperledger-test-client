@@ -11,7 +11,7 @@ public class RegistrationInfoTransformer implements ProtoTransformer<Registratio
     public ScheduleProtos.RegistrationInfo transformToProto(RegistrationInfo obj) {
         return ScheduleProtos.RegistrationInfo.newBuilder()
                 .setDescription(obj.getDescription())
-                .setPatientId(obj.getPatientId())
+                .setAttendeeId(obj.getAttendeeId())
                 .build();
     }
 
@@ -19,7 +19,7 @@ public class RegistrationInfoTransformer implements ProtoTransformer<Registratio
     public RegistrationInfo transformFromProto(ScheduleProtos.RegistrationInfo proto) {
         return RegistrationInfo.builder()
                 .description(proto.getDescription())
-                .patientId(proto.getPatientId())
+                .attendeeId(proto.getAttendeeId())
                 .build();
     }
 }

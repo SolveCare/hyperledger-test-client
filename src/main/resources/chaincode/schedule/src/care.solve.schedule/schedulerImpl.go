@@ -34,7 +34,7 @@ func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, doctorId string) (*
 }
 
 func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
-	scheduleKey := s.ConstructScheduleKey(schedule.DoctorId)
+	scheduleKey := s.ConstructScheduleKey(schedule.OwnerId)
 
 	scheduleBytes, err := stub.GetState(scheduleKey)
 
@@ -44,7 +44,7 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, schedule Schedule
 		errors.New(errorMsg)
 	}
 
-	logger.Infof("Creating new schedule for doctor %v", schedule.DoctorId)
+	logger.Infof("Creating new schedule for doctor %v", schedule.OwnerId)
 
 	schedule.ScheduleId = scheduleKey;
 

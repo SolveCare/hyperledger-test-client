@@ -2101,14 +2101,14 @@ public final class ScheduleProtos {
         getScheduleIdBytes();
 
     /**
-     * <code>string DoctorId = 2;</code>
+     * <code>string OwnerId = 2;</code>
      */
-    java.lang.String getDoctorId();
+    java.lang.String getOwnerId();
     /**
-     * <code>string DoctorId = 2;</code>
+     * <code>string OwnerId = 2;</code>
      */
     com.google.protobuf.ByteString
-        getDoctorIdBytes();
+        getOwnerIdBytes();
 
     /**
      * <code>repeated .main.Slot slots = 3;</code>
@@ -2148,7 +2148,7 @@ public final class ScheduleProtos {
     }
     private Schedule() {
       scheduleId_ = "";
-      doctorId_ = "";
+      ownerId_ = "";
       slots_ = java.util.Collections.emptyList();
     }
 
@@ -2189,7 +2189,7 @@ public final class ScheduleProtos {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              doctorId_ = s;
+              ownerId_ = s;
               break;
             }
             case 26: {
@@ -2263,34 +2263,34 @@ public final class ScheduleProtos {
       }
     }
 
-    public static final int DOCTORID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object doctorId_;
+    public static final int OWNERID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object ownerId_;
     /**
-     * <code>string DoctorId = 2;</code>
+     * <code>string OwnerId = 2;</code>
      */
-    public java.lang.String getDoctorId() {
-      java.lang.Object ref = doctorId_;
+    public java.lang.String getOwnerId() {
+      java.lang.Object ref = ownerId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        doctorId_ = s;
+        ownerId_ = s;
         return s;
       }
     }
     /**
-     * <code>string DoctorId = 2;</code>
+     * <code>string OwnerId = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getDoctorIdBytes() {
-      java.lang.Object ref = doctorId_;
+        getOwnerIdBytes() {
+      java.lang.Object ref = ownerId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        doctorId_ = b;
+        ownerId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2347,8 +2347,8 @@ public final class ScheduleProtos {
       if (!getScheduleIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, scheduleId_);
       }
-      if (!getDoctorIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, doctorId_);
+      if (!getOwnerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ownerId_);
       }
       for (int i = 0; i < slots_.size(); i++) {
         output.writeMessage(3, slots_.get(i));
@@ -2364,8 +2364,8 @@ public final class ScheduleProtos {
       if (!getScheduleIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, scheduleId_);
       }
-      if (!getDoctorIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, doctorId_);
+      if (!getOwnerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ownerId_);
       }
       for (int i = 0; i < slots_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -2389,8 +2389,8 @@ public final class ScheduleProtos {
       boolean result = true;
       result = result && getScheduleId()
           .equals(other.getScheduleId());
-      result = result && getDoctorId()
-          .equals(other.getDoctorId());
+      result = result && getOwnerId()
+          .equals(other.getOwnerId());
       result = result && getSlotsList()
           .equals(other.getSlotsList());
       result = result && unknownFields.equals(other.unknownFields);
@@ -2406,8 +2406,8 @@ public final class ScheduleProtos {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SCHEDULEID_FIELD_NUMBER;
       hash = (53 * hash) + getScheduleId().hashCode();
-      hash = (37 * hash) + DOCTORID_FIELD_NUMBER;
-      hash = (53 * hash) + getDoctorId().hashCode();
+      hash = (37 * hash) + OWNERID_FIELD_NUMBER;
+      hash = (53 * hash) + getOwnerId().hashCode();
       if (getSlotsCount() > 0) {
         hash = (37 * hash) + SLOTS_FIELD_NUMBER;
         hash = (53 * hash) + getSlotsList().hashCode();
@@ -2544,7 +2544,7 @@ public final class ScheduleProtos {
         super.clear();
         scheduleId_ = "";
 
-        doctorId_ = "";
+        ownerId_ = "";
 
         if (slotsBuilder_ == null) {
           slots_ = java.util.Collections.emptyList();
@@ -2577,7 +2577,7 @@ public final class ScheduleProtos {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.scheduleId_ = scheduleId_;
-        result.doctorId_ = doctorId_;
+        result.ownerId_ = ownerId_;
         if (slotsBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004)) {
             slots_ = java.util.Collections.unmodifiableList(slots_);
@@ -2633,8 +2633,8 @@ public final class ScheduleProtos {
           scheduleId_ = other.scheduleId_;
           onChanged();
         }
-        if (!other.getDoctorId().isEmpty()) {
-          doctorId_ = other.doctorId_;
+        if (!other.getOwnerId().isEmpty()) {
+          ownerId_ = other.ownerId_;
           onChanged();
         }
         if (slotsBuilder_ == null) {
@@ -2760,71 +2760,71 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private java.lang.Object doctorId_ = "";
+      private java.lang.Object ownerId_ = "";
       /**
-       * <code>string DoctorId = 2;</code>
+       * <code>string OwnerId = 2;</code>
        */
-      public java.lang.String getDoctorId() {
-        java.lang.Object ref = doctorId_;
+      public java.lang.String getOwnerId() {
+        java.lang.Object ref = ownerId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          doctorId_ = s;
+          ownerId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string DoctorId = 2;</code>
+       * <code>string OwnerId = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getDoctorIdBytes() {
-        java.lang.Object ref = doctorId_;
+          getOwnerIdBytes() {
+        java.lang.Object ref = ownerId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          doctorId_ = b;
+          ownerId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string DoctorId = 2;</code>
+       * <code>string OwnerId = 2;</code>
        */
-      public Builder setDoctorId(
+      public Builder setOwnerId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        doctorId_ = value;
+        ownerId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string DoctorId = 2;</code>
+       * <code>string OwnerId = 2;</code>
        */
-      public Builder clearDoctorId() {
+      public Builder clearOwnerId() {
         
-        doctorId_ = getDefaultInstance().getDoctorId();
+        ownerId_ = getDefaultInstance().getOwnerId();
         onChanged();
         return this;
       }
       /**
-       * <code>string DoctorId = 2;</code>
+       * <code>string OwnerId = 2;</code>
        */
-      public Builder setDoctorIdBytes(
+      public Builder setOwnerIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        doctorId_ = value;
+        ownerId_ = value;
         onChanged();
         return this;
       }
@@ -4166,14 +4166,14 @@ public final class ScheduleProtos {
         getDescriptionBytes();
 
     /**
-     * <code>string PatientId = 2;</code>
+     * <code>string AttendeeId = 2;</code>
      */
-    java.lang.String getPatientId();
+    java.lang.String getAttendeeId();
     /**
-     * <code>string PatientId = 2;</code>
+     * <code>string AttendeeId = 2;</code>
      */
     com.google.protobuf.ByteString
-        getPatientIdBytes();
+        getAttendeeIdBytes();
   }
   /**
    * Protobuf type {@code main.RegistrationInfo}
@@ -4189,7 +4189,7 @@ public final class ScheduleProtos {
     }
     private RegistrationInfo() {
       description_ = "";
-      patientId_ = "";
+      attendeeId_ = "";
     }
 
     @java.lang.Override
@@ -4229,7 +4229,7 @@ public final class ScheduleProtos {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              patientId_ = s;
+              attendeeId_ = s;
               break;
             }
           }
@@ -4290,34 +4290,34 @@ public final class ScheduleProtos {
       }
     }
 
-    public static final int PATIENTID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object patientId_;
+    public static final int ATTENDEEID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object attendeeId_;
     /**
-     * <code>string PatientId = 2;</code>
+     * <code>string AttendeeId = 2;</code>
      */
-    public java.lang.String getPatientId() {
-      java.lang.Object ref = patientId_;
+    public java.lang.String getAttendeeId() {
+      java.lang.Object ref = attendeeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        patientId_ = s;
+        attendeeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string PatientId = 2;</code>
+     * <code>string AttendeeId = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getPatientIdBytes() {
-      java.lang.Object ref = patientId_;
+        getAttendeeIdBytes() {
+      java.lang.Object ref = attendeeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        patientId_ = b;
+        attendeeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -4339,8 +4339,8 @@ public final class ScheduleProtos {
       if (!getDescriptionBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, description_);
       }
-      if (!getPatientIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, patientId_);
+      if (!getAttendeeIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, attendeeId_);
       }
       unknownFields.writeTo(output);
     }
@@ -4353,8 +4353,8 @@ public final class ScheduleProtos {
       if (!getDescriptionBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, description_);
       }
-      if (!getPatientIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, patientId_);
+      if (!getAttendeeIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, attendeeId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4374,8 +4374,8 @@ public final class ScheduleProtos {
       boolean result = true;
       result = result && getDescription()
           .equals(other.getDescription());
-      result = result && getPatientId()
-          .equals(other.getPatientId());
+      result = result && getAttendeeId()
+          .equals(other.getAttendeeId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -4389,8 +4389,8 @@ public final class ScheduleProtos {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
       hash = (53 * hash) + getDescription().hashCode();
-      hash = (37 * hash) + PATIENTID_FIELD_NUMBER;
-      hash = (53 * hash) + getPatientId().hashCode();
+      hash = (37 * hash) + ATTENDEEID_FIELD_NUMBER;
+      hash = (53 * hash) + getAttendeeId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4522,7 +4522,7 @@ public final class ScheduleProtos {
         super.clear();
         description_ = "";
 
-        patientId_ = "";
+        attendeeId_ = "";
 
         return this;
       }
@@ -4547,7 +4547,7 @@ public final class ScheduleProtos {
       public care.solve.backend.entity.ScheduleProtos.RegistrationInfo buildPartial() {
         care.solve.backend.entity.ScheduleProtos.RegistrationInfo result = new care.solve.backend.entity.ScheduleProtos.RegistrationInfo(this);
         result.description_ = description_;
-        result.patientId_ = patientId_;
+        result.attendeeId_ = attendeeId_;
         onBuilt();
         return result;
       }
@@ -4593,8 +4593,8 @@ public final class ScheduleProtos {
           description_ = other.description_;
           onChanged();
         }
-        if (!other.getPatientId().isEmpty()) {
-          patientId_ = other.patientId_;
+        if (!other.getAttendeeId().isEmpty()) {
+          attendeeId_ = other.attendeeId_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4693,71 +4693,71 @@ public final class ScheduleProtos {
         return this;
       }
 
-      private java.lang.Object patientId_ = "";
+      private java.lang.Object attendeeId_ = "";
       /**
-       * <code>string PatientId = 2;</code>
+       * <code>string AttendeeId = 2;</code>
        */
-      public java.lang.String getPatientId() {
-        java.lang.Object ref = patientId_;
+      public java.lang.String getAttendeeId() {
+        java.lang.Object ref = attendeeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          patientId_ = s;
+          attendeeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string PatientId = 2;</code>
+       * <code>string AttendeeId = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getPatientIdBytes() {
-        java.lang.Object ref = patientId_;
+          getAttendeeIdBytes() {
+        java.lang.Object ref = attendeeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          patientId_ = b;
+          attendeeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string PatientId = 2;</code>
+       * <code>string AttendeeId = 2;</code>
        */
-      public Builder setPatientId(
+      public Builder setAttendeeId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        patientId_ = value;
+        attendeeId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string PatientId = 2;</code>
+       * <code>string AttendeeId = 2;</code>
        */
-      public Builder clearPatientId() {
+      public Builder clearAttendeeId() {
         
-        patientId_ = getDefaultInstance().getPatientId();
+        attendeeId_ = getDefaultInstance().getAttendeeId();
         onChanged();
         return this;
       }
       /**
-       * <code>string PatientId = 2;</code>
+       * <code>string AttendeeId = 2;</code>
        */
-      public Builder setPatientIdBytes(
+      public Builder setAttendeeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        patientId_ = value;
+        attendeeId_ = value;
         onChanged();
         return this;
       }
@@ -4853,15 +4853,15 @@ public final class ScheduleProtos {
       "ublic\022\021\n\tPatientId\030\001 \001(\t\"E\n\014DoctorPublic" +
       "\022\020\n\010DoctorId\030\001 \001(\t\022\021\n\tFirstName\030\002 \001(\t\022\020\n" +
       "\010LastName\030\003 \001(\t\"7\n\020DoctorCollection\022#\n\007d" +
-      "octors\030\001 \003(\0132\022.main.DoctorPublic\"K\n\010Sche" +
-      "dule\022\022\n\nScheduleId\030\001 \001(\t\022\020\n\010DoctorId\030\002 \001" +
-      "(\t\022\031\n\005slots\030\003 \003(\0132\n.main.Slot\"\257\001\n\004Slot\022\016" +
-      "\n\006SlotId\030\001 \001(\t\022\021\n\tTimeStart\030\002 \001(\004\022\022\n\nTim" +
-      "eFinish\030\003 \001(\004\022\"\n\tavaliable\030\004 \001(\0162\017.main." +
-      "Slot.Type\0220\n\020registrationInfo\030\005 \001(\0132\026.ma",
-      "in.RegistrationInfo\"\032\n\004Type\022\010\n\004FREE\020\000\022\010\n" +
-      "\004BUSY\020\001\":\n\020RegistrationInfo\022\023\n\013Descripti" +
-      "on\030\001 \001(\t\022\021\n\tPatientId\030\002 \001(\tB1\n\031care.solv" +
+      "octors\030\001 \003(\0132\022.main.DoctorPublic\"J\n\010Sche" +
+      "dule\022\022\n\nScheduleId\030\001 \001(\t\022\017\n\007OwnerId\030\002 \001(" +
+      "\t\022\031\n\005slots\030\003 \003(\0132\n.main.Slot\"\257\001\n\004Slot\022\016\n" +
+      "\006SlotId\030\001 \001(\t\022\021\n\tTimeStart\030\002 \001(\004\022\022\n\nTime" +
+      "Finish\030\003 \001(\004\022\"\n\tavaliable\030\004 \001(\0162\017.main.S" +
+      "lot.Type\0220\n\020registrationInfo\030\005 \001(\0132\026.mai",
+      "n.RegistrationInfo\"\032\n\004Type\022\010\n\004FREE\020\000\022\010\n\004" +
+      "BUSY\020\001\";\n\020RegistrationInfo\022\023\n\013Descriptio" +
+      "n\030\001 \001(\t\022\022\n\nAttendeeId\030\002 \001(\tB1\n\031care.solv" +
       "e.backend.entityB\016ScheduleProtosZ\004mainb\006" +
       "proto3"
     };
@@ -4900,7 +4900,7 @@ public final class ScheduleProtos {
     internal_static_main_Schedule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Schedule_descriptor,
-        new java.lang.String[] { "ScheduleId", "DoctorId", "Slots", });
+        new java.lang.String[] { "ScheduleId", "OwnerId", "Slots", });
     internal_static_main_Slot_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_main_Slot_fieldAccessorTable = new
@@ -4912,7 +4912,7 @@ public final class ScheduleProtos {
     internal_static_main_RegistrationInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_RegistrationInfo_descriptor,
-        new java.lang.String[] { "Description", "PatientId", });
+        new java.lang.String[] { "Description", "AttendeeId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

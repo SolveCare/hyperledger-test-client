@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class RegistrationInfo {
 
-    private String patientId;
+    private String attendeeId;
     private String description;
 
 }

@@ -32,7 +32,7 @@ public class DoctorController {
     @PostMapping
     public DoctorPublic create(@RequestBody DoctorPrivate doctor) {
         DoctorPublic doctorPublic = doctorService.create(doctor);
-        Schedule doctorsSchedule = Schedule.builder().doctorId(doctorPublic.getId()).build();
+        Schedule doctorsSchedule = Schedule.builder().ownerId(doctorPublic.getId()).build();
         scheduleService.createSchedule(doctorsSchedule);
 
         return doctorPublic;

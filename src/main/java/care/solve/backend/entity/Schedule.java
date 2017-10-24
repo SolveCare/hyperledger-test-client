@@ -10,6 +10,6 @@ import java.util.List;
 public class Schedule {
 
     private String scheduleId;
-    private String doctorId;
+    private String ownerId;
     private List<Slot> slots;
 }

@@ -38,7 +38,7 @@ func (s *ScheduleService) getScheduleByDoctorId(stub shim.ChaincodeStubInterface
 
 func (s *ScheduleService) createSchedule(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
 
-	_, err := s.doctorService.getDoctorById(stub, schedule.DoctorId)
+	_, err := s.doctorService.getDoctorById(stub, schedule.OwnerId)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (s *ScheduleService) updateSlot(stub shim.ChaincodeStubInterface, scheduleI
 				existedSlot.TimeFinish = newSlot.TimeFinish
 			}
 
-			if newSlot.RegistrationInfo != nil && newSlot.RegistrationInfo.PatientId != "" {
+			if newSlot.RegistrationInfo != nil && newSlot.RegistrationInfo.AttendeeId != "" {
 				newSlot.Avaliable = Slot_BUSY
 			} else {
 				existedSlot.Avaliable = newSlot.Avaliable

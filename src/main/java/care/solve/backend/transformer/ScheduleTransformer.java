@@ -32,7 +32,7 @@ public class ScheduleTransformer implements ProtoTransformer<Schedule, ScheduleP
             builder.addAllSlots(protoScheduleRecordList);
         }
 
-        if (obj.getDoctorId() != null) { builder.setDoctorId(obj.getDoctorId()); }
+        if (obj.getOwnerId() != null) { builder.setOwnerId(obj.getOwnerId()); }
         if (obj.getScheduleId() != null) { builder.setScheduleId(obj.getScheduleId()); }
 
         return builder.build();
@@ -53,7 +53,7 @@ public class ScheduleTransformer implements ProtoTransformer<Schedule, ScheduleP
         }
 
         return builder
-                .doctorId(proto.getDoctorId())
+                .ownerId(proto.getOwnerId())
                 .scheduleId(proto.getScheduleId())
                 .build();
     }
