@@ -106,7 +106,7 @@ public class ScheduleService {
                 client,
                 chaincodeId,
                 healthChannel,
-                "getDoctorsSchedule",
+                "getSchedule",
                 new String[]{ownerId});
 
         ScheduleProtos.Schedule protoSchedule = ScheduleProtos.Schedule.parseFrom(protoScheduleByteString);

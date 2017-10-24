@@ -22,8 +22,7 @@ func (s *ScheduleService) New(scheduler *SchedulerImpl, doctorService *DoctorSer
 }
 
 func (s *ScheduleService) getScheduleByOwnerId(stub shim.ChaincodeStubInterface, ownerId string) (*Schedule, error) {
-	scheduleKey := s.scheduler.ConstructScheduleKey(ownerId);
-	schedule, err := s.scheduler.Get(stub, scheduleKey)
+	schedule, err := s.scheduler.Get(stub, ownerId)
 	if err != nil {
 		return nil, err
 	}
@@ -32,12 +31,6 @@ func (s *ScheduleService) getScheduleByOwnerId(stub shim.ChaincodeStubInterface,
 }
 
 func (s *ScheduleService) createSchedule(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
-
-	_, err := s.doctorService.getDoctorById(stub, schedule.OwnerId)
-	if err != nil {
-		return nil, err
-	}
-
 	savedSchedule, err := s.scheduler.Apply(stub, schedule)
 	if err != nil {
 		return nil, err
