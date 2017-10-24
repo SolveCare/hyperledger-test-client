@@ -10,12 +10,12 @@ import (
 type SchedulerImpl struct {
 }
 
-func (s SchedulerImpl) ConstructScheduleKey(doctorId string) string {
-	return "schedule:doctorId:" + doctorId
+func (s SchedulerImpl) ConstructScheduleKey(ownerId string) string {
+	return "schedule:ownerId:" + ownerId
 }
 
-func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, doctorId string) (*Schedule, error) {
-	scheduleId := s.ConstructScheduleKey(doctorId)
+func (s SchedulerImpl) Get(stub shim.ChaincodeStubInterface, ownerId string) (*Schedule, error) {
+	scheduleId := s.ConstructScheduleKey(ownerId)
 	scheduleBytes, err := stub.GetState(scheduleId)
 
 	if err != nil {
@@ -44,7 +44,7 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, schedule Schedule
 		errors.New(errorMsg)
 	}
 
-	logger.Infof("Creating new schedule for doctor %v", schedule.OwnerId)
+	logger.Infof("Creating new schedule for owner %v", schedule.OwnerId)
 
 	schedule.ScheduleId = scheduleKey;
 
@@ -60,3 +60,43 @@ func (s SchedulerImpl) Apply(stub shim.ChaincodeStubInterface, schedule Schedule
 
 	return &schedule, nil
 }
+
+//func (s SchedulerImpl) saveDoctorSchedule(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
+//	scheduleKey := s.ConstructDoctorScheduleKey(schedule.OwnerId)
+//
+//	logger.Infof("Creating new schedule for doctor %v", schedule.OwnerId)
+//
+//	schedule.ScheduleId = scheduleKey;
+//
+//	jsonSchedule, err := json.Marshal(schedule)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	err = stub.PutState(scheduleKey, jsonSchedule)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return &schedule, nil
+//}
+//
+//func (s SchedulerImpl) savePatientSchedule(stub shim.ChaincodeStubInterface, schedule Schedule) (*Schedule, error) {
+//	scheduleKey := s.ConstructPatientScheduleKey(schedule.OwnerId)
+//
+//	logger.Infof("Creating new schedule for patient %v", schedule.OwnerId)
+//
+//	schedule.ScheduleId = scheduleKey;
+//
+//	jsonSchedule, err := json.Marshal(schedule)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	err = stub.PutState(scheduleKey, jsonSchedule)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return &schedule, nil
+//}

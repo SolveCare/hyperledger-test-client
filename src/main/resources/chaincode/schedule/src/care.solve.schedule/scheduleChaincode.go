@@ -104,9 +104,9 @@ func (s *ScheduleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response
 		return s.getResponseWithProto(patient)
 	}
 
-	if function == "getDoctorsSchedule" {
-		doctorId := args[0]
-		schedule, err := s.scheduleService.getScheduleByDoctorId(stub, doctorId)
+	if function == "getSchedule" {
+		ownerId := args[0]
+		schedule, err := s.scheduleService.getScheduleByOwnerId(stub, ownerId)
 		if err != nil {
 			return shim.Error(err.Error())
 		}

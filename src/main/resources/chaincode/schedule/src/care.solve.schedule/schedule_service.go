@@ -21,14 +21,9 @@ func (s *ScheduleService) New(scheduler *SchedulerImpl, doctorService *DoctorSer
 	return s
 }
 
-func (s *ScheduleService) getScheduleByDoctorId(stub shim.ChaincodeStubInterface, doctorId string) (*Schedule, error) {
-
-	_, err := s.doctorService.getDoctorById(stub, doctorId)
-	if err != nil {
-		return nil, err
-	}
-
-	schedule, err := s.scheduler.Get(stub, doctorId)
+func (s *ScheduleService) getScheduleByOwnerId(stub shim.ChaincodeStubInterface, ownerId string) (*Schedule, error) {
+	scheduleKey := s.scheduler.ConstructScheduleKey(ownerId);
+	schedule, err := s.scheduler.Get(stub, scheduleKey)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +55,6 @@ func (s *ScheduleService) createSlot(stub shim.ChaincodeStubInterface, scheduleI
 	}
 
 	slot.SlotId = uuid.New().String()
-	slot.Avaliable = Slot_BUSY
 	logger.Infof("Add new slot: %v to schedule %v", slot, scheduleId)
 
 	schedule.Slots = append(schedule.Slots, &slot)
@@ -73,11 +67,6 @@ func (s *ScheduleService) createSlot(stub shim.ChaincodeStubInterface, scheduleI
 		return nil, err
 	}
 
-	err = stub.DelState(s.scheduler.ConstructScheduleKey(scheduleId))
-	if err != nil {
-		logger.Errorf("Error while deleting Schedule: %v", err.Error())
-		return nil, err
-	}
 	err = stub.PutState(s.scheduler.ConstructScheduleKey(scheduleId), jsonSchedule)
 	if err != nil {
 		logger.Errorf("Error while updating Schedule: %v", err.Error())

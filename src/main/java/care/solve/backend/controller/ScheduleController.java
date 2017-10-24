@@ -28,8 +28,8 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public Schedule getSchedule(@RequestParam String doctorId) throws InvalidProtocolBufferException {
-        return scheduleService.getDoctorSchedule(doctorId);
+    public Schedule getScheduleByOwnerId(@RequestParam String ownerId) throws InvalidProtocolBufferException {
+        return scheduleService.getSchedule(ownerId);
     }
 
     @PostMapping

@@ -101,13 +101,13 @@ public class ScheduleService {
                 new String[]{scheduleId, slotId, byteString});
     }
 
-    public Schedule getDoctorSchedule(String doctorId) throws InvalidProtocolBufferException {
+    public Schedule getSchedule(String ownerId) throws InvalidProtocolBufferException {
         ByteString protoScheduleByteString = transactionService.sendQueryTransaction(
                 client,
                 chaincodeId,
                 healthChannel,
                 "getDoctorsSchedule",
-                new String[]{doctorId});
+                new String[]{ownerId});
 
         ScheduleProtos.Schedule protoSchedule = ScheduleProtos.Schedule.parseFrom(protoScheduleByteString);
         return scheduleTransformer.transformFromProto(protoSchedule);

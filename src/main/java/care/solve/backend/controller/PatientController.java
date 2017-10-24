@@ -2,8 +2,11 @@ package care.solve.backend.controller;
 
 import care.solve.backend.entity.PatientPrivate;
 import care.solve.backend.entity.PatientPublic;
+import care.solve.backend.entity.Schedule;
 import care.solve.backend.service.PatientService;
+import care.solve.backend.service.ScheduleService;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +21,12 @@ import java.util.concurrent.ExecutionException;
 public class PatientController {
 
     private PatientService patientService;
+    private ScheduleService scheduleService;
 
-    public PatientController(PatientService patientService) {
+    @Autowired
+    public PatientController(PatientService patientService, ScheduleService scheduleService) {
         this.patientService = patientService;
+        this.scheduleService = scheduleService;
     }
 
     @GetMapping("{patientId}")
@@ -30,7 +36,11 @@ public class PatientController {
 
     @PostMapping
     public PatientPublic create(@RequestBody PatientPrivate patient) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
-        return patientService.create(patient);
+        PatientPublic patientPublic = patientService.create(patient);
+        Schedule patientsSchedule = Schedule.builder().ownerId(patientPublic.getId()).build();
+        scheduleService.createSchedule(patientsSchedule);
+
+        return patientPublic;
     }
 
 }
