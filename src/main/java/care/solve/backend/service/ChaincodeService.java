@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +58,8 @@ public class ChaincodeService {
         InstallProposalRequest installProposalRequest = client.newInstallProposalRequest();
         installProposalRequest.setChaincodeID(chaincodeId);
 
-        installProposalRequest.setChaincodeSourceLocation(new File("src/main/resources/chaincode/schedule"));
+        InputStream resourceStream = ChaincodeService.class.getResource("/chaincode/schedule").openStream();
+        installProposalRequest.setChaincodeInputStream(resourceStream);
         installProposalRequest.setChaincodeVersion(chaincodeId.getVersion());
 
         Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, ImmutableSet.of(peer));
