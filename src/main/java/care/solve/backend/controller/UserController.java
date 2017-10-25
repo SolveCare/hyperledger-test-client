@@ -1,10 +1,13 @@
 package care.solve.backend.controller;
 
 import care.solve.backend.service.UserService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -21,8 +24,21 @@ public class UserController {
         userService.registerUser(userName);
     }
 
-    @PostMapping("{userName}/current")
-    public void setCurrentUser(@PathVariable String userName) throws Exception {
-        userService.setCurrentUser(userName);
+    @GetMapping("/current")
+    public Map getCurrent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        SimpleGrantedAuthority authority = (SimpleGrantedAuthority) authentication.getAuthorities().iterator().next();
+        String role = authority.getAuthority();
+
+        return new HashMap() {{
+            put("name", userName);
+            put("role", role);
+        }};
     }
+
+//    @PostMapping("{userName}/current")
+//    public void setCurrentUser(@PathVariable String userName) throws Exception {
+//        userService.setCurrentUser(userName);
+//    }
 }

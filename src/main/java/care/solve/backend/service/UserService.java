@@ -22,7 +22,7 @@ public class UserService {
     @Value("${user.human.msp.id}")
     private String humanMspId;
 
-    private static final String org = "org1.department1";
+    public static final String org = "org1.department1";
 
     @Autowired
     public UserService(HFCAClient client, HFClient hfClient, SampleUser humanAdminUser, SampleStore defaultStore) {
@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public void setCurrentUser(String userName) throws InvalidArgumentException {
-        SampleUser user = defaultStore.getMember(userName, org);
-        hfClient.setUserContext(user);
+//        SampleUser user = defaultStore.getMember(userName, org);
+//        hfClient.setUserContext(user);
     }
 }

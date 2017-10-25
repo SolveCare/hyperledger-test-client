@@ -3,19 +3,16 @@ package care.solve.backend.service;
 import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.entity.DoctorPublic;
 import care.solve.backend.entity.ScheduleProtos;
+import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorPrivateToPublicTransformer;
 import care.solve.backend.transformer.DoctorToProtoCollectionTransformer;
-import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorToProtoTransformer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.apache.commons.collections.CollectionUtils;
-import org.hyperledger.fabric.sdk.BlockEvent;
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.HFClient;
-import org.hyperledger.fabric.sdk.Peer;
+import org.hyperledger.fabric.sdk.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -28,7 +25,8 @@ public class DoctorService {
 
     private DoctorsRepository doctorsRepository;
     private TransactionService transactionService;
-    private HFClient client;
+    private HFClient adminHFClient;
+    private HFClientFactory hfClientFactory;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
     private Peer peer;
@@ -38,10 +36,11 @@ public class DoctorService {
     private DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, @Qualifier("adminHFClient") HFClient adminHFClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
-        this.client = client;
+        this.hfClientFactory = hfClientFactory;
+        this.adminHFClient = adminHFClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
         this.peer = peer;
@@ -72,7 +71,7 @@ public class DoctorService {
         ScheduleProtos.DoctorPublic protoDoctor = doctorToProtoTransformer.transformToProto(doctor);
         String byteString = new String(protoDoctor.toByteArray());
         CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
-                client,
+                hfClientFactory.getClient(),
                 chaincodeId,
                 healthChannel,
                 peer,
@@ -92,7 +91,7 @@ public class DoctorService {
 
     public DoctorPublic get(String doctorId) throws InvalidProtocolBufferException {
         ByteString protoDoctorByteString = transactionService.sendQueryTransaction(
-                client,
+                hfClientFactory.getClient(),
                 chaincodeId,
                 healthChannel,
                 "getDoctor",
@@ -104,7 +103,7 @@ public class DoctorService {
 
     public List<DoctorPublic> getAll() throws InvalidProtocolBufferException {
         ByteString protoDoctorsByteString = transactionService.sendQueryTransaction(
-                client,
+                hfClientFactory.getClient(),
                 chaincodeId,
                 healthChannel,
                 "getAllDoctors",

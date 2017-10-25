@@ -1,13 +1,7 @@
 package care.solve.backend.config;
 
 import care.solve.backend.service.ChannelService;
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.EventHub;
-import org.hyperledger.fabric.sdk.HFClient;
-import org.hyperledger.fabric.sdk.Orderer;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.User;
+import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
@@ -49,9 +43,9 @@ public class HyperLedgerConfig {
     @Value("${ca.human.url}")
     private String caHumanUrl;
 
-    @Bean(name = "hfClient")
+    @Bean(name = "adminHFClient")
     @Autowired
-    public HFClient getHFClient(@Qualifier("humanAdminUser") User user) throws CryptoException, InvalidArgumentException {
+    public HFClient getAdminHFClient(@Qualifier("humanAdminUser") User user) throws CryptoException, InvalidArgumentException {
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
         client.setUserContext(user);
@@ -136,7 +130,7 @@ public class HyperLedgerConfig {
     public Channel healthChannel(
             ChannelService channelService,
             @Qualifier("humanAdminUser") User humanAdminUser,
-            @Qualifier("hfClient") HFClient client,
+            @Qualifier("adminHFClient") HFClient client,
             @Qualifier("humanPeer") Peer peer,
             @Qualifier("orderer") Orderer orderer,
             @Qualifier("humanEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
