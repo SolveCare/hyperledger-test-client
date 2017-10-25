@@ -1,5 +1,6 @@
 package care.solve.backend.service;
 
+import org.apache.commons.io.IOUtils;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.ChannelConfiguration;
 import org.hyperledger.fabric.sdk.EventHub;
@@ -12,8 +13,8 @@ import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 @Service
 public class ChannelService {
@@ -33,7 +34,9 @@ public class ChannelService {
     }
 
     public Channel constructChannel(String channelName, HFClient client, User user, Peer peer, Orderer orderer, EventHub eventHub) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
-        ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File("src/main/resources/health/channel-artifacts/health-channel.tx"));
+        URL resource = ChannelService.class.getResource("/health/channel-artifacts/health-channel.tx");
+        byte[] bytes = IOUtils.toByteArray(resource);
+        ChannelConfiguration channelConfiguration = new ChannelConfiguration(bytes);
 
         Channel newChannel = client.newChannel(
                 channelName,

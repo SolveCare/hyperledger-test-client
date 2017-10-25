@@ -1,4 +1,13 @@
 version: '3'
+
+networks:
+  health_default:
+    external: true
+
+volumes:
+    pgdata:
+      driver: local
+
 services:
   mypostgres:
     image: "postgres"
@@ -10,7 +19,14 @@ services:
      - POSTGRES_PASSWORD=123456
      - POSTGRES_USER=postgres
      - POSTGRES_DB=postgres
+    networks:
+      - health_default
 
-volumes:
-    pgdata:
-      driver: local
+  hyperledger-client:
+    image: "hyperledger-test-client"
+    ports:
+      - "8080:8080"
+    networks:
+      - health_default
+    depends_on:
+      - mypostgres
