@@ -25,7 +25,7 @@ services:
   hyperledger-client:
     image: "hyperledger-test-client"
     ports:
-      - "8080:8080"
+      - "9001:9001"
     networks:
       - health_default
     depends_on:
