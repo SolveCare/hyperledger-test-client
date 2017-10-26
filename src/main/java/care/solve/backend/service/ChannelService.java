@@ -34,7 +34,7 @@ public class ChannelService {
     }
 
     public Channel constructChannel(String channelName, HFClient client, User user, Peer peer, Orderer orderer, EventHub eventHub) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
-        URL resource = ChannelService.class.getResource("/health/channel-artifacts/health-channel.tx");
+        URL resource = ChannelService.class.getResource("/hyperledger/network/config/channel.tx");
         byte[] bytes = IOUtils.toByteArray(resource);
         ChannelConfiguration channelConfiguration = new ChannelConfiguration(bytes);
 
