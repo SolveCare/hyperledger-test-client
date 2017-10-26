@@ -101,7 +101,7 @@ public class HyperLedgerConfig {
     }
 
     public Properties getOrderedProperties() throws IOException {
-        URL resource = HyperLedgerConfig.class.getResource("/hyperledger/network/crypto-config/peerOrganizations/clinic.health.com/peers/peer0.clinic.health.com/tls/server.crt");
+        URL resource = HyperLedgerConfig.class.getResource("/hyperledger/network/crypto-config/ordererOrganizations/health.com/orderers/orderer.health.com/tls/server.crt");
 
         Properties ret = new Properties();
         ret.setProperty("pemFile", resource.toString());
