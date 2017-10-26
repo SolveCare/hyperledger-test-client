@@ -1,7 +1,7 @@
 version: '2'
 
 networks:
-  health_default:
+  net_basic:
     external: true
 
 volumes:
@@ -20,13 +20,16 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_DB=postgres
     networks:
-      - health_default
+      - net_basic
 
   hyperledger-client:
     image: "hyperledger-test-client"
     ports:
       - "9001:9001"
+      - "5005:5005"
     networks:
-      - health_default
+      - net_basic
     depends_on:
       - mypostgres
+    environment:
+      - _JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
