@@ -26,7 +26,10 @@ services:
     image: "hyperledger-test-client"
     ports:
       - "9001:9001"
+      - "5005:5005"
     networks:
       - health_default
     depends_on:
       - mypostgres
+    environment:
+      - _JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005

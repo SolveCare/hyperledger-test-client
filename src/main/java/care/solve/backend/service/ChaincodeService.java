@@ -13,12 +13,12 @@ import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
+import org.rauschig.jarchivelib.Archiver;
+import org.rauschig.jarchivelib.ArchiverFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class ChaincodeService {
 
     public CompletableFuture<BlockEvent.TransactionEvent> instantiateChaincode(HFClient client, ChaincodeID chaincodeId, Channel channel, Orderer orderer, Peer peer) throws InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, ProposalException {
         InstantiateProposalRequest instantiateProposalRequest = client.newInstantiationProposalRequest();
-        instantiateProposalRequest.setProposalWaitTime(12000L);
+        instantiateProposalRequest.setProposalWaitTime(20000L);
         instantiateProposalRequest.setChaincodeID(chaincodeId);
         instantiateProposalRequest.setFcn("init");
         instantiateProposalRequest.setArgs(new String[]{"someArg", "0"});
@@ -54,12 +54,16 @@ public class ChaincodeService {
         return channel.sendTransaction(proposalResponses, ImmutableSet.of(orderer));
     }
 
-    public void installChaincode(HFClient client, ChaincodeID chaincodeId, Peer peer) throws InvalidArgumentException, ProposalException, IOException {
+    public void installChaincode(HFClient client, ChaincodeID chaincodeId, Peer peer, File tarGzFile) throws InvalidArgumentException, ProposalException, IOException {
         InstallProposalRequest installProposalRequest = client.newInstallProposalRequest();
         installProposalRequest.setChaincodeID(chaincodeId);
 
-        InputStream resourceStream = ChaincodeService.class.getResource("/chaincode/schedule").openStream();
-        installProposalRequest.setChaincodeInputStream(resourceStream);
+        File destination = new File("/tmp");
+
+        Archiver archiver = ArchiverFactory.createArchiver("tar", "gz");
+        archiver.extract(tarGzFile, destination);
+
+        installProposalRequest.setChaincodeSourceLocation(new File("/tmp"));
         installProposalRequest.setChaincodeVersion(chaincodeId.getVersion());
 
         Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, ImmutableSet.of(peer));
@@ -73,3 +77,5 @@ public class ChaincodeService {
         }
     }
 }
+
+
