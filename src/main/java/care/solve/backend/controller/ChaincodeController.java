@@ -2,7 +2,11 @@ package care.solve.backend.controller;
 
 import care.solve.backend.service.ChaincodeService;
 import care.solve.backend.service.DoctorService;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.HFClient;
+import org.hyperledger.fabric.sdk.Orderer;
+import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
@@ -10,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -40,12 +47,13 @@ public class ChaincodeController {
         this.orderer = orderer;
     }
 
-    @PostMapping
-    public void install() throws ProposalException, IOException, InvalidArgumentException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
-        chaincodeService.installChaincode(adminClient, chaincodeId, peer);
+    @PostMapping(value = "upload")
+    public void handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, ProposalException, InvalidArgumentException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
+        File tarGzFile = new File("/tmp/" + file.getOriginalFilename());
+        file.transferTo(tarGzFile);
+        chaincodeService.installChaincode(adminClient, chaincodeId, peer, tarGzFile);
         chaincodeService.instantiateChaincode(adminClient, chaincodeId, healthChannel, orderer, peer)
                 .get(20000L, TimeUnit.SECONDS);
-        doctorService.chaincodeInitialSync();
     }
 
 }
