@@ -10,7 +10,7 @@ networks:
 
 services:
   ca.health.com:
-    image: hyperledger/fabric-ca
+    image: hyperledger/fabric-ca${IMAGE_TAG_FABRIC_CA}
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.health.com
@@ -25,7 +25,7 @@ services:
 
   orderer.health.com:
     container_name: orderer.health.com
-    image: hyperledger/fabric-orderer
+    image: hyperledger/fabric-orderer${IMAGE_TAG_FABRIC}
     environment:
       - ORDERER_GENERAL_LOGLEVEL=debug
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
@@ -163,7 +163,7 @@ services:
 
   couchdb1:
     container_name: couchdb1
-    image: hyperledger/fabric-couchdb
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
     # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
     # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
     environment:
@@ -176,7 +176,7 @@ services:
       
   couchdb2:
     container_name: couchdb2
-    image: hyperledger/fabric-couchdb
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
     # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
     # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
     environment:
@@ -189,7 +189,7 @@ services:
       
   couchdb3:
     container_name: couchdb3
-    image: hyperledger/fabric-couchdb
+    image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
     # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
     # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
     environment:
@@ -202,7 +202,7 @@ services:
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools
+    image: hyperledger/fabric-tools${IMAGE_TAG_FABRIC}
     tty: true
     environment:
       - GOPATH=/opt/gopath
