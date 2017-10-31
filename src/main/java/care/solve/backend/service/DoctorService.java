@@ -25,7 +25,6 @@ public class DoctorService {
 
     private DoctorsRepository doctorsRepository;
     private TransactionService transactionService;
-    private HFClient adminHFClient;
     private HFClientFactory hfClientFactory;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
@@ -36,11 +35,10 @@ public class DoctorService {
     private DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, @Qualifier("adminHFClient") HFClient adminHFClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.hfClientFactory = hfClientFactory;
-        this.adminHFClient = adminHFClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
         this.peer = peer;

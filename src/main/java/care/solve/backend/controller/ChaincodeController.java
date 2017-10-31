@@ -37,7 +37,7 @@ public class ChaincodeController {
     private Orderer orderer;
 
     @Autowired
-    public ChaincodeController(ChaincodeService chaincodeService, DoctorService doctorService, @Qualifier("adminHFClient") HFClient adminClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, Orderer orderer) {
+    public ChaincodeController(ChaincodeService chaincodeService, DoctorService doctorService, @Qualifier("peerAdminHFClient") HFClient adminClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, Orderer orderer) {
         this.chaincodeService = chaincodeService;
         this.doctorService = doctorService;
         this.adminClient = adminClient;

@@ -14,38 +14,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private HFCAClient hfcaHumanClient;
-    private HFClient hfClient;
-    private SampleUser humanAdminUser;
+    private HFCAClient hfcaAdminClient;
     private SampleStore defaultStore;
+    private SampleUser adminUser;
 
-    @Value("${user.human.msp.id}")
-    private String humanMspId;
+    @Value("${admin.msp.id}")
+    private String adminMspId;
 
     public static final String org = "org1.department1";
 
     @Autowired
-    public UserService(HFCAClient client, HFClient hfClient, SampleUser humanAdminUser, SampleStore defaultStore) {
-        this.hfcaHumanClient = client;
-        this.hfClient = hfClient;
-        this.humanAdminUser = humanAdminUser;
+    public UserService(HFCAClient client, SampleStore defaultStore, SampleUser adminUser) {
+        this.hfcaAdminClient = client;
         this.defaultStore = defaultStore;
+        this.adminUser = adminUser;
     }
 
     public void registerUser(String userName) throws Exception {
-        Enrollment adminEnrollment = hfcaHumanClient.enroll("admin", "adminpw");
-        humanAdminUser.setEnrollment(adminEnrollment);
-
         RegistrationRequest registrationRequest = new RegistrationRequest(userName, org);
-        String enrollmentSecret = hfcaHumanClient.register(registrationRequest, humanAdminUser);
-        Enrollment enrollment = hfcaHumanClient.enroll(userName, enrollmentSecret);
-
-        SampleUser newUser = defaultStore.getMember(userName, org, humanMspId, enrollment.getKey(), enrollment.getCert());
-//        newUser.setEnrollment(enrollment);
+        String enrollmentSecret = hfcaAdminClient.register(registrationRequest, adminUser);
+        Enrollment enrollment = hfcaAdminClient.enroll(userName, enrollmentSecret);
+        defaultStore.getMember(userName, org, adminMspId, enrollment.getKey(), enrollment.getCert());
     }
 
-    public void setCurrentUser(String userName) throws InvalidArgumentException {
-//        SampleUser user = defaultStore.getMember(userName, org);
-//        hfClient.setUserContext(user);
-    }
 }

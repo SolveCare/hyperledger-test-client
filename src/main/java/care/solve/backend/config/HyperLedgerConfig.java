@@ -22,14 +22,14 @@ import java.util.Properties;
 @Configuration
 public class HyperLedgerConfig {
 
-    @Value("${user.human.peer.name}")
-    private String humanPeerName;
+    @Value("${admin.peer.name}")
+    private String customPeerName;
 
-    @Value("${user.human.peer.grpcUrl}")
-    private String humanPeerGrpcUrl;
+    @Value("${admin.peer.grpcUrl}")
+    private String customPeerGrpcUrl;
 
-    @Value("${user.human.eventHub.grpcUrl}")
-    private String humanEventHubGrpcUrl;
+    @Value("${admin.eventHub.grpcUrl}")
+    private String customEventHubGrpcUrl;
 
     @Value("${orderer.name}")
     private String ordererName;
@@ -40,12 +40,18 @@ public class HyperLedgerConfig {
     @Value("${channel.health.name}")
     private String healthChannelName;
 
-    @Value("${ca.human.url}")
-    private String caHumanUrl;
+    @Value("${ca.admin.url}")
+    private String caAdminUrl;
 
-    @Bean(name = "adminHFClient")
+    @Value("${peer.tls.cert.file}")
+    private String peerTLSCertFile;
+
+    @Value("${orderer.tls.cert.file}")
+    private String ordererTLSCertFile;
+
+    @Bean(name = "peerAdminHFClient")
     @Autowired
-    public HFClient getAdminHFClient(@Qualifier("humanAdminUser") User user) throws CryptoException, InvalidArgumentException {
+    public HFClient getPeerAdminHFClient(@Qualifier("peerAdminUser") User user) throws CryptoException, InvalidArgumentException {
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
         client.setUserContext(user);
@@ -53,19 +59,19 @@ public class HyperLedgerConfig {
         return client;
     }
 
-    @Bean(name = "hfcaHumanClient")
-    public HFCAClient getHFCAHumanClient() throws MalformedURLException {
-        HFCAClient hfcaHumanClient = HFCAClient.createNewInstance(caHumanUrl, null);
-        hfcaHumanClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+    @Bean(name = "hfcaAdminClient")
+    public HFCAClient getHFCAAdminClient() throws MalformedURLException {
+        HFCAClient hfcaAdminClient = HFCAClient.createNewInstance(caAdminUrl, null);
+        hfcaAdminClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
 
-        return hfcaHumanClient;
+        return hfcaAdminClient;
     }
 
-    @Bean(name = "humanPeer")
+    @Bean(name = "customPeer")
     public Peer constructPeer(HFClient client) throws InvalidArgumentException, IOException {
         return client.newPeer(
-                humanPeerName,
-                humanPeerGrpcUrl,
+                customPeerName,
+                customPeerGrpcUrl,
                 getPeerProperties()
         );
     }
@@ -79,39 +85,39 @@ public class HyperLedgerConfig {
         );
     }
 
-    @Bean(name = "humanEventHub")
+    @Bean(name = "customEventHub")
     public EventHub constructEventHub(HFClient client) throws InvalidArgumentException, IOException {
         return client.newEventHub(
-                humanPeerName,
-                humanEventHubGrpcUrl,
+                customPeerName,
+                customEventHubGrpcUrl,
                 getPeerProperties()
         );
     }
 
     public Properties getPeerProperties() throws IOException {
-        URL resource = HyperLedgerConfig.class.getResource("/hyperledger/network/crypto-config/peerOrganizations/clinic.health.com/peers/peer0.clinic.health.com/tls/server.crt");
+        URL resource = HyperLedgerConfig.class.getResource(peerTLSCertFile);
 
-        Properties ret = new Properties();
-        ret.setProperty("pemFile", resource.toString());
-        ret.setProperty("hostnameOverride", humanPeerName);
-        ret.setProperty("sslProvider", "openSSL");
-        ret.setProperty("negotiationType", "TLS");
+        Properties properties = new Properties();
+        properties.setProperty("pemFile", resource.toString());
+        properties.setProperty("hostnameOverride", customPeerName);
+        properties.setProperty("sslProvider", "openSSL");
+        properties.setProperty("negotiationType", "TLS");
 
-        return ret;
+        return properties;
     }
 
     public Properties getOrderedProperties() throws IOException {
-        URL resource = HyperLedgerConfig.class.getResource("/hyperledger/network/crypto-config/ordererOrganizations/health.com/orderers/orderer.health.com/tls/server.crt");
+        URL resource = HyperLedgerConfig.class.getResource(ordererTLSCertFile);
 
-        Properties ret = new Properties();
-        ret.setProperty("pemFile", resource.toString());
-        ret.setProperty("hostnameOverride", ordererName);
-        ret.setProperty("sslProvider", "openSSL");
-        ret.setProperty("negotiationType", "TLS");
+        Properties properties = new Properties();
+        properties.setProperty("pemFile", resource.toString());
+        properties.setProperty("hostnameOverride", ordererName);
+        properties.setProperty("sslProvider", "openSSL");
+        properties.setProperty("negotiationType", "TLS");
 
-        ret.setProperty("ordererWaitTimeMilliSecs", "20000");
+        properties.setProperty("ordererWaitTimeMilliSecs", "20000");
 
-        return ret;
+        return properties;
     }
 
     @Bean(name = "chaincodeId")
@@ -128,17 +134,17 @@ public class HyperLedgerConfig {
     @Bean(name = "healthChannel")
     public Channel healthChannel(
             ChannelService channelService,
-            @Qualifier("humanAdminUser") User humanAdminUser,
-            @Qualifier("adminHFClient") HFClient client,
-            @Qualifier("humanPeer") Peer peer,
+            @Qualifier("peerAdminUser") User peerAdminUser,
+            @Qualifier("peerAdminHFClient") HFClient client,
+            @Qualifier("customPeer") Peer peer,
             @Qualifier("orderer") Orderer orderer,
-            @Qualifier("humanEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
+            @Qualifier("customEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
 
         Channel channel;
         if (channelService.isChannelExists(healthChannelName, peer, client)) {
             channel = channelService.connectToChannel(healthChannelName, client, orderer, peer, eventHub);
         } else {
-            channel = channelService.constructChannel(healthChannelName, client, humanAdminUser, peer, orderer, eventHub);
+            channel = channelService.constructChannel(healthChannelName, client, peerAdminUser, peer, orderer, eventHub);
         }
 
         return channel;
