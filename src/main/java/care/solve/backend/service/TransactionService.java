@@ -42,7 +42,7 @@ public class TransactionService {
                 throw new RuntimeException(String.format("Failed transaction: %d failed from %d ", failedResponsesCount, transactionPropResp.size()));
             }
 
-            CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp);
+            CompletableFuture<BlockEvent.TransactionEvent> proposalResponces = healthChannel.sendTransaction(transactionPropResp, client.getUserContext());
 
             return proposalResponces;
         } catch (InvalidArgumentException | ProposalException e) {

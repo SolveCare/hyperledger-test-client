@@ -109,8 +109,7 @@ public class HyperLedgerConfig {
         ret.setProperty("sslProvider", "openSSL");
         ret.setProperty("negotiationType", "TLS");
 
-        System.setProperty("orderer.time", "20000");
-        ret.setProperty("ordererWaitTimeMilliSecs", "orderer.time");
+        ret.setProperty("ordererWaitTimeMilliSecs", "20000");
 
         return ret;
     }

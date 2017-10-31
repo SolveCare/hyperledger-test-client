@@ -16,7 +16,7 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca.health.com
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/clinic.health.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/a22daf356b2aab5792ea53e35f66fccef1d7f1aa2b3a2b92dbfbf96a448ea26a_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.clinic.health.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/88f166b5ba6dfddec0c7edbb4c406d456aca57a6bbe67e504afe708613937f3f_sk -b admin:adminpw ${ORG_HYPERLEDGER_FABRIC_SDKTEST_INTEGRATIONTESTS_CA_TLS} --tls.certfile /etc/hyperledger/fabric-ca-server-config/ca.clinic.health.com-cert.pem --tls.keyfile /etc/hyperledger/fabric-ca-server-config/88f166b5ba6dfddec0c7edbb4c406d456aca57a6bbe67e504afe708613937f3f_sk -d'
     volumes:
       - ./crypto-config/peerOrganizations/clinic.health.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.health.com
@@ -33,128 +33,95 @@ services:
       - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderer
+      - ORDERER_GENERAL_TLS_ENABLED=${ORG_HYPERLEDGER_FABRIC_SDKTEST_INTEGRATIONTESTS_TLS}
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt]
+#      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt, /etc/hyperledger/msp/peer0Org1/tls/ca.crt, /etc/hyperledger/msp/peer1Org1/tls/ca.crt, /etc/hyperledger/msp/peer0Org2/tls/ca.crt, /etc/hyperledger/msp/peer1Org2/tls/ca.crt]
+      - GRPC_TRACE=all=true,
+      - GRPC_VERBOSITY=debug
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer
+    volumes:
+      - ./config:/etc/hyperledger/configtx:ro
+      - ./crypto-config/ordererOrganizations/health.com/orderers/orderer.health.com/:/etc/hyperledger/msp/orderer:ro
     ports:
       - 7050:7050
-    volumes:
-        - ./config/:/etc/hyperledger/configtx
-        - ./crypto-config/ordererOrganizations/health.com/orderers/orderer.health.com/:/etc/hyperledger/msp/orderer
-        - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer0.clinic.health.com/:/etc/hyperledger/msp/peerclinic
     networks:
       - basic
 
   peer0.clinic.health.com:
     container_name: peer0.clinic.health.com
-    image: hyperledger/fabric-peer${IMAGE_TAG_FABRIC}
+    extends:
+      file: peer-base/peer-base.yaml
+      service: peer-base
     environment:
-      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.clinic.health.com
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=ClinicMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
       - CORE_PEER_ADDRESS=peer0.clinic.health.com:7051
-      # # the following setting starts chaincode containers on the same
-      # # bridge network as the peers
-      # # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.clinic.health.com:7051
+#      - CORE_PEER_GOSSIP_ORGLEADER=true
+      - CORE_PEER_LOCALMSPID=ClinicMSP
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
-      # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
-      # provide the credentials for ledger to connect to CouchDB.  The username and password must
-      # match the username and password set for the associated CouchDB.
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    # command: peer node start --peer-chaincodedev=true
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer0.clinic.health.com/:/etc/hyperledger/msp/peer:ro
+      - ./config:/etc/hyperledger/configtx:ro
     ports:
       - 7051:7051
       - 7053:7053
-    volumes:
-        - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer0.clinic.health.com/msp:/etc/hyperledger/msp/peer
-        - ./crypto-config/peerOrganizations/clinic.health.com/users:/etc/hyperledger/msp/users
-        - ./config:/etc/hyperledger/configtx
     depends_on:
       - orderer.health.com
       - couchdb1
     networks:
       - basic
-      
+
   peer1.clinic.health.com:
     container_name: peer1.clinic.health.com
-    image: hyperledger/fabric-peer${IMAGE_TAG_FABRIC}
+    extends:
+      file: peer-base/peer-base.yaml
+      service: peer-base
     environment:
-      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer1.clinic.health.com
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ADDRESS=peer1.clinic.health.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.clinic.health.com:8051
+#      - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_LOCALMSPID=ClinicMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer1.clinic.health.com:8051
-      # # the following setting starts chaincode containers on the same
-      # # bridge network as the peers
-      # # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
-      # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
-      # provide the credentials for ledger to connect to CouchDB.  The username and password must
-      # match the username and password set for the associated CouchDB.
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    # command: peer node start --peer-chaincodedev=true
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer1.clinic.health.com/:/etc/hyperledger/msp/peer:ro
+      - ./config:/etc/hyperledger/configtx:ro
     ports:
       - 8051:7051
       - 8053:7053
-    volumes:
-        - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer1.clinic.health.com/msp:/etc/hyperledger/msp/peer
-        - ./crypto-config/peerOrganizations/clinic.health.com/users:/etc/hyperledger/msp/users
-        - ./config:/etc/hyperledger/configtx
     depends_on:
       - orderer.health.com
       - couchdb2
     networks:
       - basic
-  
+
   peer2.clinic.health.com:
     container_name: peer2.clinic.health.com
-    image: hyperledger/fabric-peer${IMAGE_TAG_FABRIC}
+    extends:
+      file: peer-base/peer-base.yaml
+      service: peer-base
     environment:
-      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer2.clinic.health.com
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ADDRESS=peer2.clinic.health.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer2.clinic.health.com:9051
+#      - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_LOCALMSPID=ClinicMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer2.clinic.health.com:9051
-      # # the following setting starts chaincode containers on the same
-      # # bridge network as the peers
-      # # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
-      # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
-      # provide the credentials for ledger to connect to CouchDB.  The username and password must
-      # match the username and password set for the associated CouchDB.
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: peer node start
-    # command: peer node start --peer-chaincodedev=true
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer2.clinic.health.com/:/etc/hyperledger/msp/peer:ro
+      - ./config:/etc/hyperledger/configtx:ro
     ports:
       - 9051:7051
       - 9053:7053
-    volumes:
-        - /var/run/:/host/var/run/
-        - ./crypto-config/peerOrganizations/clinic.health.com/peers/peer2.clinic.health.com/msp:/etc/hyperledger/msp/peer
-        - ./crypto-config/peerOrganizations/clinic.health.com/users:/etc/hyperledger/msp/users
-        - ./config:/etc/hyperledger/configtx
     depends_on:
       - orderer.health.com
       - couchdb3
@@ -164,11 +131,6 @@ services:
   couchdb1:
     container_name: couchdb1
     image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
-    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
-    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
-    environment:
-      - COUCHDB_USER=
-      - COUCHDB_PASSWORD=
     ports:
       - 5984:5984
     networks:
@@ -177,11 +139,6 @@ services:
   couchdb2:
     container_name: couchdb2
     image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
-    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
-    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
-    environment:
-      - COUCHDB_USER=
-      - COUCHDB_PASSWORD=
     ports:
       - 6984:5984
     networks:
@@ -190,11 +147,6 @@ services:
   couchdb3:
     container_name: couchdb3
     image: hyperledger/fabric-couchdb${IMAGE_TAG_FABRIC}
-    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
-    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
-    environment:
-      - COUCHDB_USER=
-      - COUCHDB_PASSWORD=
     ports:
       - 7984:5984
     networks:
@@ -216,12 +168,12 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
-        - /var/run/:/host/var/run/
-        - ./../chaincode/:/opt/gopath/src/github.com/
-        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - /var/run/:/host/var/run/
+      - ./../chaincode/:/opt/gopath/src/github.com/
+      - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
     networks:
-        - basic
-    #depends_on:
-    #  - orderer.health.com
-    #  - peer0.clinic.health.com
-    #  - couchdb
+      - basic
+    depends_on:
+      - orderer.health.com
+      - peer0.clinic.health.com
+      - couchdb1
