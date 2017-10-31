@@ -2,14 +2,8 @@ package care.solve.backend.controller;
 
 import care.solve.backend.service.ChaincodeService;
 import care.solve.backend.service.DoctorService;
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.HFClient;
-import org.hyperledger.fabric.sdk.Orderer;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.ProposalException;
+import care.solve.backend.service.UserService;
+import org.hyperledger.fabric.sdk.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/chaincode")
@@ -35,11 +26,20 @@ public class ChaincodeController {
     private Channel healthChannel;
     private Peer peer;
     private Orderer orderer;
+    private UserService userService;
 
     @Autowired
-    public ChaincodeController(ChaincodeService chaincodeService, DoctorService doctorService, @Qualifier("adminHFClient") HFClient adminClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, Orderer orderer) {
+    public ChaincodeController(ChaincodeService chaincodeService,
+                               DoctorService doctorService,
+                               UserService userService,
+                               @Qualifier("adminHFClient") HFClient adminClient,
+                               ChaincodeID chaincodeId,
+                               Channel healthChannel,
+                               Peer peer,
+                               Orderer orderer) {
         this.chaincodeService = chaincodeService;
         this.doctorService = doctorService;
+        this.userService = userService;
         this.adminClient = adminClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
@@ -48,12 +48,15 @@ public class ChaincodeController {
     }
 
     @PostMapping(value = "upload")
-    public void handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, ProposalException, InvalidArgumentException, ChaincodeEndorsementPolicyParseException, InterruptedException, ExecutionException, TimeoutException {
+    public void handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         File tarGzFile = new File("/tmp/" + file.getOriginalFilename());
         file.transferTo(tarGzFile);
         chaincodeService.installChaincode(adminClient, chaincodeId, peer, tarGzFile);
         chaincodeService.instantiateChaincode(adminClient, chaincodeId, healthChannel, orderer, peer)
                 .get(20000L, TimeUnit.SECONDS);
+        userService.registerUser("tim");
+        userService.registerUser("tim.Doctor");
+
     }
 
 }
