@@ -22,11 +22,23 @@ import java.util.Properties;
 @Configuration
 public class HyperLedgerConfig {
 
-    @Value("${admin.peer.name}")
+    @Value("${admin.primaryPeer.name}")
     private String customPeerName;
 
-    @Value("${admin.peer.grpcUrl}")
+    @Value("${admin.primaryPeer.grpcUrl}")
     private String customPeerGrpcUrl;
+
+    @Value("${secondary.peer0.name}")
+    private String secondaryPeer0Name;
+
+    @Value("${secondary.peer0.grpcUrl}")
+    private String secondaryPeer0GrpcUrl;
+
+    @Value("${secondary.peer1.name}")
+    private String secondaryPeer1Name;
+
+    @Value("${secondary.peer1.grpcUrl}")
+    private String secondaryPeer1GrpcUrl;
 
     @Value("${admin.eventHub.grpcUrl}")
     private String customEventHubGrpcUrl;
@@ -43,7 +55,7 @@ public class HyperLedgerConfig {
     @Value("${ca.admin.url}")
     private String caAdminUrl;
 
-    @Value("${peer.tls.cert.file}")
+    @Value("${primaryPeer.tls.cert.file}")
     private String peerTLSCertFile;
 
     @Value("${orderer.tls.cert.file}")
@@ -67,12 +79,28 @@ public class HyperLedgerConfig {
         return hfcaAdminClient;
     }
 
-    @Bean(name = "customPeer")
+    @Bean(name = "primaryPeer")
     public Peer constructPeer(HFClient client) throws InvalidArgumentException, IOException {
         return client.newPeer(
                 customPeerName,
                 customPeerGrpcUrl,
                 getPeerProperties()
+        );
+    }
+
+    @Bean(name = "secondaryPeer0")
+    public Peer constructSecondaryPeer0(HFClient client) throws InvalidArgumentException, IOException {
+        return client.newPeer(
+                secondaryPeer0Name,
+                secondaryPeer0GrpcUrl
+        );
+    }
+
+    @Bean(name = "secondaryPeer1")
+    public Peer constructSecondaryPeer1(HFClient client) throws InvalidArgumentException, IOException {
+        return client.newPeer(
+                secondaryPeer1Name,
+                secondaryPeer1GrpcUrl
         );
     }
 
@@ -136,7 +164,7 @@ public class HyperLedgerConfig {
             ChannelService channelService,
             @Qualifier("peerAdminUser") User peerAdminUser,
             @Qualifier("peerAdminHFClient") HFClient client,
-            @Qualifier("customPeer") Peer peer,
+            @Qualifier("primaryPeer") Peer peer,
             @Qualifier("orderer") Orderer orderer,
             @Qualifier("customEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
 

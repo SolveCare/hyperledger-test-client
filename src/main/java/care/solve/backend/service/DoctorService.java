@@ -28,20 +28,20 @@ public class DoctorService {
     private HFClientFactory hfClientFactory;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer;
+    private Peer primaryPeer;
 
     private DoctorToProtoTransformer doctorToProtoTransformer;
     private DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer;
     private DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, ChaincodeID chaincodeId, Channel healthChannel, Peer primaryPeer, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.hfClientFactory = hfClientFactory;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer = peer;
+        this.primaryPeer = primaryPeer;
         this.doctorToProtoTransformer = doctorToProtoTransformer;
         this.doctorToProtoCollectionTransformer = doctorToProtoCollectionTransformer;
         this.doctorPrivateToPublicTransformer = doctorPrivateToPublicTransformer;
@@ -72,7 +72,7 @@ public class DoctorService {
                 hfClientFactory.getClient(),
                 chaincodeId,
                 healthChannel,
-                peer,
+                primaryPeer,
                 "createDoctor",
                 new String[]{byteString});
 

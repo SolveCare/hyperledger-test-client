@@ -23,19 +23,19 @@ public class PatientService {
     private HFClient client;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer;
+    private Peer primaryPeer;
 
     private PatientToProtoTransformer patientToProtoTransformer;
     private PatientPrivateToPublicTransformer patientPrivateToPublicTransformer;
 
     @Autowired
-    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
+    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer primaryPeer, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
         this.patientsRepository = patientsRepository;
         this.transactionService = transactionService;
         this.client = client;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer = peer;
+        this.primaryPeer = primaryPeer;
         this.patientToProtoTransformer = patientToProtoTransformer;
         this.patientPrivateToPublicTransformer = patientPrivateToPublicTransformer;
     }
@@ -54,7 +54,7 @@ public class PatientService {
                 client,
                 chaincodeId,
                 healthChannel,
-                peer,
+                primaryPeer,
                 "createPatient",
                 new String[]{byteString});
 

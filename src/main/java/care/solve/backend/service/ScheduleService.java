@@ -22,18 +22,18 @@ public class ScheduleService {
     private HFClient client;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer;
+    private Peer primaryPeer;
 
     private ScheduleTransformer scheduleTransformer;
     private SlotTransformer slotTransformer;
 
     @Autowired
-    public ScheduleService(TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, ScheduleTransformer scheduleTransformer, SlotTransformer slotTransformer) {
+    public ScheduleService(TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer primaryPeer, ScheduleTransformer scheduleTransformer, SlotTransformer slotTransformer) {
         this.transactionService = transactionService;
         this.client = client;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer = peer;
+        this.primaryPeer = primaryPeer;
         this.scheduleTransformer = scheduleTransformer;
         this.slotTransformer = slotTransformer;
     }
@@ -47,7 +47,7 @@ public class ScheduleService {
                 client,
                 chaincodeId,
                 healthChannel,
-                peer,
+                primaryPeer,
                 "createSchedule",
                 new String[]{byteString});
 
@@ -70,7 +70,7 @@ public class ScheduleService {
                 client,
                 chaincodeId,
                 healthChannel,
-                peer,
+                primaryPeer,
                 "createSlot",
                 new String[]{scheduleId, byteString});
 
@@ -92,7 +92,7 @@ public class ScheduleService {
                 client,
                 chaincodeId,
                 healthChannel,
-                peer,
+                primaryPeer,
                 "updateSlot",
                 new String[]{scheduleId, slotId, byteString});
     }
@@ -119,7 +119,7 @@ public class ScheduleService {
 //                client,
 //                chaincodeId,
 //                healthChannel,
-//                peer,
+//                primaryPeer,
 //                "registerToDoctor",
 //                new String[]{byteString}
 //        );

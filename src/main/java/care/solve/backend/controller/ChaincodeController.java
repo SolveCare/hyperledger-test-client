@@ -24,7 +24,9 @@ public class ChaincodeController {
     private HFClient peerAdminClient;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer;
+    private Peer secondaryPeer0;
+    private Peer secondaryPeer1;
+    private Peer primaryPeer;
     private Orderer orderer;
     private UserService userService;
 
@@ -35,7 +37,9 @@ public class ChaincodeController {
                                @Qualifier("peerAdminHFClient") HFClient peerAdminClient,
                                ChaincodeID chaincodeId,
                                Channel healthChannel,
-                               Peer peer,
+                               Peer secondaryPeer0,
+                               Peer secondaryPeer1,
+                               Peer primaryPeer,
                                Orderer orderer) {
 
         this.chaincodeService = chaincodeService;
@@ -44,7 +48,9 @@ public class ChaincodeController {
         this.peerAdminClient = peerAdminClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer = peer;
+        this.secondaryPeer0 = secondaryPeer0;
+        this.secondaryPeer1 = secondaryPeer1;
+        this.primaryPeer = primaryPeer;
         this.orderer = orderer;
     }
 
@@ -52,9 +58,11 @@ public class ChaincodeController {
     public void handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         File tarGzFile = new File("/tmp/" + file.getOriginalFilename());
         file.transferTo(tarGzFile);
-        chaincodeService.installChaincode(peerAdminClient, chaincodeId, peer, tarGzFile);
-        chaincodeService.instantiateChaincode(peerAdminClient, chaincodeId, healthChannel, orderer, peer)
+        chaincodeService.installChaincode(peerAdminClient, chaincodeId, primaryPeer, tarGzFile);
+        chaincodeService.instantiateChaincode(peerAdminClient, chaincodeId, healthChannel, orderer, primaryPeer)
                 .get(20000L, TimeUnit.SECONDS);
+        healthChannel.joinPeer(secondaryPeer0);
+        healthChannel.joinPeer(secondaryPeer1);
         userService.registerUser("tim");
         userService.registerUser("tim.Doctor");
 

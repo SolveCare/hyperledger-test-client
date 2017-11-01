@@ -45,7 +45,7 @@ public class ChaincodeService {
 
         for (ProposalResponse response : proposalResponses) {
             if (response.isVerified() && response.getStatus() == ProposalResponse.Status.SUCCESS) {
-                System.out.println(String.format("Succesful instantiate proposal response Txid: %s from peer %s", response.getTransactionID(), response.getPeer().getName()));
+                System.out.println(String.format("Successful instantiate proposal response Txid: %s from peer %s", response.getTransactionID(), response.getPeer().getName()));
             } else {
                 System.out.println(String.format("FAILED instantiate proposal response Txid: %s from peer %s", response.getTransactionID(), response.getPeer().getName()));
             }
