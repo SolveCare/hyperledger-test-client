@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 
 @Service
 public class ChannelService {
@@ -23,17 +24,20 @@ public class ChannelService {
         return client.queryChannels(peer).contains(channelName);
     }
 
-    public Channel connectToChannel(String channelName, HFClient client, Orderer orderer, Peer peer, EventHub eventHub) throws InvalidArgumentException, TransactionException {
+    public Channel connectToChannel(
+            String channelName,
+            HFClient client,
+            Orderer orderer,
+            EventHub eventHub) throws InvalidArgumentException, TransactionException {
         Channel newChannel = client.newChannel(channelName);
         newChannel.addOrderer(orderer);
-        newChannel.addPeer(peer);
         newChannel.addEventHub(eventHub);
         newChannel.initialize();
 
         return newChannel;
     }
 
-    public Channel constructChannel(String channelName, HFClient client, User user, Peer peer, Orderer orderer, EventHub eventHub) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
+    public Channel constructChannel(String channelName, HFClient client, User user, Set<Peer> peers, Orderer orderer, EventHub eventHub) throws IOException, InvalidArgumentException, TransactionException, ProposalException {
         URL resource = ChannelService.class.getResource("/hyperledger/network/config/channel.tx");
         byte[] bytes = IOUtils.toByteArray(resource);
         ChannelConfiguration channelConfiguration = new ChannelConfiguration(bytes);
@@ -46,7 +50,13 @@ public class ChannelService {
         );
 
         newChannel.addEventHub(eventHub);
-        newChannel.joinPeer(peer);
+        peers.forEach(peer -> {
+            try {
+                newChannel.joinPeer(peer);
+            } catch (ProposalException e) {
+                e.printStackTrace();
+            }
+        });
         newChannel.initialize();
 
         return newChannel;

@@ -9,6 +9,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,12 +35,12 @@ public class DoctorController {
     }
 
     @GetMapping("{doctorId}")
-    public DoctorPublic get(@PathVariable String doctorId) throws InvalidProtocolBufferException {
+    public DoctorPublic get(@PathVariable String doctorId) throws IOException {
         return doctorService.get(doctorId);
     }
 
     @GetMapping
-    public List<DoctorPublic> getAll() throws InvalidProtocolBufferException {
+    public List<DoctorPublic> getAll() throws IOException {
         return doctorService.getAll();
     }
 }

@@ -2,6 +2,8 @@ package care.solve.backend.config;
 
 import care.solve.backend.entity.SampleStore;
 import care.solve.backend.entity.SampleUser;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
@@ -21,13 +23,19 @@ import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 
 @Configuration
-public class AdminConfig {
+public class UserConfig {
 
     @Value("${admin.msp.keystore.file}")
     private String peerAdminKeystoreFile;
 
     @Value("${admin.msp.cert.file}")
     private String peerAdminCertFile;
+
+    @Value("${user1.msp.keystore.file}")
+    private String userKeystoreFile;
+
+    @Value("${user1.msp.cert.file}")
+    private String userCertFile;
 
     @Value("${admin.msp.id}")
     private String adminMspId;
@@ -38,7 +46,7 @@ public class AdminConfig {
     private HFCAClient hfcaAdminClient;
 
     @Autowired
-    public AdminConfig(HFCAClient hfcaAdminClient) {
+    public UserConfig(HFCAClient hfcaAdminClient) {
         this.hfcaAdminClient = hfcaAdminClient;
     }
 
@@ -58,6 +66,24 @@ public class AdminConfig {
                 certFile);
 
         return peerAdmin;
+    }
+
+    @Bean(name = "sampleUser")
+    @Autowired
+    public SampleUser createpeerSampleUser(
+            @Qualifier("defaultStore") SampleStore sampleStore) throws InvalidKeySpecException, NoSuchAlgorithmException, NoSuchProviderException, IOException, EnrollmentException, InvalidArgumentException, URISyntaxException {
+
+        InputStream keystoreFile = new ClassPathResource(userKeystoreFile).getInputStream();
+        InputStream certFile = new ClassPathResource(userCertFile).getInputStream();
+
+        SampleUser user = sampleStore.getMember(
+                "user",
+                adminOrgName,
+                adminMspId,
+                keystoreFile,
+                certFile);
+
+        return user;
     }
 
     @Bean(name = "adminUser")

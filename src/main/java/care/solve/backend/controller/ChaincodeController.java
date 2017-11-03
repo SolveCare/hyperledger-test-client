@@ -3,9 +3,12 @@ package care.solve.backend.controller;
 import care.solve.backend.service.ChaincodeService;
 import care.solve.backend.service.DoctorService;
 import care.solve.backend.service.UserService;
+import com.google.common.collect.ImmutableSet;
 import org.hyperledger.fabric.sdk.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +27,9 @@ public class ChaincodeController {
     private HFClient peerAdminClient;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer secondaryPeer0;
-    private Peer secondaryPeer1;
-    private Peer primaryPeer;
+    private Peer peer1;
+    private Peer peer2;
+    private Peer peer0;
     private Orderer orderer;
     private UserService userService;
 
@@ -37,9 +40,9 @@ public class ChaincodeController {
                                @Qualifier("peerAdminHFClient") HFClient peerAdminClient,
                                ChaincodeID chaincodeId,
                                Channel healthChannel,
-                               Peer secondaryPeer0,
-                               Peer secondaryPeer1,
-                               Peer primaryPeer,
+                               Peer peer1,
+                               Peer peer2,
+                               Peer peer0,
                                Orderer orderer) {
 
         this.chaincodeService = chaincodeService;
@@ -48,9 +51,9 @@ public class ChaincodeController {
         this.peerAdminClient = peerAdminClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.secondaryPeer0 = secondaryPeer0;
-        this.secondaryPeer1 = secondaryPeer1;
-        this.primaryPeer = primaryPeer;
+        this.peer1 = peer1;
+        this.peer2 = peer2;
+        this.peer0 = peer0;
         this.orderer = orderer;
     }
 
@@ -58,14 +61,11 @@ public class ChaincodeController {
     public void handleFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         File tarGzFile = new File("/tmp/" + file.getOriginalFilename());
         file.transferTo(tarGzFile);
-        chaincodeService.installChaincode(peerAdminClient, chaincodeId, primaryPeer, tarGzFile);
-        chaincodeService.instantiateChaincode(peerAdminClient, chaincodeId, healthChannel, orderer, primaryPeer)
+        chaincodeService.installChaincode(peerAdminClient, chaincodeId, ImmutableSet.of(peer0, peer1, peer2), tarGzFile);
+        chaincodeService.instantiateChaincode(peerAdminClient, chaincodeId, healthChannel, orderer, ImmutableSet.of(peer0, peer1, peer2))
                 .get(20000L, TimeUnit.SECONDS);
-        healthChannel.joinPeer(secondaryPeer0);
-        healthChannel.joinPeer(secondaryPeer1);
         userService.registerUser("tim");
         userService.registerUser("tim.Doctor");
-
     }
 
 }

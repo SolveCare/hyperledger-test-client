@@ -1,13 +1,9 @@
 package care.solve.backend.service;
 
-import care.solve.backend.entity.ScheduleProtos;
-import com.google.common.collect.ImmutableSet;
 import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.BlockEvent;
 import org.hyperledger.fabric.sdk.ChaincodeEndorsementPolicy;
 import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.ChaincodeResponse;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
@@ -16,28 +12,38 @@ import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class TransactionService {
 
-    public CompletableFuture<BlockEvent.TransactionEvent> sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer peer, String func, String[] args) {
+    private ChaincodeEndorsementPolicy chaincodeEndorsementPolicy;
+
+    @Autowired
+    public TransactionService(ChaincodeEndorsementPolicy chaincodeEndorsementPolicy) {
+        this.chaincodeEndorsementPolicy = chaincodeEndorsementPolicy;
+    }
+
+
+    public CompletableFuture<BlockEvent.TransactionEvent> sendInvokeTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Collection<Peer> peers, String func, String[] args) {
         try {
             TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
             transactionProposalRequest.setChaincodeID(chaincodeId);
             transactionProposalRequest.setFcn(func);
             transactionProposalRequest.setProposalWaitTime(20000L);
             transactionProposalRequest.setArgs(args);
+            transactionProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 
-            Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, ImmutableSet.of(peer));
+            Collection<ProposalResponse> transactionPropResp = healthChannel.sendTransactionProposal(transactionProposalRequest, healthChannel.getPeers());
             long failedResponsesCount = transactionPropResp.stream().filter(resp -> !resp.getStatus().equals(ProposalResponse.Status.SUCCESS)).count();
             if (failedResponsesCount != 0) {
                 throw new RuntimeException(String.format("Failed transaction: %d failed from %d ", failedResponsesCount, transactionPropResp.size()));
@@ -51,15 +57,14 @@ public class TransactionService {
         }
     }
 
-    public ByteString sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, String func, String[] args) {
+    public ByteString sendQueryTransaction(HFClient client, ChaincodeID chaincodeId, Channel healthChannel, String func, String[] args) throws IOException {
         try {
             QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
             queryByChaincodeRequest.setFcn(func);
             queryByChaincodeRequest.setArgs(args);
             queryByChaincodeRequest.setChaincodeID(chaincodeId);
 
-//            ChaincodeEndorsementPolicy chaincodeEndorsementPolicy = new ChaincodeEndorsementPolicy();
-//            queryByChaincodeRequest.setChaincodeEndorsementPolicy();
+            queryByChaincodeRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 
             Map<String, byte[]> tm2 = new HashMap<>();
             tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(UTF_8));
@@ -85,4 +90,5 @@ public class TransactionService {
 
         return null;
     }
+
 }

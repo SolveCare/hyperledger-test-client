@@ -4,6 +4,7 @@ import care.solve.backend.entity.Schedule;
 import care.solve.backend.entity.Slot;
 import care.solve.backend.service.ScheduleService;
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -28,7 +30,7 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public Schedule getScheduleByOwnerId(@RequestParam String ownerId) throws InvalidProtocolBufferException {
+    public Schedule getScheduleByOwnerId(@RequestParam String ownerId) throws IOException, ChaincodeEndorsementPolicyParseException {
         return scheduleService.getSchedule(ownerId);
     }
 

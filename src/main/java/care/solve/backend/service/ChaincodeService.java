@@ -2,6 +2,7 @@ package care.solve.backend.service;
 
 import com.google.common.collect.ImmutableSet;
 import org.hyperledger.fabric.sdk.BlockEvent;
+import org.hyperledger.fabric.sdk.ChaincodeEndorsementPolicy;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
@@ -15,6 +16,7 @@ import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.rauschig.jarchivelib.Archiver;
 import org.rauschig.jarchivelib.ArchiverFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -29,19 +31,27 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class ChaincodeService {
 
-    public CompletableFuture<BlockEvent.TransactionEvent> instantiateChaincode(HFClient client, ChaincodeID chaincodeId, Channel channel, Orderer orderer, Peer peer) throws InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, ProposalException {
+    private ChaincodeEndorsementPolicy chaincodeEndorsementPolicy;
+
+    @Autowired
+    public ChaincodeService(ChaincodeEndorsementPolicy chaincodeEndorsementPolicy) {
+        this.chaincodeEndorsementPolicy = chaincodeEndorsementPolicy;
+    }
+
+    public CompletableFuture<BlockEvent.TransactionEvent> instantiateChaincode(HFClient client, ChaincodeID chaincodeId, Channel channel, Orderer orderer, ImmutableSet<Peer> peers) throws InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, ProposalException {
         InstantiateProposalRequest instantiateProposalRequest = client.newInstantiationProposalRequest();
         instantiateProposalRequest.setProposalWaitTime(20000L);
         instantiateProposalRequest.setChaincodeID(chaincodeId);
         instantiateProposalRequest.setFcn("init");
         instantiateProposalRequest.setArgs(new String[]{"someArg", "0"});
+        instantiateProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 
         Map<String, byte[]> tm = new HashMap<>();
         tm.put("HyperLedgerFabric", "InstantiateProposalRequest:JavaSDK".getBytes(UTF_8));
         tm.put("method", "InstantiateProposalRequest".getBytes(UTF_8));
         instantiateProposalRequest.setTransientMap(tm);
 
-        Collection<ProposalResponse> proposalResponses = channel.sendInstantiationProposal(instantiateProposalRequest, ImmutableSet.of(peer));
+        Collection<ProposalResponse> proposalResponses = channel.sendInstantiationProposal(instantiateProposalRequest, peers);
 
         for (ProposalResponse response : proposalResponses) {
             if (response.isVerified() && response.getStatus() == ProposalResponse.Status.SUCCESS) {
@@ -54,9 +64,10 @@ public class ChaincodeService {
         return channel.sendTransaction(proposalResponses, ImmutableSet.of(orderer));
     }
 
-    public void installChaincode(HFClient client, ChaincodeID chaincodeId, Peer peer, File tarGzFile) throws InvalidArgumentException, ProposalException, IOException {
+    public void installChaincode(HFClient client, ChaincodeID chaincodeId, ImmutableSet<Peer> peers, File tarGzFile) throws InvalidArgumentException, ProposalException, IOException {
         InstallProposalRequest installProposalRequest = client.newInstallProposalRequest();
         installProposalRequest.setChaincodeID(chaincodeId);
+        installProposalRequest.setChaincodeEndorsementPolicy(chaincodeEndorsementPolicy);
 
         File destination = new File("/tmp");
 
@@ -66,7 +77,7 @@ public class ChaincodeService {
         installProposalRequest.setChaincodeSourceLocation(new File("/tmp"));
         installProposalRequest.setChaincodeVersion(chaincodeId.getVersion());
 
-        Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, ImmutableSet.of(peer));
+        Collection<ProposalResponse> proposalResponses = client.sendInstallProposal(installProposalRequest, peers);
 
         for (ProposalResponse response : proposalResponses) {
             if (response.getStatus() == ProposalResponse.Status.SUCCESS) {

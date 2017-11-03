@@ -6,12 +6,14 @@ import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.repository.PatientsRepository;
 import care.solve.backend.transformer.PatientPrivateToPublicTransformer;
 import care.solve.backend.transformer.PatientToProtoTransformer;
+import com.google.common.collect.ImmutableSet;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -20,22 +22,22 @@ public class PatientService {
 
     private PatientsRepository patientsRepository;
     private TransactionService transactionService;
-    private HFClient client;
+    private HFClient peerAdminHFClient;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer primaryPeer;
+    private Peer peer0;
 
     private PatientToProtoTransformer patientToProtoTransformer;
     private PatientPrivateToPublicTransformer patientPrivateToPublicTransformer;
 
     @Autowired
-    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient client, ChaincodeID chaincodeId, Channel healthChannel, Peer primaryPeer, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
+    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient peerAdminHFClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer0, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
         this.patientsRepository = patientsRepository;
         this.transactionService = transactionService;
-        this.client = client;
+        this.peerAdminHFClient = peerAdminHFClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.primaryPeer = primaryPeer;
+        this.peer0 = peer0;
         this.patientToProtoTransformer = patientToProtoTransformer;
         this.patientPrivateToPublicTransformer = patientPrivateToPublicTransformer;
     }
@@ -51,10 +53,10 @@ public class PatientService {
         ScheduleProtos.PatientPublic protoPatient = patientToProtoTransformer.transformToProto(patientPublic);
         String byteString = new String(protoPatient.toByteArray());
         CompletableFuture<BlockEvent.TransactionEvent> futureEvents = transactionService.sendInvokeTransaction(
-                client,
+                peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
-                primaryPeer,
+                ImmutableSet.of(peer0),
                 "createPatient",
                 new String[]{byteString});
 
@@ -63,9 +65,9 @@ public class PatientService {
         return patientToProtoTransformer.transformFromProto(savedProtoPatient);
     }
 
-    public PatientPublic get(String patientId) throws InvalidProtocolBufferException {
+    public PatientPublic get(String patientId) throws IOException {
         ByteString protoPatientByteString = transactionService.sendQueryTransaction(
-                client,
+                peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
                 "getPatient",

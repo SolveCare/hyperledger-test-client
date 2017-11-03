@@ -1,0 +1,12 @@
+identities:
+#    admin: {"role": {"name": "admin", "mspId": "ClinicMSP"}}
+    user: {"role": {"name": "member", "mspId": "ClinicMSP"}}
+    user1: {"role": {"name": "member", "mspId": "ClinicMSP"}}
+    user2: {"role": {"name": "member", "mspId": "ClinicMSP"}}
+
+policy:
+    2-of:
+#      - signed-by: "admin"
+      - signed-by: "user"
+      - signed-by: "user1"
+      - signed-by: "user2"

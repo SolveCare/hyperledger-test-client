@@ -29,6 +29,8 @@ services:
       - "5005:5005"
     networks:
       - net_basic
+    volumes:
+      - ../src/main/resources/hyperledger/network/:/config/
     depends_on:
       - mypostgres
     environment:

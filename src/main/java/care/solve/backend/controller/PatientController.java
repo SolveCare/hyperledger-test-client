@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -30,7 +31,7 @@ public class PatientController {
     }
 
     @GetMapping("{patientId}")
-    public PatientPublic get(@PathVariable String patientId) throws InvalidProtocolBufferException {
+    public PatientPublic get(@PathVariable String patientId) throws IOException {
         return patientService.get(patientId);
     }
 

@@ -1,7 +1,10 @@
 package care.solve.backend.config;
 
 import care.solve.backend.service.ChannelService;
+import care.solve.backend.service.TransactionService;
+import com.google.common.collect.ImmutableSet;
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
@@ -14,31 +17,43 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 @Configuration
 public class HyperLedgerConfig {
 
-    @Value("${admin.primaryPeer.name}")
-    private String customPeerName;
+    @Value("${peer0.name}")
+    private String peer0Name;
 
-    @Value("${admin.primaryPeer.grpcUrl}")
-    private String customPeerGrpcUrl;
+    @Value("${peer0.grpcUrl}")
+    private String peer0GrpcUrl;
 
-    @Value("${secondary.peer0.name}")
-    private String secondaryPeer0Name;
+    @Value("${peer0.tls.cert.file}")
+    private String peer0TLSCertFile;
 
-    @Value("${secondary.peer0.grpcUrl}")
-    private String secondaryPeer0GrpcUrl;
+    @Value("${peer1.name}")
+    private String peer1Name;
 
-    @Value("${secondary.peer1.name}")
-    private String secondaryPeer1Name;
+    @Value("${peer1.grpcUrl}")
+    private String peer1GrpcUrl;
 
-    @Value("${secondary.peer1.grpcUrl}")
-    private String secondaryPeer1GrpcUrl;
+    @Value("${peer1.tls.cert.file}")
+    private String peer1TLSCertFile;
+
+    @Value("${peer2.name}")
+    private String peer2Name;
+
+    @Value("${peer2.grpcUrl}")
+    private String peer2GrpcUrl;
+
+    @Value("${peer2.tls.cert.file}")
+    private String peer2TLSCertFile;
 
     @Value("${admin.eventHub.grpcUrl}")
     private String customEventHubGrpcUrl;
@@ -55,15 +70,22 @@ public class HyperLedgerConfig {
     @Value("${ca.admin.url}")
     private String caAdminUrl;
 
-    @Value("${primaryPeer.tls.cert.file}")
-    private String peerTLSCertFile;
-
     @Value("${orderer.tls.cert.file}")
     private String ordererTLSCertFile;
 
     @Bean(name = "peerAdminHFClient")
     @Autowired
     public HFClient getPeerAdminHFClient(@Qualifier("peerAdminUser") User user) throws CryptoException, InvalidArgumentException {
+        HFClient client = HFClient.createNewInstance();
+        client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+        client.setUserContext(user);
+
+        return client;
+    }
+
+    @Bean(name = "sampleUserHFClient")
+    @Autowired
+    public HFClient getSampleUserHFClient(@Qualifier("sampleUser") User user) throws CryptoException, InvalidArgumentException {
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
         client.setUserContext(user);
@@ -79,34 +101,36 @@ public class HyperLedgerConfig {
         return hfcaAdminClient;
     }
 
-    @Bean(name = "primaryPeer")
-    public Peer constructPeer(HFClient client) throws InvalidArgumentException, IOException {
-        return client.newPeer(
-                customPeerName,
-                customPeerGrpcUrl,
-                getPeerProperties()
+    @Bean(name = "peer0")
+    public Peer constructPeer0(HFClient peerAdminHFClient) throws InvalidArgumentException, IOException {
+        return peerAdminHFClient.newPeer(
+                peer0Name,
+                peer0GrpcUrl,
+                getPeerProperties(peer0Name, peer0TLSCertFile)
         );
     }
 
-    @Bean(name = "secondaryPeer0")
-    public Peer constructSecondaryPeer0(HFClient client) throws InvalidArgumentException, IOException {
-        return client.newPeer(
-                secondaryPeer0Name,
-                secondaryPeer0GrpcUrl
+    @Bean(name = "peer1")
+    public Peer constructPeer1(HFClient peerAdminHFClient) throws InvalidArgumentException, IOException {
+        return peerAdminHFClient.newPeer(
+                peer1Name,
+                peer1GrpcUrl,
+                getPeerProperties(peer1Name, peer1TLSCertFile)
         );
     }
 
-    @Bean(name = "secondaryPeer1")
-    public Peer constructSecondaryPeer1(HFClient client) throws InvalidArgumentException, IOException {
-        return client.newPeer(
-                secondaryPeer1Name,
-                secondaryPeer1GrpcUrl
+    @Bean(name = "peer2")
+    public Peer constructPeer2(HFClient sampleUserHFClient) throws InvalidArgumentException, IOException {
+        return sampleUserHFClient.newPeer(
+                peer2Name,
+                peer2GrpcUrl,
+                getPeerProperties(peer2Name, peer2TLSCertFile)
         );
     }
 
     @Bean(name = "orderer")
-    public Orderer constructOrderer(HFClient client) throws InvalidArgumentException, IOException {
-        return client.newOrderer(
+    public Orderer constructOrderer(HFClient peerAdminHFClient) throws InvalidArgumentException, IOException {
+        return peerAdminHFClient.newOrderer(
                 ordererName,
                 ordererGrpcUrl,
                 getOrderedProperties()
@@ -114,20 +138,20 @@ public class HyperLedgerConfig {
     }
 
     @Bean(name = "customEventHub")
-    public EventHub constructEventHub(HFClient client) throws InvalidArgumentException, IOException {
-        return client.newEventHub(
-                customPeerName,
+    public EventHub constructEventHub(HFClient peerAdminHFClient) throws InvalidArgumentException, IOException {
+        return peerAdminHFClient.newEventHub(
+                peer0Name,
                 customEventHubGrpcUrl,
-                getPeerProperties()
+                getPeerProperties(peer0Name, peer0TLSCertFile)
         );
     }
 
-    public Properties getPeerProperties() throws IOException {
+    public Properties getPeerProperties(final String peerName, final String peerTLSCertFile) throws IOException {
         URL resource = HyperLedgerConfig.class.getResource(peerTLSCertFile);
 
         Properties properties = new Properties();
         properties.setProperty("pemFile", resource.toString());
-        properties.setProperty("hostnameOverride", customPeerName);
+        properties.setProperty("hostnameOverride", peerName);
         properties.setProperty("sslProvider", "openSSL");
         properties.setProperty("negotiationType", "TLS");
 
@@ -164,17 +188,35 @@ public class HyperLedgerConfig {
             ChannelService channelService,
             @Qualifier("peerAdminUser") User peerAdminUser,
             @Qualifier("peerAdminHFClient") HFClient client,
-            @Qualifier("primaryPeer") Peer peer,
+            @Qualifier("peer0") Peer peer0,
+            @Qualifier("peer1") Peer peer1,
+            @Qualifier("peer2") Peer peer2,
             @Qualifier("orderer") Orderer orderer,
             @Qualifier("customEventHub") EventHub eventHub) throws InvalidArgumentException, TransactionException, ProposalException, IOException {
 
         Channel channel;
-        if (channelService.isChannelExists(healthChannelName, peer, client)) {
-            channel = channelService.connectToChannel(healthChannelName, client, orderer, peer, eventHub);
+        if (channelService.isChannelExists(healthChannelName, peer0, client)) {
+            channel = channelService.connectToChannel(healthChannelName, client, orderer, eventHub);
         } else {
-            channel = channelService.constructChannel(healthChannelName, client, peerAdminUser, peer, orderer, eventHub);
+            channel = channelService.constructChannel(healthChannelName, client, peerAdminUser, ImmutableSet.of(peer0, peer1, peer2), orderer, eventHub);
         }
 
         return channel;
+    }
+
+    @Bean(name = "chaincodeEndorsementPolicy")
+    public ChaincodeEndorsementPolicy getChaincodeEndorsementPolicy () {
+        ChaincodeEndorsementPolicy chaincodeEndorsementPolicy = new ChaincodeEndorsementPolicy();
+        File file = new File("/config/endorsementPolicy.yaml");
+
+        try {
+            chaincodeEndorsementPolicy.fromYamlFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ChaincodeEndorsementPolicyParseException e) {
+            e.printStackTrace();
+        }
+
+        return chaincodeEndorsementPolicy;
     }
 }
