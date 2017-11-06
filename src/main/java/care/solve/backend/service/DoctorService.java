@@ -7,17 +7,18 @@ import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorPrivateToPublicTransformer;
 import care.solve.backend.transformer.DoctorToProtoCollectionTransformer;
 import care.solve.backend.transformer.DoctorToProtoTransformer;
-import com.google.common.collect.ImmutableSet;
+import care.solve.fabric.service.HFClientFactory;
+import care.solve.fabric.service.TransactionService;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.apache.commons.collections4.CollectionUtils;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.BlockEvent;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -31,24 +32,18 @@ public class DoctorService {
     private HFClientFactory hfClientFactory;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer0;
-    private Peer peer1;
-    private Peer peer2;
 
     private DoctorToProtoTransformer doctorToProtoTransformer;
     private DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer;
     private DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer;
 
     @Autowired
-    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, ChaincodeID chaincodeId, Channel healthChannel, Peer peer0, Peer peer1, Peer peer2, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
+    public DoctorService(DoctorsRepository doctorsRepository, TransactionService transactionService, HFClientFactory hfClientFactory, ChaincodeID chaincodeId, Channel healthChannel, DoctorToProtoTransformer doctorToProtoTransformer, DoctorToProtoCollectionTransformer doctorToProtoCollectionTransformer, DoctorPrivateToPublicTransformer doctorPrivateToPublicTransformer) {
         this.doctorsRepository = doctorsRepository;
         this.transactionService = transactionService;
         this.hfClientFactory = hfClientFactory;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer0 = peer0;
-        this.peer1 = peer1;
-        this.peer2 = peer2;
         this.doctorToProtoTransformer = doctorToProtoTransformer;
         this.doctorToProtoCollectionTransformer = doctorToProtoCollectionTransformer;
         this.doctorPrivateToPublicTransformer = doctorPrivateToPublicTransformer;

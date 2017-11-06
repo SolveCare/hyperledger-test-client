@@ -1,6 +1,6 @@
 package care.solve.backend.controller;
 
-import care.solve.backend.service.UserService;
+import care.solve.fabric.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

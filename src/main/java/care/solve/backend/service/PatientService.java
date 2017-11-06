@@ -6,10 +6,13 @@ import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.repository.PatientsRepository;
 import care.solve.backend.transformer.PatientPrivateToPublicTransformer;
 import care.solve.backend.transformer.PatientToProtoTransformer;
-import com.google.common.collect.ImmutableSet;
+import care.solve.fabric.service.TransactionService;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.BlockEvent;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.HFClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +28,17 @@ public class PatientService {
     private HFClient peerAdminHFClient;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer0;
 
     private PatientToProtoTransformer patientToProtoTransformer;
     private PatientPrivateToPublicTransformer patientPrivateToPublicTransformer;
 
     @Autowired
-    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient peerAdminHFClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer0, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
+    public PatientService(PatientsRepository patientsRepository, TransactionService transactionService, HFClient peerAdminHFClient, ChaincodeID chaincodeId, Channel healthChannel, PatientToProtoTransformer patientToProtoTransformer, PatientPrivateToPublicTransformer patientPrivateToPublicTransformer) {
         this.patientsRepository = patientsRepository;
         this.transactionService = transactionService;
         this.peerAdminHFClient = peerAdminHFClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer0 = peer0;
         this.patientToProtoTransformer = patientToProtoTransformer;
         this.patientPrivateToPublicTransformer = patientPrivateToPublicTransformer;
     }
@@ -56,7 +57,7 @@ public class PatientService {
                 peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
-                ImmutableSet.of(peer0),
+                healthChannel.getPeers(),
                 "createPatient",
                 new String[]{byteString});
 

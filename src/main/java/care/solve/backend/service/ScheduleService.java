@@ -5,11 +5,16 @@ import care.solve.backend.entity.ScheduleProtos;
 import care.solve.backend.entity.Slot;
 import care.solve.backend.transformer.ScheduleTransformer;
 import care.solve.backend.transformer.SlotTransformer;
+import care.solve.fabric.service.TransactionService;
 import com.google.common.collect.ImmutableSet;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.TextFormat;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.BlockEvent;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.HFClient;
+import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +30,16 @@ public class ScheduleService {
     private HFClient peerAdminHFClient;
     private ChaincodeID chaincodeId;
     private Channel healthChannel;
-    private Peer peer0;
 
     private ScheduleTransformer scheduleTransformer;
     private SlotTransformer slotTransformer;
 
     @Autowired
-    public ScheduleService(TransactionService transactionService, HFClient peerAdminHFClient, ChaincodeID chaincodeId, Channel healthChannel, Peer peer0, ScheduleTransformer scheduleTransformer, SlotTransformer slotTransformer) {
+    public ScheduleService(TransactionService transactionService, HFClient peerAdminHFClient, ChaincodeID chaincodeId, Channel healthChannel, ScheduleTransformer scheduleTransformer, SlotTransformer slotTransformer) {
         this.transactionService = transactionService;
         this.peerAdminHFClient = peerAdminHFClient;
         this.chaincodeId = chaincodeId;
         this.healthChannel = healthChannel;
-        this.peer0 = peer0;
         this.scheduleTransformer = scheduleTransformer;
         this.slotTransformer = slotTransformer;
     }
@@ -50,7 +53,7 @@ public class ScheduleService {
                 peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
-                ImmutableSet.of(peer0),
+                healthChannel.getPeers(),
                 "createSchedule",
                 new String[]{byteString});
 
@@ -73,7 +76,7 @@ public class ScheduleService {
                 peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
-                ImmutableSet.of(peer0),
+                healthChannel.getPeers(),
                 "createSlot",
                 new String[]{scheduleId, byteString});
 
@@ -95,7 +98,7 @@ public class ScheduleService {
                 peerAdminHFClient,
                 chaincodeId,
                 healthChannel,
-                ImmutableSet.of(peer0),
+                healthChannel.getPeers(),
                 "updateSlot",
                 new String[]{scheduleId, slotId, byteString});
     }
