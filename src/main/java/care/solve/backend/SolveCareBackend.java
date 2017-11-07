@@ -1,6 +1,7 @@
 package care.solve.backend;
 
 import care.solve.fabric.App;
+import care.solve.protocol.schedule.ScheduleProtocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.FilterType;
 
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {
-        SolveCareBackend.class, App.class
+        SolveCareBackend.class, App.class, ScheduleProtocol.class
 },
         excludeFilters = {
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),

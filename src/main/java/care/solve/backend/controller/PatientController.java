@@ -1,10 +1,10 @@
 package care.solve.backend.controller;
 
 import care.solve.backend.entity.PatientPrivate;
-import care.solve.backend.entity.PatientPublic;
-import care.solve.backend.entity.Schedule;
-import care.solve.backend.service.PatientService;
-import care.solve.backend.service.ScheduleService;
+import care.solve.backend.service.PatientServiceWrapper;
+import care.solve.backend.service.ScheduleServiceWrapper;
+import care.solve.protocol.schedule.entity.PatientPublic;
+import care.solve.protocol.schedule.entity.Schedule;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,25 +21,25 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/patient")
 public class PatientController {
 
-    private PatientService patientService;
-    private ScheduleService scheduleService;
+    private PatientServiceWrapper patientServiceWrapper;
+    private ScheduleServiceWrapper scheduleServiceWrapper;
 
     @Autowired
-    public PatientController(PatientService patientService, ScheduleService scheduleService) {
-        this.patientService = patientService;
-        this.scheduleService = scheduleService;
+    public PatientController(PatientServiceWrapper patientServiceWrapper, ScheduleServiceWrapper scheduleServiceWrapper) {
+        this.patientServiceWrapper = patientServiceWrapper;
+        this.scheduleServiceWrapper = scheduleServiceWrapper;
     }
 
     @GetMapping("{patientId}")
     public PatientPublic get(@PathVariable String patientId) throws IOException {
-        return patientService.get(patientId);
+        return patientServiceWrapper.get(patientId);
     }
 
     @PostMapping
     public PatientPublic create(@RequestBody PatientPrivate patient) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
-        PatientPublic patientPublic = patientService.create(patient);
+        PatientPublic patientPublic = patientServiceWrapper.create(patient);
         Schedule patientsSchedule = Schedule.builder().ownerId(patientPublic.getId()).build();
-        scheduleService.createSchedule(patientsSchedule);
+        scheduleServiceWrapper.createSchedule(patientsSchedule);
 
         return patientPublic;
     }

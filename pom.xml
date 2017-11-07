@@ -77,6 +77,18 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <groupId>care.solve.protocol</groupId>
+      <artifactId>care-schedule-protocol</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>care.solve.fabric</groupId>
+          <artifactId>care-fabric-sdk</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -1,10 +1,10 @@
 package care.solve.backend.controller;
 
 import care.solve.backend.entity.DoctorPrivate;
-import care.solve.backend.entity.DoctorPublic;
-import care.solve.backend.entity.Schedule;
-import care.solve.backend.service.DoctorService;
-import care.solve.backend.service.ScheduleService;
+import care.solve.backend.service.DoctorServiceWrapper;
+import care.solve.backend.service.ScheduleServiceWrapper;
+import care.solve.protocol.schedule.entity.DoctorPublic;
+import care.solve.protocol.schedule.entity.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,31 +20,31 @@ import java.util.List;
 @RequestMapping("/doctor")
 public class DoctorController {
 
-    private DoctorService doctorService;
-    private ScheduleService scheduleService;
+    private DoctorServiceWrapper doctorServiceWrapper;
+    private ScheduleServiceWrapper scheduleServiceWrapper;
 
     @Autowired
-    public DoctorController(DoctorService doctorService, ScheduleService scheduleService) {
-        this.doctorService = doctorService;
-        this.scheduleService = scheduleService;
+    public DoctorController(DoctorServiceWrapper doctorServiceWrapper, ScheduleServiceWrapper scheduleServiceWrapper) {
+        this.doctorServiceWrapper = doctorServiceWrapper;
+        this.scheduleServiceWrapper = scheduleServiceWrapper;
     }
 
     @PostMapping
     public DoctorPublic create(@RequestBody DoctorPrivate doctor) {
-        DoctorPublic doctorPublic = doctorService.create(doctor);
+        DoctorPublic doctorPublic = doctorServiceWrapper.create(doctor);
         Schedule doctorsSchedule = Schedule.builder().ownerId(doctorPublic.getId()).build();
-        scheduleService.createSchedule(doctorsSchedule);
+        scheduleServiceWrapper.createSchedule(doctorsSchedule);
 
         return doctorPublic;
     }
 
     @GetMapping("{doctorId}")
     public DoctorPublic get(@PathVariable String doctorId) throws IOException {
-        return doctorService.get(doctorId);
+        return doctorServiceWrapper.get(doctorId);
     }
 
     @GetMapping
     public List<DoctorPublic> getAll() throws IOException {
-        return doctorService.getAll();
+        return doctorServiceWrapper.getAll();
     }
 }

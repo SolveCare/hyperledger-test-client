@@ -1,8 +1,8 @@
 package care.solve.backend.controller;
 
-import care.solve.backend.entity.Schedule;
-import care.solve.backend.entity.Slot;
-import care.solve.backend.service.ScheduleService;
+import care.solve.backend.service.ScheduleServiceWrapper;
+import care.solve.protocol.schedule.entity.Schedule;
+import care.solve.protocol.schedule.entity.Slot;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +22,30 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/schedule")
 public class ScheduleController {
 
-    private ScheduleService scheduleService;
+    private ScheduleServiceWrapper scheduleServiceWrapper;
 
     @Autowired
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
+    public ScheduleController(ScheduleServiceWrapper scheduleServiceWrapper) {
+        this.scheduleServiceWrapper = scheduleServiceWrapper;
     }
 
     @GetMapping
     public Schedule getScheduleByOwnerId(@RequestParam String ownerId) throws IOException, ChaincodeEndorsementPolicyParseException {
-        return scheduleService.getSchedule(ownerId);
+        return scheduleServiceWrapper.getSchedule(ownerId);
     }
 
     @PostMapping
     public Schedule createSchedule(@RequestBody Schedule schedule) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        return scheduleService.createSchedule(schedule);
+        return scheduleServiceWrapper.createSchedule(schedule);
     }
 
     @PostMapping("{scheduleId}/slot")
     public Slot createSlot(@PathVariable String scheduleId, @RequestBody Slot slot) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        return scheduleService.createSlot(scheduleId, slot);
+        return scheduleServiceWrapper.createSlot(scheduleId, slot);
     }
 
     @PatchMapping("{scheduleId}/slot/{slotId}")
     public void updateSlot(@PathVariable String scheduleId, @PathVariable String slotId, @RequestBody Slot slot) throws InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        scheduleService.updateSlot(scheduleId, slotId, slot);
+        scheduleServiceWrapper.updateSlot(scheduleId, slotId, slot);
     }
 }
