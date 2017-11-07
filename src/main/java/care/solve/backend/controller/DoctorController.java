@@ -3,7 +3,7 @@ package care.solve.backend.controller;
 import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.service.DoctorServiceWrapper;
 import care.solve.backend.service.ScheduleServiceWrapper;
-import care.solve.protocol.schedule.entity.DoctorPublic;
+import care.solve.protocol.schedule.entity.Doctor;
 import care.solve.protocol.schedule.entity.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,21 +30,21 @@ public class DoctorController {
     }
 
     @PostMapping
-    public DoctorPublic create(@RequestBody DoctorPrivate doctor) {
-        DoctorPublic doctorPublic = doctorServiceWrapper.create(doctor);
-        Schedule doctorsSchedule = Schedule.builder().ownerId(doctorPublic.getId()).build();
+    public Doctor create(@RequestBody DoctorPrivate doctor) {
+        Doctor Doctor = doctorServiceWrapper.create(doctor);
+        Schedule doctorsSchedule = Schedule.builder().ownerId(Doctor.getId()).build();
         scheduleServiceWrapper.createSchedule(doctorsSchedule);
 
-        return doctorPublic;
+        return Doctor;
     }
 
     @GetMapping("{doctorId}")
-    public DoctorPublic get(@PathVariable String doctorId) throws IOException {
+    public Doctor get(@PathVariable String doctorId) throws IOException {
         return doctorServiceWrapper.get(doctorId);
     }
 
     @GetMapping
-    public List<DoctorPublic> getAll() throws IOException {
+    public List<Doctor> getAll() throws IOException {
         return doctorServiceWrapper.getAll();
     }
 }

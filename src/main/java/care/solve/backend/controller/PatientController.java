@@ -3,7 +3,7 @@ package care.solve.backend.controller;
 import care.solve.backend.entity.PatientPrivate;
 import care.solve.backend.service.PatientServiceWrapper;
 import care.solve.backend.service.ScheduleServiceWrapper;
-import care.solve.protocol.schedule.entity.PatientPublic;
+import care.solve.protocol.schedule.entity.Patient;
 import care.solve.protocol.schedule.entity.Schedule;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +31,17 @@ public class PatientController {
     }
 
     @GetMapping("{patientId}")
-    public PatientPublic get(@PathVariable String patientId) throws IOException {
+    public Patient get(@PathVariable String patientId) throws IOException {
         return patientServiceWrapper.get(patientId);
     }
 
     @PostMapping
-    public PatientPublic create(@RequestBody PatientPrivate patient) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
-        PatientPublic patientPublic = patientServiceWrapper.create(patient);
-        Schedule patientsSchedule = Schedule.builder().ownerId(patientPublic.getId()).build();
+    public Patient create(@RequestBody PatientPrivate patient) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
+        Patient Patient = patientServiceWrapper.create(patient);
+        Schedule patientsSchedule = Schedule.builder().ownerId(Patient.getId()).build();
         scheduleServiceWrapper.createSchedule(patientsSchedule);
 
-        return patientPublic;
+        return Patient;
     }
 
 }

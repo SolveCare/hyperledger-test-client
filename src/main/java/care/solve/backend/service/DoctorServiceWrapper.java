@@ -3,7 +3,7 @@ package care.solve.backend.service;
 import care.solve.backend.entity.DoctorPrivate;
 import care.solve.backend.repository.DoctorsRepository;
 import care.solve.backend.transformer.DoctorPrivateToPublicTransformer;
-import care.solve.protocol.schedule.entity.DoctorPublic;
+import care.solve.protocol.schedule.entity.Doctor;
 import care.solve.protocol.schedule.service.DoctorService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +28,28 @@ public class DoctorServiceWrapper {
     }
 
     public void chaincodeInitialSync() throws IOException {
-        List<DoctorPublic> chaincodeDoctors = getAll();
+        List<Doctor> chaincodeDoctors = getAll();
         List<DoctorPrivate> localDoctorsPrivate = doctorsRepository.findAll();
-        List<DoctorPublic> localDoctors = doctorPrivateToPublicTransformer.transformList(localDoctorsPrivate);
-        Collection<DoctorPublic> difference = CollectionUtils.disjunction(localDoctors, chaincodeDoctors);
+        List<Doctor> localDoctors = doctorPrivateToPublicTransformer.transformList(localDoctorsPrivate);
+        Collection<Doctor> difference = CollectionUtils.disjunction(localDoctors, chaincodeDoctors);
         
         //Create doctors that are in DB but not yet in chaincode
         difference.stream().filter(localDoctors::contains).forEach(doctorService::create);
         //TODO: Make the same to remove redundant doctors
     }
 
-    public DoctorPublic create(DoctorPrivate doctorPrivate) {
+    public Doctor create(DoctorPrivate doctorPrivate) {
         doctorPrivate = doctorsRepository.save(doctorPrivate);
         doctorsRepository.flush();
-        DoctorPublic doctorPublic = doctorPrivateToPublicTransformer.transform(doctorPrivate);
+        Doctor doctorPublic = doctorPrivateToPublicTransformer.transform(doctorPrivate);
         return doctorService.create(doctorPublic);
     }
 
-    public DoctorPublic get(String doctorId) throws IOException {
+    public Doctor get(String doctorId) throws IOException {
         return doctorService.get(doctorId);
     }
 
-    public List<DoctorPublic> getAll() throws IOException {
+    public List<Doctor> getAll() throws IOException {
         return doctorService.getAll();
     }
 }

@@ -3,7 +3,7 @@ package care.solve.backend.service;
 import care.solve.backend.entity.PatientPrivate;
 import care.solve.backend.repository.PatientsRepository;
 import care.solve.backend.transformer.PatientPrivateToPublicTransformer;
-import care.solve.protocol.schedule.entity.PatientPublic;
+import care.solve.protocol.schedule.entity.Patient;
 import care.solve.protocol.schedule.service.PatientService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +26,14 @@ public class PatientServiceWrapper {
         this.patientService = patientService;
     }
 
-    public PatientPublic create(PatientPrivate patientPrivate) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
+    public Patient create(PatientPrivate patientPrivate) throws InterruptedException, ExecutionException, InvalidProtocolBufferException {
         patientPrivate = patientsRepository.save(patientPrivate);
         patientsRepository.flush();
-        PatientPublic patientPublic = patientPrivateToPublicTransformer.transform(patientPrivate);
+        Patient patientPublic = patientPrivateToPublicTransformer.transform(patientPrivate);
         return patientService.create(patientPublic);
     }
 
-    public PatientPublic get(String patientId) throws IOException {
+    public Patient get(String patientId) throws IOException {
         return patientService.get(patientId);
     }
 }
